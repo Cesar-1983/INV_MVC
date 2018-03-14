@@ -44,6 +44,7 @@ function CallModalRoles(data) {
 function bindForm(dialog) {
 
     $('form', dialog).submit(function () {
+        debugger;
         var block = $('<div class="block-loading" />');
         $("body").prepend(block); 
         $.ajax({
@@ -51,11 +52,23 @@ function bindForm(dialog) {
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
-                if (result.success) {
+                if (result.response) {
                     block.remove();
                     $('#myModal').modal('hide');
-                    //Refresh
-                    location.reload();
+                    if (result.href != '') {
+                        if (result.IsPartial) {
+                            $('#' + result.ContainerRenderPartial).load(result.href);
+                        }
+                        else {
+                            location.href = result.href;
+                        }
+                    }
+                    else {
+                        //Refresh
+                        location.reload();
+                    }
+                    
+                    
                 } else {
                     block.remove();
                     $('#myModalContent').html(result);

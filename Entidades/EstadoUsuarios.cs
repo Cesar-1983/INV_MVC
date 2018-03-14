@@ -15,9 +15,11 @@ namespace Entidades
 
         [Required]
         [StringLength(100)]
+        [Display(Name ="Descripción")]
         public string DesEstadoUsuario { get; set; }
         [Required]
         [StringLength(10)]
+        [Display(Name = "Código")]
         public string Codigo { get; set; }
                                            //       Id INT IDENTITY(1,1),
                                            //DesEstadoUsuario NVARCHAR(100),

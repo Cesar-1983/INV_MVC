@@ -91,6 +91,7 @@ namespace Data
                 mensaje = ex.Message;
                 
             }
+            rm.SetResponse(resp,mensaje);
             return rm;
         }
     }

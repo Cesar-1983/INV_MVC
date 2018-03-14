@@ -14,10 +14,14 @@ namespace INV_MVC
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/cssothers").Include(
-                     "~/Content/font-awesome.min.css",
+                     
                      "~/Content/datepicker3.css",
                      "~/Content/styles.css"
                      ));
+
+            bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
+                "~/Content/font-awesome.min.css"
+                ));
             /*CSS*/
             /*Js*/
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
