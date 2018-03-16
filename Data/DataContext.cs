@@ -17,5 +17,6 @@ namespace Data
 
         public DbSet<EstadoUsuarios> EstadoUsuarios { get; set; }
         public DbSet<PerfilSeguridad> PerfilSeguridad { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }

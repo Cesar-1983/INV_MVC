@@ -21,6 +21,8 @@ namespace Entidades
         [StringLength(10)]
         [Display(Name = "Código")]
         public string Codigo { get; set; }
+        
+        public ICollection<Usuarios> Usuarios { get; set; }
                                            //       Id INT IDENTITY(1,1),
                                            //DesEstadoUsuario NVARCHAR(100),
                                            //Codigo NVARCHAR(10),

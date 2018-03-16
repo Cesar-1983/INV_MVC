@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{523F170D-16A0-4366-A48B-462545B2AD7B}</ProjectGuid>
+    <ProjectGuid>{55EE12B6-F98E-4743-B92B-36222DD31653}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Negocio</RootNamespace>
-    <AssemblyName>Negocio</AssemblyName>
+    <RootNamespace>AESCriptoUtility</RootNamespace>
+    <AssemblyName>AESCriptoUtility</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,24 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="EstadoUsuariosLogic.cs" />
+    <Compile Include="AESCripto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsuariosLogic.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AESCriptoUtility\AESCriptoUtility.csproj">
-      <Project>{55ee12b6-f98e-4743-b92b-36222dd31653}</Project>
-      <Name>AESCriptoUtility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{a1325385-344c-459c-b1b3-0bdb36363fad}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entidades\Entidades.csproj">
-      <Project>{aa7b2d63-26e7-47b4-ab0d-010d34b65da3}</Project>
-      <Name>Entidades</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

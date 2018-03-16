@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Enti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{523F170D-16A0-4366-A48B-462545B2AD7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AESCriptoUtility", "AESCriptoUtility\AESCriptoUtility.csproj", "{55EE12B6-F98E-4743-B92B-36222DD31653}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{523F170D-16A0-4366-A48B-462545B2AD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{523F170D-16A0-4366-A48B-462545B2AD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{523F170D-16A0-4366-A48B-462545B2AD7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EE12B6-F98E-4743-B92B-36222DD31653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EE12B6-F98E-4743-B92B-36222DD31653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EE12B6-F98E-4743-B92B-36222DD31653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EE12B6-F98E-4743-B92B-36222DD31653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,17 +26,7 @@ namespace Entidades
         public int CantLetrasMayMin { get; set; }
         public int CantNumeroMin { get; set; }
         public int CantCharEspecialMin { get; set; }
+        public ICollection<Usuarios> Usuarios { get; set; }
 
-
-                                           //       Id INT IDENTITY(1,1),
-                                           //Nombre NVARCHAR(100),
-                                           //DesPerfilSeguridad NVARCHAR(250),
-                                           //IntentosPermitidos INT,
-                                           //   DiasExpiraClave INT,
-                                           //LenMinPass INT,
-                                           //   CantLetrasMin INT,
-                                           //CantLetrasMayMin INT,
-                                           //   CantNumeroMin INT,
-                                           //CantCharEspecialMin INT,
     }
 }
