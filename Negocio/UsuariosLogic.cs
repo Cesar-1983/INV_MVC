@@ -71,6 +71,18 @@ namespace Negocio
 
             return rm;
         }
-        
+        public RespondModel RegistrarUsuario(Usuarios usuarios) {
+            /*Se asocia perfil y estado por default*/
+            usuarios.IdEstadoUsuario = 1;
+            usuarios.IdPerfilSeguridad = 1;
+            /*Se asocia perfil y estado por default*/
+
+            /*Por ahora el email y el Username seran el mismo*/
+            usuarios.UserName = usuarios.Email;
+            /*Por ahora el email y el Username seran el mismo*/
+
+            return UserManager.Guardar(usuarios);
+            /*Se asocia perfil y estado por default*/
+        }
     }
 }

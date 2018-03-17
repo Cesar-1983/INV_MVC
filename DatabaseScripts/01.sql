@@ -76,7 +76,7 @@ CREATE TABLE Categoria
 	DesCategoria NVARCHAR(200),
 	FechaCreación DATETIME,
 	UsuarioCrea INT,
-	CONSTRAINT FK_Unidades_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
+	CONSTRAINT FK_Categoria_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
 
 	CONSTRAINT PK_Categoria PRIMARY KEY NONCLUSTERED (Id)
 

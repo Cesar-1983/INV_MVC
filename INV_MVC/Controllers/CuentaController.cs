@@ -61,7 +61,7 @@ namespace INV_MVC.Controllers
                 return View(model);
             try
             {
-                var respuesta = userlogic.Guardar(new Entidades.Usuarios { Email = model.Email, Password = util.encriptar(model.Password) });
+                var respuesta = userlogic.RegistrarUsuario(new Entidades.Usuarios { Email = model.Email, Password = util.encriptar(model.Password) });
                 if (respuesta.response)
                     return RedirectToAction("Login");
                 ModelState.AddModelError("", respuesta.mensaje);
