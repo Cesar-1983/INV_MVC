@@ -81,6 +81,7 @@ namespace Negocio
             usuarios.UserName = usuarios.Email;
             /*Por ahora el email y el Username seran el mismo*/
 
+            usuarios.FechaCreacion = DateTime.Today;
             return UserManager.Guardar(usuarios);
             /*Se asocia perfil y estado por default*/
         }

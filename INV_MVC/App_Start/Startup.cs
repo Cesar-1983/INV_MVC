@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Helpers;
 
-namespace INV_MVC.App_Start
+namespace INV_MVC
 {
     public partial class Startup
     {

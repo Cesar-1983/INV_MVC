@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,16 +24,18 @@ namespace Entidades
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaActualizacion { get; set; }
+        public DateTime? FechaCreacion { get; set; }
+        public DateTime? FechaActualizacion { get; set; }
         public int IntentosFallidos { get; set; }
-        public DateTime FechaUltimoIngreso { get; set; }
+        public DateTime? FechaUltimoIngreso { get; set; }
         public int IdEstadoUsuario { get; set; }
         public int IdPerfilSeguridad { get; set; }
         public string ImageUser { get; set; }
 
-        public EstadoUsuarios EstadoUsuarios { get; set; }
-        public PerfilSeguridad PerfilSeguridad { get; set; }
+        [ForeignKey("IdEstadoUsuario")]
+        public virtual EstadoUsuarios EstadoUsuarios { get; set; }
+        [ForeignKey("IdPerfilSeguridad")]
+        public virtual PerfilSeguridad PerfilSeguridad { get; set; }
 
         public static implicit operator Usuarios(List<Usuarios> v)
         {

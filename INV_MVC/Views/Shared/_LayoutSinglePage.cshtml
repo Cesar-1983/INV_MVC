@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lumino - Login</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/font-awesome")
+    @Styles.Render("~/Content/cssothers")
+    @*@Styles.Render("~/Content/simple-line-icons")*@
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="row">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @*@Scripts.Render("~/bundles/datatables")
+        @Scripts.Render("~/bundles/jasny")*@
+    @Scripts.Render("~/bundles/modalform")
+    @*@Scripts.Render("~/bundles/app")*@
+    <script src="~/Scripts/datetimepicker/datepicker.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('[data-toggle="datepicker"]').datepicker({
+                format: 'dd/mm/yyyy',
+                days: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                daysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                daysMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                weekStart: 1
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

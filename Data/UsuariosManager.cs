@@ -49,10 +49,10 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    Lista = db.Usuarios.Where(x => x.UserName == username || x.Email == username).FirstOrDefault() ;
+                    Lista = db.Usuarios.Include("PerfilSeguridad").Include("EstadoUsuarios").Where(x => x.UserName == username || x.Email == username).FirstOrDefault() ;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

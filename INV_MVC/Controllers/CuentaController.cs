@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace INV_MVC.Controllers
 {
-    public class CuentaController : Controller
+    public class CuentaController : baseController
     {
         private UsuariosLogic userlogic = new UsuariosLogic();
         private Utilidades util = new Utilidades();
@@ -30,10 +30,10 @@ namespace INV_MVC.Controllers
         public ActionResult Login(LoginViewModel model) {
             if (!ModelState.IsValid)
                 return View(model);
-            var responloging = userlogic.LogIng(model.UserName, model.Password, util.GetKey, util.GetIV);
+            var responloging = userlogic.LogIng(model.Email, model.Password, util.GetKey, util.GetIV);
             if (responloging.response)
             {
-                var Usuario = userlogic.GetUsuariosPorUserName(model.UserName);
+                var Usuario = userlogic.GetUsuariosPorUserName(model.Email);
                 UsuarioViewModel user = new UsuarioViewModel
                 {
                     UserName = Usuario.UserName,
