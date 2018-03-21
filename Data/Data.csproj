@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriaManager.cs" />
+    <Compile Include="ClienteManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="EstadoUsuariosManager.cs" />
     <Compile Include="PerfilSeguridadManager.cs" />

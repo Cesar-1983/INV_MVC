@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CategoriaLogic.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ClienteLogic.cs" />
     <Compile Include="EstadoUsuariosLogic.cs" />
     <Compile Include="PerfilSeguridadLogic.cs" />
     <Compile Include="ProductoImagesLogic.cs" />
