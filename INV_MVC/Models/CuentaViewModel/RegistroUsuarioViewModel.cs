@@ -10,11 +10,16 @@ namespace INV_MVC.Models.CuentaViewModel
     {
         [Required]
         [StringLength(256)]
+        
         public string Email { get; set; }
 
         [Required]
-
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Contraseña")]
 
         [Compare("Password", ErrorMessage = "Contraseña no coinceden.")]
         public string CofirmPassword { get; set; }

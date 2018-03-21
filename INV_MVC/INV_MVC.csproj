@@ -201,6 +201,7 @@
     <Compile Include="Models\CuentaViewModel\LoginViewModel.cs" />
     <Compile Include="Models\CuentaViewModel\RegistroUsuarioViewModel.cs" />
     <Compile Include="Models\CuentaViewModel\UsuarioViewModel.cs" />
+    <Compile Include="Models\ValidationClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,12 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Shared\_LayoutSinglePage.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
+    <Content Include="Views\Catalogos\_CategoriasListar.cshtml" />
+    <Content Include="Views\Catalogos\_CategoriasAddUpd.cshtml" />
+    <Content Include="Views\Catalogos\_CategoriaEliminar.cshtml" />
+    <Content Include="Views\Catalogos\_UnidadesListar.cshtml" />
+    <Content Include="Views\Catalogos\_UnidadesAddUpd.cshtml" />
+    <Content Include="Views\Catalogos\_UnidadEliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

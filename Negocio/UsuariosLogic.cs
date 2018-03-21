@@ -11,7 +11,6 @@ namespace Negocio
     public class UsuariosLogic
     {
         private UsuariosManager UsuariosManager;
-
         private UsuariosManager UserManager
         {
             get
@@ -77,6 +76,17 @@ namespace Negocio
             usuarios.IdPerfilSeguridad = 1;
             /*Se asocia perfil y estado por default*/
 
+            /*Validación de contraseña segun perfil de seguridad*/
+            //PerfilSeguridadManager = new PerfilSeguridadManager();
+            //var perfil = PerfilSeguridadManager.GetPerfilbyId(usuarios.IdPerfilSeguridad);
+            //var response = this.CheckPassword(usuarios.Password, perfil.LenMinPass, perfil.CantLetrasMin, perfil.CantLetrasMayMin, perfil.CantNumeroMin, perfil.CantCharEspecialMin);
+
+            //if (!response.response)
+            //    return response;
+
+            /*Validación de contraseña segun perfil de seguridad*/
+
+
             /*Por ahora el email y el Username seran el mismo*/
             usuarios.UserName = usuarios.Email;
             /*Por ahora el email y el Username seran el mismo*/
@@ -84,6 +94,84 @@ namespace Negocio
             usuarios.FechaCreacion = DateTime.Today;
             return UserManager.Guardar(usuarios);
             /*Se asocia perfil y estado por default*/
+        }
+
+        public RespondModel CheckPassword(string pass, int LenMinPass, int CantLetrasMin, int CantLetrasMayMin, int CantNumeroMin, int CantCharEspecialMin) {
+            RespondModel respondModel = new RespondModel();
+            respondModel.SetResponse(true, "Contraseña OK.");
+            int contCantLetrasMin = 0;
+            int contCantLetrasMayMin = 0;
+            int contCantNumeroMin = 0;
+            int contCantCharEspecialMin = 0;
+            if (pass.Length < LenMinPass)
+            { 
+                respondModel.SetResponse(false, string.Format("La contraseña debe tener un minimo de {0} caracteres", CantLetrasMin));
+                return respondModel;
+                //respond = false;
+            }
+            /*Validación cantidad de letras*/
+            foreach (char c in pass)
+            {
+                if (char.IsLetter(c))
+                    contCantLetrasMin++;
+
+            }
+            if (contCantLetrasMin < CantLetrasMin)
+            {
+                respondModel.SetResponse(false, string.Format("La contraseña debe tener un minimo de {0} letras", contCantLetrasMin));
+                return respondModel;
+                //respond = false;
+            }
+            /*Validación cantidad de letras*/
+
+            /*Validación cantidad de letras Mayusculas*/
+            foreach (char c in pass)
+            {
+                if (char.IsUpper(c))
+                    contCantLetrasMayMin++;
+
+            }
+            if (contCantLetrasMayMin < CantLetrasMayMin)
+            {
+                respondModel.SetResponse(false, string.Format("La contraseña debe tener un minimo de {0} mayusculas", contCantLetrasMayMin));
+                return respondModel;
+                //respond = false;
+            }
+            /*Validación cantidad de letras Mayusculas*/
+
+            /*Validación cantidad de numeros*/
+            foreach (char c in pass)
+            {
+                if (char.IsNumber(c))
+                    contCantNumeroMin++;
+
+            }
+
+            if (contCantNumeroMin < CantNumeroMin)
+            {
+                respondModel.SetResponse(false, string.Format("La contraseña debe tener un minimo de {0} digitos", contCantNumeroMin));
+                return respondModel;
+                //respond = false;
+            }
+            /*Validación cantidad de numeros*/
+
+            /*Validación cantidad de Caracteres especiales*/
+
+            foreach (char c in pass)
+            {
+                if (!char.IsLetterOrDigit(c))
+                    contCantCharEspecialMin++;
+
+            }
+            if (contCantCharEspecialMin < CantCharEspecialMin)
+            {
+                respondModel.SetResponse(false, string.Format("La contraseña debe tener un minimo de {0} caracteres especiales", contCantCharEspecialMin));
+                return respondModel;
+                //respond = false;
+            }
+            /*Validación cantidad de Caracteres especiales*/
+
+            return respondModel;
         }
     }
 }

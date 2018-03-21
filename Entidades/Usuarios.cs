@@ -37,9 +37,5 @@ namespace Entidades
         [ForeignKey("IdPerfilSeguridad")]
         public virtual PerfilSeguridad PerfilSeguridad { get; set; }
 
-        public static implicit operator Usuarios(List<Usuarios> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

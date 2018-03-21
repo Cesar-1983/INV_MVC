@@ -7,9 +7,11 @@ using Negocio;
 using Entidades;
 namespace INV_MVC.Controllers
 {
-    public class CatalogosController : Controller
+    public class CatalogosController : baseController
     {
         private EstadoUsuariosLogic EstadoUsuariosLogic = new EstadoUsuariosLogic();
+        private CategoriaLogic categoriaLogic = new CategoriaLogic();
+        private UnidadesLogic unidadesLogic = new UnidadesLogic();
         // GET: Catalogos
         public ActionResult Index()
         {
@@ -86,6 +88,170 @@ namespace INV_MVC.Controllers
         }
         #endregion
 
+        #region MetodosCategoría
+
+        public ActionResult CategoriasListar()
+        {
+            ViewBag.Heading = "Lista de Categorías";
+            var lista = categoriaLogic.GetAll();
+            return PartialView("_CategoriasListar", lista);
+        }
+
+        public ActionResult CategoriaAdd()
+        {
+            ViewBag.ModalHeading = "Agregar Categoría de Productos";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            Categoria model = new Categoria();
+            return PartialView("_CategoriasAddUpd", model);
+        }
+
+        public ActionResult CategoriaEdit(int id)
+        {
+            ViewBag.ModalHeading = "Editar Categoría de Productos";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            Categoria model = categoriaLogic.GetCategoríaPorId(id);
+            return PartialView("_CategoriasAddUpd", model);
+        }
+
+        public ActionResult CategoriaEliminar(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Categoría";
+            Categoria model = categoriaLogic.GetCategoríaPorId(id);
+            return PartialView("_CategoriaEliminar", model);
+        }
+
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        
+        public ActionResult GuardarCategoria(Categoria model)
+        {
+            ViewBag.ModalHeading = model.Id == 0 ? "Agregar Categoría de Producto" : "Editar Categoría de Productos";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            model.UsuarioCrea = Usuario.UserId;
+            model.FechaCreacion = DateTime.Now;
+            //model.CategoriaParentId = model.CategoriaParentId ?? 0;
+            if (!ModelState.IsValid)
+                return PartialView("_CategoriasAddUpd", model);
+            var respuesta = categoriaLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_CategoriasAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("CategoriasListar");
+            return Json(respuesta);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CategoriaEliminarById(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Categoría de Productos";
+            if (!ModelState.IsValid)
+            {
+                Categoria model = categoriaLogic.GetCategoríaPorId(id);
+                return PartialView("_CategoriaEliminar", model);
+
+            }
+            var respuesta = categoriaLogic.Eliminar(id);
+            if (!respuesta.response)
+            {
+                Categoria model = categoriaLogic.GetCategoríaPorId(id);
+                return PartialView("_CategoriaEliminar", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("CategoriasListar");
+            return Json(respuesta);
+        }
+
+        #endregion
+
+        #region MetodosUnidades
+
+        public ActionResult UnidadesListar()
+        {
+            ViewBag.Heading = "Lista de Unidades de Productos";
+            var lista = unidadesLogic.GetAll();
+            return PartialView("_UnidadesListar", lista);
+        }
+
+        public ActionResult UnidadAdd()
+        {
+            ViewBag.ModalHeading = "Agregar Unidades de Productos";
+            //ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Nombre");
+            Unidades model = new Unidades();
+            return PartialView("_UnidadesAddUpd", model);
+        }
+
+        public ActionResult UnidadEdit(int id)
+        {
+            ViewBag.ModalHeading = "Editar Unidades de Productos";
+            
+            Unidades model = unidadesLogic.GetUnidadesPorId(id);
+            return PartialView("_UnidadesAddUpd", model);
+        }
+
+        public ActionResult UnidadEliminar(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Unidad";
+            Unidades model = unidadesLogic.GetUnidadesPorId(id);
+            return PartialView("_UnidadEliminar", model);
+        }
+
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+
+        public ActionResult GuardarUnidad(Unidades model)
+        {
+            ViewBag.ModalHeading = model.Id == 0 ? "Agregar Unidades de Producto" : "Editar Unidades de Productos";
+            
+            model.UsuarioCrea = Usuario.UserId;
+            model.FechaCreacion = DateTime.Now;
+            
+            if (!ModelState.IsValid)
+                return PartialView("_UnidadesAddUpd", model);
+            var respuesta = unidadesLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_UnidadesAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("UnidadesListar");
+            return Json(respuesta);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UnidadEliminarById(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Unidades de Productos";
+            if (!ModelState.IsValid)
+            {
+                Unidades model = unidadesLogic.GetUnidadesPorId(id);
+                return PartialView("_UnidadEliminar", model);
+
+            }
+            var respuesta = unidadesLogic.Eliminar(id);
+            if (!respuesta.response)
+            {
+                Unidades model = unidadesLogic.GetUnidadesPorId(id);
+                return PartialView("_UnidadEliminar", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("UnidadesListar");
+            return Json(respuesta);
+        }
+        #endregion
 
     }
 }

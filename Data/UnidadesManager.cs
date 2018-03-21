@@ -8,14 +8,25 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class UsuariosManager
+    public class UnidadesManager
     {
-        public List<Usuarios> GetAllUsuarios() {
-            List<Usuarios> Lista = new List<Usuarios>();
+        public List<Unidades> GetAll()
+        {
+            List<Unidades> lista = new List<Unidades>();
+            using (var db = new DataContext())
+            {
+                lista = db.Unidades.ToList();
+            }
+            return lista;
+        }
+        public Unidades GetUnidadesPorId(int id)
+        {
+            Unidades Lista = new Unidades();
             try
             {
-                using (var db = new DataContext()) {
-                    Lista = db.Usuarios.ToList();
+                using (var db = new DataContext())
+                {
+                    Lista = db.Unidades.Where(x => x.Id == id).FirstOrDefault();
                 }
             }
             catch (Exception)
@@ -25,42 +36,8 @@ namespace Data
             }
             return Lista;
         }
-        public Usuarios GetUsuariosPorId( int id)
-        {
-            Usuarios Lista = new Usuarios();
-            try
-            {
-                using (var db = new DataContext())
-                {
-                    Lista = db.Usuarios.Where (x=> x.Id == id).FirstOrDefault();
-                }
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-            return Lista;
-        }
-        public Usuarios GetUsuariosPorUserName(string username)
-        {
-            Usuarios Lista = new Usuarios();
-            try
-            {
-                using (var db = new DataContext())
-                {
-                    Lista = db.Usuarios.Include("PerfilSeguridad").Include("EstadoUsuarios").Where(x => x.UserName == username || x.Email == username).FirstOrDefault() ;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            return Lista;
-        }
-
-        public RespondModel Guardar(Usuarios usuarios)
+        public RespondModel Guardar(Unidades Unidades)
         {
             var rm = new RespondModel();
             string mensaje = "";
@@ -68,14 +45,14 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    if (usuarios.Id > 0)
+                    if (Unidades.Id > 0)
                     {
-                        db.Entry(usuarios).State = System.Data.Entity.EntityState.Modified;
+                        db.Entry(Unidades).State = System.Data.Entity.EntityState.Modified;
                         mensaje = "Registro actualizado exitosamente";
                     }
                     else
                     {
-                        db.Entry(usuarios).State = System.Data.Entity.EntityState.Added;
+                        db.Entry(Unidades).State = System.Data.Entity.EntityState.Added;
                         mensaje = "Registro agregado exitosamente";
                     }
                     db.SaveChanges();
@@ -98,17 +75,11 @@ namespace Data
                 }
                 rm.SetResponse(false, ex.Message);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 rm.SetResponse(false, ex.Message);
             }
             return rm;
-        }
-
-        public RespondModel EmailConfirmacion(int id)
-        {
-            var usuario = GetUsuariosPorId(id);
-            usuario.EmailConfirmed = true;
-            return Guardar(usuario);
         }
 
         public RespondModel Eliminar(int id)
@@ -120,7 +91,7 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    var reg = db.Usuarios.Where(x => x.Id == id).FirstOrDefault();
+                    var reg = db.Unidades.Where(x => x.Id == id).FirstOrDefault();
                     if (reg.Id > 0)
                     {
                         db.Entry(reg).State = System.Data.Entity.EntityState.Deleted;
@@ -144,7 +115,5 @@ namespace Data
             rm.SetResponse(resp, mensaje);
             return rm;
         }
-
-
     }
 }

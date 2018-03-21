@@ -1,0 +1,24 @@
+﻿@model Entidades.Categoria
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;@ViewBag.ModalHeading</h4>
+</div>
+@using (Html.BeginForm("CategoriaEliminarById", "Catalogos", new { id = Model.Id }, FormMethod.Post, new { id = "form-01" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <p>Esta Seguro de Eliminar la categoría: <span class="bg-danger">@Model.Nombre</span> Descripción: <span class="bg-danger">@Model.DesCategoria</span> </p>
+
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+
+            @*<button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw" aria-hidden="true"></i>&nbsp; Cerrar</button>*@
+            <button class="btn" data-dismiss="modal"><i class="fa fa-close fa-fw" aria-hidden="true"></i>&nbsp; Cerrar</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-check-circle fa-fw" aria-hidden="true"></i>&nbsp; Guardar</button>
+
+        </div>
+    </div>
+}
