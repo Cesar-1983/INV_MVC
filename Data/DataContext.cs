@@ -22,7 +22,8 @@ namespace Data
 		public DbSet<Monedas> Monedas { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Unidades> Unidades { get; set; }
-
+        public DbSet<Producto> Producto { get; set; }
+        public DbSet<ProductoImages> ProductoImages { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

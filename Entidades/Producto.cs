@@ -45,5 +45,8 @@ namespace Entidades
         [ForeignKey("IdMoneda")]
         public virtual Monedas Monedas { get; set; }
 
+        public Producto() {
+            this.ProductoImages = new List<ProductoImages>();
+        }
     }
 }

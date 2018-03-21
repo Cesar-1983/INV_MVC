@@ -128,18 +128,19 @@ CREATE TABLE ProductoImages
 
 )
 
-SELECT co.name,
+SELECT co.name,t.system_type_id,
 'public '+CASE
 	WHEN t.system_type_id IN(34,35,99,165,167,173,175,231,239) THEN	'string'
 	WHEN t.system_type_id IN(56) THEN'int'
 	WHEN t.system_type_id IN (61,42) AND co.is_nullable=1 THEN 'DateTime?'
 	WHEN t.system_type_id IN (61,42) AND co.is_nullable=0 THEN 'DateTime'
+	WHEN t.system_type_id IN (106) THEN 'decimal'
 	WHEN t.system_type_id IN (104) THEN 'bool' end +' '+ co.name+'{ get; set; }',
 * FROM sys.objects o 
 INNER JOIN sys.columns co 
 ON co.object_id = o.object_id 
 INNER JOIN sys.types t ON t.system_type_id = co.system_type_id AND t.user_type_id = co.user_type_id
-WHERE type='U' AND o.name='Unidades'
+WHERE type='U' AND o.name='ProductoImages'
 
 
 SELECT * FROM sys.types WHERE system_type_id=231
@@ -148,3 +149,5 @@ SELECT * FROM dbo.Categoria
 
 SELECT * FROM dbo.Usuarios
 SELECT * FROM dbo.Monedas
+
+SELECT * FROM dbo.Usuarios
