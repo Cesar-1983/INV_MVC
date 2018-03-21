@@ -73,14 +73,14 @@ GO
 CREATE TABLE Categoria
 (
 	Id INT IDENTITY(1,1),
+	CategoriaParentId int NULL,
 	Nombre NVARCHAR(200),
 	DesCategoria NVARCHAR(200),
 	FechaCreacion DATETIME,
 	UsuarioCrea INT,
 	CONSTRAINT FK_Categoria_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
-
+	CONSTRAINT FK_Categoria_CategoriaParentId FOREIGN KEY (CategoriaParentId) REFERENCES dbo.Categoria(Id),
 	CONSTRAINT PK_Categoria PRIMARY KEY NONCLUSTERED (Id)
-
 )
 GO
 CREATE TABLE Unidades
@@ -89,6 +89,7 @@ CREATE TABLE Unidades
 	DesUnidades NVARCHAR(200),
 	Codigo NVARCHAR(10) UNIQUE,
 	UsuarioCrea INT,
+	FechaCreacion DATETIME,
 	CONSTRAINT FK_Unidades_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
 	CONSTRAINT PK_Unidades PRIMARY KEY NONCLUSTERED (Id),
 	CONSTRAINT CK_Unidades_CodigoUnique UNIQUE (Codigo)
@@ -99,6 +100,7 @@ CREATE TABLE Producto
 	Id INT IDENTITY(1,1),
 	IdCategoria INT,
 	IdUnidad INT,
+	IdMoneda INT,
 	barcode NVARCHAR(100),
 	Nombre NVARCHAR(100),
 	DesProducto NVARCHAR(250),
@@ -110,7 +112,8 @@ CREATE TABLE Producto
 	CONSTRAINT PK_Producto PRIMARY KEY NONCLUSTERED (Id),
 	CONSTRAINT FK_Producto_Categoria FOREIGN KEY (IdCategoria) REFERENCES dbo.Categoria (Id),
 	CONSTRAINT FK_Producto_Unidades FOREIGN KEY (IdUnidad) REFERENCES dbo.Unidades (Id),
-	CONSTRAINT FK_Producto_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id)
+	CONSTRAINT FK_Producto_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
+	CONSTRAINT FK_Producto_Monedas FOREIGN KEY (IdMoneda) REFERENCES dbo.Monedas(Id)
 )
 GO	
 CREATE TABLE ProductoImages
@@ -129,15 +132,19 @@ SELECT co.name,
 'public '+CASE
 	WHEN t.system_type_id IN(34,35,99,165,167,173,175,231,239) THEN	'string'
 	WHEN t.system_type_id IN(56) THEN'int'
-	WHEN t.system_type_id IN (61,42) THEN 'DateTime'
+	WHEN t.system_type_id IN (61,42) AND co.is_nullable=1 THEN 'DateTime?'
+	WHEN t.system_type_id IN (61,42) AND co.is_nullable=0 THEN 'DateTime'
 	WHEN t.system_type_id IN (104) THEN 'bool' end +' '+ co.name+'{ get; set; }',
 * FROM sys.objects o 
 INNER JOIN sys.columns co 
 ON co.object_id = o.object_id 
 INNER JOIN sys.types t ON t.system_type_id = co.system_type_id AND t.user_type_id = co.user_type_id
-WHERE type='U' AND o.name='Usuarios'
+WHERE type='U' AND o.name='Unidades'
 
 
 SELECT * FROM sys.types WHERE system_type_id=231
 
---SELECT * FROM dbo.EstadoUsuarios
+SELECT * FROM dbo.Categoria
+
+SELECT * FROM dbo.Usuarios
+SELECT * FROM dbo.Monedas
