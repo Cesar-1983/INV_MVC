@@ -46,11 +46,14 @@ function bindForm(dialog) {
     $('form', dialog).submit(function () {
         debugger;
         var block = $('<div class="block-loading" />');
+        
         $("body").prepend(block); 
         $.ajax({
             url: this.action,
             type: this.method,
             data: $(this).serialize(),
+            processData: false,
+            contentType: false,
             success: function (result) {
                 if (result.response) {
                     block.remove();
@@ -74,6 +77,9 @@ function bindForm(dialog) {
                     $('#myModalContent').html(result);
                     bindForm();
                 }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest + '--' + textStatus + '--' +errorThrown);
             }
         });
         return false;

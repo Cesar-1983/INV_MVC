@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Negocio;
 using Entidades;
+using System.IO;
+
 namespace INV_MVC.Controllers
 {
     public class CatalogosController : baseController
@@ -386,14 +388,14 @@ namespace INV_MVC.Controllers
         }
 
         public ActionResult ProductImageAdd(int IdProducto) {
-            ViewBag.Heading = "Agregar Imagen del Producto";
+            ViewBag.ModalHeading = "Agregar Imagen del Producto";
             ProductoImages model = new ProductoImages();
             model.IdProducto = IdProducto;
             return PartialView("_ProductoImageAddUpd", model);
         }
         public ActionResult ProductImageEdit(int id)
         {
-            ViewBag.Heading = "Agregar Imagen del Producto";
+            ViewBag.ModalHeading = "Agregar Imagen del Producto";
             ProductoImages model = productoImagesLogic.GetProductoPorId(id);
             return PartialView("_ProductoImageAddUpd", model);
         }
@@ -402,8 +404,29 @@ namespace INV_MVC.Controllers
         [HttpPost]
         public ActionResult GuardarProductoImages([Bind(Exclude = "productoimage")] ProductoImages model) {
             ViewBag.ModalHeading = model.Id == 0 ? "Agregar Imagen de Producto" : "Editar Imagen de Productos";
+            byte[] imageData = null;
             if (!ModelState.IsValid)
                 return PartialView("_ProductoImageAddUpd", model);
+
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase Imagen = Request.Files["productoimage"];
+                using (var binary = new BinaryReader(Imagen.InputStream))
+                {
+                    imageData = binary.ReadBytes(Imagen.ContentLength);
+                }
+            }
+            else
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/images/no-image.png");
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+            }
+            model.Image = imageData;
+            model.UsuarioCrea = Usuario.UserId;
             var respuesta = productoImagesLogic.Guardar(model);
             if (!respuesta.response)
             {

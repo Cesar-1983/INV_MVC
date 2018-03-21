@@ -12,7 +12,7 @@ namespace Entidades
         [Key]
         public int Id { get; set; }
         public int IdProducto { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public int UsuarioCrea { get; set; }
 
         [ForeignKey("IdProducto")]

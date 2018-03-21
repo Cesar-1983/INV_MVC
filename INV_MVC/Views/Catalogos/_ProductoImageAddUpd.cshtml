@@ -4,29 +4,26 @@
     <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;@ViewBag.ModalHeading</h4>
 </div>
 
-
-
-
-@using (Html.BeginForm("GuardarCategoria", "Catalogos", FormMethod.Post, new { id = "form-01", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("GuardarProductoImages", "Catalogos", FormMethod.Post, new { id = "form-01", role = "form",  enctype = "multipart/form-data" }))
 {
-<div class="modal-body">
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.IdProducto)
-    <div class="form-horizontal">
-        @*<h4>EstadoUsuarios</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="productoimage" id="productoimage" accept=".png,.jpg,.jpeg" />
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdProducto)
+        <div class="form-horizontal">
+            @*<h4>EstadoUsuarios</h4>*@
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="productoimage" id="productoimage" accept=".png,.jpg,.jpeg" />
+                </div>
             </div>
-        </div>
-               
 
+
+        </div>
     </div>
-</div>
     <div class="modal-footer">
         <div class="text-center">
 
