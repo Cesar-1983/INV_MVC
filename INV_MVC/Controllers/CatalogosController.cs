@@ -12,6 +12,7 @@ namespace INV_MVC.Controllers
         private EstadoUsuariosLogic EstadoUsuariosLogic = new EstadoUsuariosLogic();
         private CategoriaLogic categoriaLogic = new CategoriaLogic();
         private UnidadesLogic unidadesLogic = new UnidadesLogic();
+        private MonedasLogic monedasLogic = new MonedasLogic();
         // GET: Catalogos
         public ActionResult Index()
         {
@@ -24,7 +25,8 @@ namespace INV_MVC.Controllers
             var lista = EstadoUsuariosLogic.GetAllEstadosUsuarios();
             return PartialView("_EstadosUsuariosListar", lista);
         }
-        public ActionResult EstadosUsuariosAdd() {
+        public ActionResult EstadosUsuariosAdd()
+        {
             ViewBag.ModalHeading = "Agregar Estado Usuario";
             EstadoUsuarios model = new EstadoUsuarios();
             return PartialView("_EstadosUsuariosAddUpd", model);
@@ -39,8 +41,9 @@ namespace INV_MVC.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult GuardarEstadosUsuarios(EstadoUsuarios model) {
-            if(!ModelState.IsValid)
+        public ActionResult GuardarEstadosUsuarios(EstadoUsuarios model)
+        {
+            if (!ModelState.IsValid)
                 return PartialView("_EstadosUsuariosAddUpd", model);
             var respuesta = EstadoUsuariosLogic.Guardar(model);
             if (!respuesta.response)
@@ -54,7 +57,8 @@ namespace INV_MVC.Controllers
             return Json(respuesta);
 
         }
-        public ActionResult EstadosUsuariosEliminar(int id) {
+        public ActionResult EstadosUsuariosEliminar(int id)
+        {
             ViewBag.ModalHeading = "Eliminar Estado Usuario";
             EstadoUsuarios model = EstadoUsuariosLogic.GetEstadosUsuariosById(id);
             return PartialView("_EstadosUsuariosEliminar", model);
@@ -65,10 +69,11 @@ namespace INV_MVC.Controllers
         public ActionResult EstadosUsuariosEliminarById(int id)
         {
             ViewBag.ModalHeading = "Eliminar Estado Usuario";
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 EstadoUsuarios model = EstadoUsuariosLogic.GetEstadosUsuariosById(id);
                 return PartialView("_EstadosUsuariosEliminar", model);
-                
+
             }
             var respuesta = EstadoUsuariosLogic.Eliminar(id);
             if (!respuesta.response)
@@ -81,10 +86,11 @@ namespace INV_MVC.Controllers
             respuesta.href = Url.Action("EstadosUsuariosListar");
             return Json(respuesta);
         }
-        public ActionResult ReturJson(int id) {
+        public ActionResult ReturJson(int id)
+        {
             var respuesta = new RespondModel();
             respuesta.href = Url.Action("EstadosUsuariosListar");
-            return Json(respuesta,JsonRequestBehavior.AllowGet);
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -123,7 +129,7 @@ namespace INV_MVC.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        
+
         public ActionResult GuardarCategoria(Categoria model)
         {
             ViewBag.ModalHeading = model.Id == 0 ? "Agregar Categoría de Producto" : "Editar Categoría de Productos";
@@ -191,7 +197,7 @@ namespace INV_MVC.Controllers
         public ActionResult UnidadEdit(int id)
         {
             ViewBag.ModalHeading = "Editar Unidades de Productos";
-            
+
             Unidades model = unidadesLogic.GetUnidadesPorId(id);
             return PartialView("_UnidadesAddUpd", model);
         }
@@ -210,10 +216,10 @@ namespace INV_MVC.Controllers
         public ActionResult GuardarUnidad(Unidades model)
         {
             ViewBag.ModalHeading = model.Id == 0 ? "Agregar Unidades de Producto" : "Editar Unidades de Productos";
-            
+
             model.UsuarioCrea = Usuario.UserId;
             model.FechaCreacion = DateTime.Now;
-            
+
             if (!ModelState.IsValid)
                 return PartialView("_UnidadesAddUpd", model);
             var respuesta = unidadesLogic.Guardar(model);
@@ -249,6 +255,76 @@ namespace INV_MVC.Controllers
             respuesta.IsPartial = true;
             respuesta.ContainerRenderPartial = "renderpartial";
             respuesta.href = Url.Action("UnidadesListar");
+            return Json(respuesta);
+        }
+        #endregion
+        #region MetodosMonedas
+        public ActionResult MonedasListar()
+        {
+            ViewBag.Heading = "Lista de Estados Usuarios";
+            var lista = monedasLogic.GetAllMonedas();
+            return PartialView("_MonedasListar", lista);
+        }
+        public ActionResult MonedaAdd()
+        {
+            ViewBag.ModalHeading = "Agregar Moneda";
+            Monedas model = new Monedas();
+            return PartialView("_MonedaAddUpd", model);
+        }
+
+
+        public ActionResult MonedaEdit(int id)
+        {
+            ViewBag.ModalHeading = "Editar Moneda";
+            Monedas model = monedasLogic.GetMonedasPorId(id);
+            return PartialView("_MonedaAddUpd", model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult GuardarMoneda(Monedas model)
+        {
+            if (!ModelState.IsValid)
+                return PartialView("_MonedaAddUpd", model);
+            var respuesta = monedasLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_MonedaAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("MonedasListar");
+            return Json(respuesta);
+
+        }
+        public ActionResult MonedaEliminar(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Estado Usuario";
+            Monedas model = monedasLogic.GetMonedasPorId(id);
+            return PartialView("_MonedaEliminar", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MonedaEliminarById(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Estado Usuario";
+            if (!ModelState.IsValid)
+            {
+                Monedas model = monedasLogic.GetMonedasPorId(id);
+                return PartialView("_MonedaEliminar", model);
+
+            }
+            var respuesta = monedasLogic.Eliminar(id);
+            if (!respuesta.response)
+            {
+                Monedas model = monedasLogic.GetMonedasPorId(id);
+                return PartialView("_MonedaEliminar", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("MonedasListar");
             return Json(respuesta);
         }
         #endregion

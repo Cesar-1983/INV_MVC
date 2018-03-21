@@ -226,6 +226,10 @@
     <Content Include="Views\Catalogos\_UnidadesListar.cshtml" />
     <Content Include="Views\Catalogos\_UnidadesAddUpd.cshtml" />
     <Content Include="Views\Catalogos\_UnidadEliminar.cshtml" />
+    <Content Include="Views\Catalogos\_MonedasListar.cshtml" />
+    <Content Include="Views\Catalogos\_MonedaAddUpd.cshtml" />
+    <Content Include="Views\Catalogos\_MonedaEliminar.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

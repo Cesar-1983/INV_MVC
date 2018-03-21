@@ -1,0 +1,11 @@
+CREATE TABLE Monedas
+(
+	Id INT IDENTITY(1,1),
+	Nombre NVARCHAR(50),
+	Simbolo NVARCHAR(10),
+	Codigo NVARCHAR(10),
+	Numero INT ,
+	IsLocal BIT DEFAULT 0,
+	CONSTRAINT PK_Monedas PRIMARY KEY NONCLUSTERED (Id)
+	
+	)
