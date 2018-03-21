@@ -11,7 +11,7 @@
     @Styles.Render("~/Content/cssothers")
     @*@Styles.Render("~/Content/simple-line-icons")*@
     @Scripts.Render("~/bundles/modernizr")
-
+    @Styles.Render("~/Content/jasny")
     <link href="~/Scripts/datetimepicker/datepicker.css" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -173,9 +173,13 @@
                     <li>
                         @Ajax.ActionLink("Unidades de Productos", "UnidadesListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
-<li>
+                    <li>
                         @Ajax.ActionLink("Monedas", "MonedasListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
+                    <li>
+                        @Ajax.ActionLink("Productos", "ProductosListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+
                 </ul>
             </li>
             <li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
@@ -625,8 +629,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/unobtrusive")
-    @*@Scripts.Render("~/bundles/datatables")
-    @Scripts.Render("~/bundles/jasny")*@
+    @*@Scripts.Render("~/bundles/datatables")*@
+    @Scripts.Render("~/bundles/jasny")
     @Scripts.Render("~/bundles/modalform")
     @*@Scripts.Render("~/bundles/app")*@
     <script src="~/Scripts/datetimepicker/datepicker.js"></script>
@@ -643,38 +647,38 @@
                 weekStart: 1
             });
         });
-            //$('#grid').dataTable({
-            //    "lengthMenu": [10, 25, 50, 75, 100],
-            //    "pageLength": 100,
-            //    'paging': true,  // Table pagination
-            //    'ordering': true,  // Column ordering
-            //    'info': true,  // Bottom left status text
-            //    "language": {
-            //        "lengthMenu": "Mostrar _MENU_ registros por página",
-            //        "zeroRecords": "Sin registros que mostrar",
-            //        "info": "Página _PAGE_ de _PAGES_",
-            //        "infoEmpty": "No hay información",
-            //        "infoFiltered": "(Filtrar from _MAX_ total records)",
-            //        "search": "Buscar:",
-            //        "paginate": {
-            //            "previous": "Anterior",
-            //            "next": "Próxima"
-            //        }
-            //    },
-            //    // Datatable Buttons setup
-            //    dom: '<"html5buttons"B>lTfgitp',
-            //    buttons: [
-            //        { extend: 'copy', className: 'btn-sm' },
-            //        { extend: 'csv', className: 'btn-sm' },
-            //        { extend: 'excel', className: 'btn-sm', title: 'XLS-File' },
-            //        { extend: 'pdf', className: 'btn-sm', title: $('title').text() },
-            //        { extend: 'print', className: 'btn-sm' }
-            //    ]
+                    //$('#grid').dataTable({
+                    //    "lengthMenu": [10, 25, 50, 75, 100],
+                    //    "pageLength": 100,
+                    //    'paging': true,  // Table pagination
+                    //    'ordering': true,  // Column ordering
+                    //    'info': true,  // Bottom left status text
+                    //    "language": {
+                    //        "lengthMenu": "Mostrar _MENU_ registros por página",
+                    //        "zeroRecords": "Sin registros que mostrar",
+                    //        "info": "Página _PAGE_ de _PAGES_",
+                    //        "infoEmpty": "No hay información",
+                    //        "infoFiltered": "(Filtrar from _MAX_ total records)",
+                    //        "search": "Buscar:",
+                    //        "paginate": {
+                    //            "previous": "Anterior",
+                    //            "next": "Próxima"
+                    //        }
+                    //    },
+                    //    // Datatable Buttons setup
+                    //    dom: '<"html5buttons"B>lTfgitp',
+                    //    buttons: [
+                    //        { extend: 'copy', className: 'btn-sm' },
+                    //        { extend: 'csv', className: 'btn-sm' },
+                    //        { extend: 'excel', className: 'btn-sm', title: 'XLS-File' },
+                    //        { extend: 'pdf', className: 'btn-sm', title: $('title').text() },
+                    //        { extend: 'print', className: 'btn-sm' }
+                    //    ]
 
-            //});
+                    //});
 
-            
-        
+
+
     </script>
     @RenderSection("scripts", required: false)
 

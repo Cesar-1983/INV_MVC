@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Entidades.Producto>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @ViewBag.Heading
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.ActionLink("Agregar", "ProductoAdd", "Catalogos", null, new { @class = "btn btn-primary", data_modal = "" })
+            </div>
+        </div>
+        <table class="table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DesProducto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.barcode)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Inventario_Min)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.precio_in)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.precio_out)
+                    </th>
+                    <th>
+                        Categoría
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DesProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.barcode)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Inventario_Min)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monedas.Simbolo) @Html.DisplayFor(modelItem => item.precio_in)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monedas.Simbolo) @Html.DisplayFor(modelItem => item.precio_out)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categoria.DesCategoria)
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Editar", "ProductoEdit", new { id = item.Id }, new { data_modal = "" })</li>
+                                    <li>@Html.ActionLink("Eliminar", "CategoriaEliminar", new { id = item.Id }, new { data_modal = "" })</li>
+                                    @if (item.Id != 0)
+                                    {
+                                        <li>@Html.ActionLink("Agregar Imagen", "CategoriaEliminar", new { id = item.Id }, new { data_modal = "" })</li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/app/modalform.js"></script>

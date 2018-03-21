@@ -143,6 +143,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\no-image.png" />
     <Content Include="Scripts\app\Filter.js" />
     <Content Include="Scripts\app\modalform.js" />
     <Content Include="fonts\fontawesome-webfont.eot" />
@@ -169,6 +170,7 @@
     <Content Include="Scripts\datetimepicker\datepicker.min.css" />
     <Content Include="Scripts\datetimepicker\datepicker.min.js" />
     <None Include="Scripts\jquery-3.3.1-vsdoc.js" />
+    <Content Include="Scripts\jasny\jasny-bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -229,7 +231,10 @@
     <Content Include="Views\Catalogos\_MonedasListar.cshtml" />
     <Content Include="Views\Catalogos\_MonedaAddUpd.cshtml" />
     <Content Include="Views\Catalogos\_MonedaEliminar.cshtml" />
-
+    <Content Include="Views\Catalogos\_ProductosListar.cshtml" />
+    <Content Include="Views\Catalogos\_ProductoAddUpd.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ProductoImages.cshtml" />
+    <Content Include="Views\Catalogos\_ProductoImageAddUpd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,31 +1,32 @@
 ﻿using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity.Validation;
+
 namespace Data
 {
-    public class ProductoManager
+    public class ProductoImagesManager
     {
-        public List<Producto> GetAll()
+        public List<ProductoImages> GetAll()
         {
-            List<Producto> lista = new List<Producto>();
+            List<ProductoImages> lista = new List<ProductoImages>();
             using (var db = new DataContext())
             {
-                lista = db.Producto.ToList();
+                lista = db.ProductoImages.ToList();
             }
             return lista;
         }
-        public Producto GetProductoPorId(int id)
+        public ProductoImages GetProductoImagesPorId(int id)
         {
-            Producto Lista = new Producto();
+            ProductoImages Lista = new ProductoImages();
             try
             {
                 using (var db = new DataContext())
                 {
-                    Lista = db.Producto.Where(x => x.Id == id).FirstOrDefault();
+                    Lista = db.ProductoImages.Where(x => x.Id == id).FirstOrDefault();
                 }
             }
             catch (Exception)
@@ -35,8 +36,15 @@ namespace Data
             }
             return Lista;
         }
-
-        public RespondModel Guardar(Producto Producto)
+        public List<ProductoImages> GetProductImageByProductId(int id) {
+            List<ProductoImages> lista = new List<ProductoImages>();
+            using (var db = new DataContext())
+            {
+                lista = db.ProductoImages.Where(x=> x.IdProducto == id).ToList();
+            }
+            return lista;
+        }
+        public RespondModel Guardar(ProductoImages ProductoImages)
         {
             var rm = new RespondModel();
             string mensaje = "";
@@ -44,15 +52,15 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    if (Producto.Id > 0)
+                    if (ProductoImages.Id > 0)
                     {
-                        db.Entry(Producto).State = System.Data.Entity.EntityState.Modified;
+                        db.Entry(ProductoImages).State = System.Data.Entity.EntityState.Modified;
                         mensaje = "Registro actualizado exitosamente";
                     }
                     else
                     {
                         //db.Entry(Producto).State = System.Data.Entity.EntityState.Added;
-                        db.Producto.Add(Producto);
+                        db.Entry(ProductoImages).State = System.Data.Entity.EntityState.Added;
                         mensaje = "Registro agregado exitosamente";
                     }
                     db.SaveChanges();
@@ -91,7 +99,7 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    var reg = db.Producto.Where(x => x.Id == id).FirstOrDefault();
+                    var reg = db.ProductoImages.Where(x => x.Id == id).FirstOrDefault();
                     if (reg.Id > 0)
                     {
                         db.Entry(reg).State = System.Data.Entity.EntityState.Deleted;

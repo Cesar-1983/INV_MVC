@@ -13,6 +13,9 @@ namespace INV_MVC.Controllers
         private CategoriaLogic categoriaLogic = new CategoriaLogic();
         private UnidadesLogic unidadesLogic = new UnidadesLogic();
         private MonedasLogic monedasLogic = new MonedasLogic();
+        private ProductoLogic productoLogic = new ProductoLogic();
+        private ProductoImagesLogic productoImagesLogic = new ProductoImagesLogic();
+
         // GET: Catalogos
         public ActionResult Index()
         {
@@ -325,6 +328,91 @@ namespace INV_MVC.Controllers
             respuesta.IsPartial = true;
             respuesta.ContainerRenderPartial = "renderpartial";
             respuesta.href = Url.Action("MonedasListar");
+            return Json(respuesta);
+        }
+        #endregion
+
+        #region MetodosProducto
+        public ActionResult ProductosListar()
+        {
+            ViewBag.Heading = "Lista de Productos";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Codigo");
+            ViewBag.Monedas = new SelectList(monedasLogic.GetAllMonedas(), "Id", "Nombre");
+
+            var lista = productoLogic.GetAll();
+            return PartialView("_ProductosListar", lista);
+        }
+
+        public ActionResult ProductoAdd() {
+            ViewBag.Heading = "Agregar Producto";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Codigo");
+            ViewBag.Monedas = new SelectList(monedasLogic.GetAllMonedas(), "Id", "Nombre");
+            Producto model = new Producto();
+            return PartialView("_ProductoAddUpd", model);
+        }
+
+        public ActionResult ProductoEdit(int id)
+        {
+            ViewBag.Heading = "Agregar Producto";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Codigo");
+            ViewBag.Monedas = new SelectList(monedasLogic.GetAllMonedas(), "Id", "Nombre");
+            Producto model = productoLogic.GetProductoPorId(id) ;
+            return PartialView("_ProductoAddUpd", model);
+        }
+
+        public ActionResult GuardarProducto(Producto model)
+        {
+            ViewBag.ModalHeading = model.Id == 0 ? "Agregar Producto" : "Editar Producto";
+            ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Codigo");
+            ViewBag.Monedas = new SelectList(monedasLogic.GetAllMonedas(), "Id", "Nombre");
+            model.UsuarioCrea = Usuario.UserId;
+
+            if (!ModelState.IsValid)
+                return PartialView("_ProductoAddUpd", model);
+            var respuesta = productoLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_ProductoAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("ProductosListar");
+            return Json(respuesta);
+        }
+
+        public ActionResult ProductImageAdd(int IdProducto) {
+            ViewBag.Heading = "Agregar Imagen del Producto";
+            ProductoImages model = new ProductoImages();
+            model.IdProducto = IdProducto;
+            return PartialView("_ProductoImageAddUpd", model);
+        }
+        public ActionResult ProductImageEdit(int id)
+        {
+            ViewBag.Heading = "Agregar Imagen del Producto";
+            ProductoImages model = productoImagesLogic.GetProductoPorId(id);
+            return PartialView("_ProductoImageAddUpd", model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult GuardarProductoImages([Bind(Exclude = "productoimage")] ProductoImages model) {
+            ViewBag.ModalHeading = model.Id == 0 ? "Agregar Imagen de Producto" : "Editar Imagen de Productos";
+            if (!ModelState.IsValid)
+                return PartialView("_ProductoImageAddUpd", model);
+            var respuesta = productoImagesLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_ProductoImageAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("ProductosListar");
             return Json(respuesta);
         }
         #endregion

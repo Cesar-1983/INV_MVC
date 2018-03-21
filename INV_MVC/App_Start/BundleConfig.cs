@@ -41,6 +41,10 @@ namespace INV_MVC
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
             /*Js*/
+
+            bundles.Add(new ScriptBundle("~/bundles/jasny").Include("~/Scripts/jasny/jasny-bootstrap.min.js"));
+            bundles.Add(new StyleBundle("~/Content/jasny").Include("~/Content/jasny/jasny-bootstrap.min.css"));
+
         }
     }
 }
