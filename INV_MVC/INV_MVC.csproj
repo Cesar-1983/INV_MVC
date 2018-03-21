@@ -135,8 +135,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.material.min.css" />
     <Content Include="Content\datepicker3.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\material.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\styles.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -174,6 +178,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -192,6 +198,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\baseController.cs" />
     <Compile Include="Controllers\CatalogosController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -229,7 +236,8 @@
     <Content Include="Views\Catalogos\_MonedasListar.cshtml" />
     <Content Include="Views\Catalogos\_MonedaAddUpd.cshtml" />
     <Content Include="Views\Catalogos\_MonedaEliminar.cshtml" />
-
+    <Content Include="Views\Cliente\_ClienteAddUpd.cshtml" />
+    <Content Include="Views\Cliente\_ClienteListar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -24,6 +24,7 @@ namespace Data
         public DbSet<Unidades> Unidades { get; set; }
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ProductoImages> ProductoImages { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
