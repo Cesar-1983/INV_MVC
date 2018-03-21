@@ -219,6 +219,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Shared\_LayoutSinglePage.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
+    <Content Include="Views\Catalogos\_MonedasListar.cshtml" />
+    <Content Include="Views\Catalogos\_MonedaAddUpd.cshtml" />
+    <Content Include="Views\Catalogos\_MonedaEliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

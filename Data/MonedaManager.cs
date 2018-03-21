@@ -1,21 +1,22 @@
-﻿using Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Entidades;
 namespace Data
 {
-    public class UsuariosManager
+    public class MonedaManager
     {
-        public List<Usuarios> GetAllUsuarios() {
-            List<Usuarios> Lista = new List<Usuarios>();
+        public List<Monedas> GetAllMonedas()
+        {
+            List<Monedas> Lista = new List<Monedas>();
             try
             {
-                using (var db = new DataContext()) {
-                    Lista = db.Usuarios.ToList();
+                using (var db = new DataContext())
+                {
+                    Lista = db.Monedas.ToList();
                 }
             }
             catch (Exception)
@@ -25,14 +26,14 @@ namespace Data
             }
             return Lista;
         }
-        public Usuarios GetUsuariosPorId( int id)
+        public Monedas GetMonedasPorId(int id)
         {
-            Usuarios Lista = new Usuarios();
+            Monedas Lista = new Monedas();
             try
             {
                 using (var db = new DataContext())
                 {
-                    Lista = db.Usuarios.Where (x=> x.Id == id).FirstOrDefault();
+                    Lista = db.Monedas.Where(x => x.Id == id).FirstOrDefault();
                 }
             }
             catch (Exception)
@@ -42,25 +43,7 @@ namespace Data
             }
             return Lista;
         }
-        public Usuarios GetUsuariosPorUserName(string username)
-        {
-            Usuarios Lista = new Usuarios();
-            try
-            {
-                using (var db = new DataContext())
-                {
-                    Lista = db.Usuarios.Include("PerfilSeguridad").Include("EstadoUsuarios").Where(x => x.UserName == username || x.Email == username).FirstOrDefault() ;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            return Lista;
-        }
-
-        public RespondModel Guardar(Usuarios usuarios)
+        public RespondModel Guardar(Monedas monedas)
         {
             var rm = new RespondModel();
             string mensaje = "";
@@ -68,14 +51,14 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
-                    if (usuarios.Id > 0)
+                    if (monedas.Id > 0)
                     {
-                        db.Entry(usuarios).State = System.Data.Entity.EntityState.Modified;
+                        db.Entry(monedas).State = System.Data.Entity.EntityState.Modified;
                         mensaje = "Registro actualizado exitosamente";
                     }
                     else
                     {
-                        db.Entry(usuarios).State = System.Data.Entity.EntityState.Added;
+                        db.Entry(monedas).State = System.Data.Entity.EntityState.Added;
                         mensaje = "Registro agregado exitosamente";
                     }
                     db.SaveChanges();
@@ -98,17 +81,44 @@ namespace Data
                 }
                 rm.SetResponse(false, ex.Message);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 rm.SetResponse(false, ex.Message);
             }
             return rm;
         }
-
-        public RespondModel EmailConfirmacion(int id)
+        public RespondModel Eliminar(int id)
         {
-            var usuario = GetUsuariosPorId(id);
-            usuario.EmailConfirmed = true;
-            return Guardar(usuario);
+            var rm = new RespondModel();
+            string mensaje = "";
+            bool resp = false;
+            try
+            {
+                using (var db = new DataContext())
+                {
+                    var reg = db.Monedas.Where(x => x.Id == id).FirstOrDefault();
+                    if (reg.Id > 0)
+                    {
+                        db.Entry(reg).State = System.Data.Entity.EntityState.Deleted;
+                        mensaje = "Registro eliminado exitosamente";
+                        resp = true;
+                    }
+                    else
+                    {
+                        resp = false;
+                        mensaje = "El registro no existe.";
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                resp = false;
+                mensaje = ex.Message;
+
+            }
+            rm.SetResponse(resp, mensaje);
+            return rm;
         }
 
     }

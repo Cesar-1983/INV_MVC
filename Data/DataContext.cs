@@ -19,6 +19,7 @@ namespace Data
         public DbSet<EstadoUsuarios> EstadoUsuarios { get; set; }
         public DbSet<PerfilSeguridad> PerfilSeguridad { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Monedas> Monedas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

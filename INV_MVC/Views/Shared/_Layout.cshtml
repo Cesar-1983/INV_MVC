@@ -165,7 +165,10 @@
                 </a>
                 <ul class="children collapse" id="catalogos">
                     <li>
-                        @Ajax.ActionLink("Estados Usuarios", "EstadosUsuariosListar","Catalogos", new AjaxOptions { UpdateTargetId= "renderpartial",InsertionMode=InsertionMode.Replace,HttpMethod="GET" })
+                        @Ajax.ActionLink("Estados Usuarios", "EstadosUsuariosListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Monedas", "MonedasListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                 </ul>
             </li>
