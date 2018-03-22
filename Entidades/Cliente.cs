@@ -18,7 +18,7 @@ namespace Entidades
         public string Apellido { get; set; }
         public string Direccion { get; set; }
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Formato invalido.")]
+        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Formato invalido.")]
         public string Telefono { get; set; }
         [Display(Name = "Correo")]
         [DataType(DataType.EmailAddress)]

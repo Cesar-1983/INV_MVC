@@ -22,5 +22,15 @@ namespace Negocio
         {
             return clienteM.Guardar(cliente);
         }
+
+        public Cliente GetClientePorId(int id)
+        {
+            return clienteM.GetClientePorId(id);
+        }
+
+        public RespondModel Eliminar(int id)
+        {
+            return clienteM.Eliminar(id);
+        }
     }
 }

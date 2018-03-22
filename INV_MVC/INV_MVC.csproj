@@ -203,6 +203,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TasaCambiosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,9 +243,14 @@
     <Content Include="Views\Catalogos\_ProductoAddUpd.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ProductoImages.cshtml" />
     <Content Include="Views\Catalogos\_ProductoImageAddUpd.cshtml" />
+	<Content Include="Views\Cliente\_ClienteAddUpd.cshtml" />
     <Content Include="Views\Cliente\_ClienteAddUpd.cshtml" />
     <Content Include="Views\Cliente\_ClienteListar.cshtml" />
-    <Content Include="Views\Catalogos\_ProductImageCarousel.cshtml" />
+	<Content Include="Views\Cliente\_ClienteEliminar.cshtml" />
+	<Content Include="Views\Catalogos\_ProductImageCarousel.cshtml" />
+    <Content Include="Views\TasaCambios\_TasaCambiosListar.cshtml" />
+    <Content Include="Views\TasaCambios\_TasaCambiosAddUpd.cshtml" />
+    <Content Include="Views\TasaCambios\_TasaCambiosEliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

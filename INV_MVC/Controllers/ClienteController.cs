@@ -31,6 +31,13 @@ namespace INV_MVC.Controllers
             return PartialView("_ClienteAddUpd", model);
         }
 
+        public ActionResult ClienteEdit(int id)
+        {
+            ViewBag.ModalHeading = "Editar Cliente";
+            Cliente model = clientelogic.GetClientePorId(id);
+            return PartialView("_ClienteAddUpd", model);
+        }
+
         [ValidateAntiForgeryToken]
         [HttpPost]
 
@@ -53,6 +60,36 @@ namespace INV_MVC.Controllers
             respuesta.href = Url.Action("ClienteListar");
             return Json(respuesta);
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClienteEliminarById(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Cliente";
+            if (!ModelState.IsValid)
+            {
+                Cliente model = clientelogic.GetClientePorId(id);
+                return PartialView("_ClienteEliminar", model);
+
+            }
+            var respuesta = clientelogic.Eliminar(id);
+            if (!respuesta.response)
+            {
+                Cliente model = clientelogic.GetClientePorId(id);
+                return PartialView("_ClienteEliminar", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("ClienteListar");
+            return Json(respuesta);
+        }
+
+        public ActionResult ClienteEliminar(int id)
+        {
+            ViewBag.ModalHeading = "Eliminar Categoría";
+            Cliente model = clientelogic.GetClientePorId(id);
+            return PartialView("_ClienteEliminar", model);
         }
     }
 }
