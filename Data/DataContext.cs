@@ -25,8 +25,23 @@ namespace Data
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ProductoImages> ProductoImages { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<TasaCambios> TasaCambios { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Monedas>()
+               .HasMany(e => e.TasaCambios)
+               .WithRequired(e => e.Monedas)
+               .HasForeignKey(e => e.IdMonedaLocal)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Monedas>()
+                .HasMany(e => e.TasaCambios1)
+                .WithRequired(e => e.Monedas1)
+                .HasForeignKey(e => e.IdMonedaExtranjera)
+                .WillCascadeOnDelete(false);
+
+
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }

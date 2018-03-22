@@ -181,8 +181,11 @@
                     <li>
                         @Ajax.ActionLink("Productos", "ProductosListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
-<li>
+                    <li>
                         @Ajax.ActionLink("Clientes", "ClienteListar", "Cliente", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Tasa de Cambios", "TasaCambiosListar", "TasaCambios", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
 
                 </ul>

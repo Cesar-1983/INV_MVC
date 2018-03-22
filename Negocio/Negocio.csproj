@@ -49,6 +49,7 @@
     <Compile Include="ProductoImagesLogic.cs" />
     <Compile Include="ProductoLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasaCambiosLogic.cs" />
     <Compile Include="UnidadesLogic.cs" />
     <Compile Include="UsuariosLogic.cs" />
     <Compile Include="MonedasLogic.cs" />

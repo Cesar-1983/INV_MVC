@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entidades.Cliente>
+﻿@model IEnumerable<Entidades.TasaCambios>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -7,60 +7,54 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12">
-                @Html.ActionLink("Agregar", "ClienteAdd", "Cliente", null, new { @class = "btn btn-primary", data_modal = "" })
+                @Html.ActionLink("Agregar", "TasaCambiosAdd", "TasaCambios", null, new { @class = "btn btn-primary", data_modal = "" })
             </div>
         </div>
         <table id="grid" class="table table-hover table-bordered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.IdCliente)
+                        @Html.DisplayNameFor(model => model.IdMonedaLocal)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
+                        @Html.DisplayNameFor(model => model.IdMonedaExtranjera)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Apellido)
+                        @Html.DisplayNameFor(model => model.Fecha)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
+                        @Html.DisplayNameFor(model => model.TCoficial)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Telefono)
+                        @Html.DisplayNameFor(model => model.TCventa)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.email)
+                        @Html.DisplayNameFor(model => model.TCcompra)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Identificaion)
-                    </th>
-                    <th></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
+                {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdCliente)
+                        @Html.DisplayFor(modelItem => item.Monedas.Nombre)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
+                        @Html.DisplayFor(modelItem => item.Monedas1.Nombre)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
+                        @Html.DisplayFor(modelItem => item.Fecha)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
+                        @Html.DisplayFor(modelItem => item.TCoficial)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Telefono)
+                        @Html.DisplayFor(modelItem => item.TCventa)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Identificaion)
+                        @Html.DisplayFor(modelItem => item.TCcompra)
                     </td>
                     <td>
                         <div class="btn-group">
@@ -68,12 +62,12 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li>@Html.ActionLink("Editar", "ClienteEdit", new { id = item.IdCliente }, new { data_modal = "" })</li>
-                                <li>@Html.ActionLink("Eliminar", "ClienteEliminar", new { id = item.IdCliente }, new { data_modal = "" })</li>
+                                <li>@Html.ActionLink("Editar", "TasaCambiosEdit", new { id = item.IdTasaCambio }, new { data_modal = "" })</li>
+                                <li>@Html.ActionLink("Eliminar", "TasaCambiosEliminar", new { id = item.IdTasaCambio }, new { data_modal = "" })</li>
                             </ul>
                         </div>
                 </tr>
-        }
+                }
             </tbody>
 
         </table>
