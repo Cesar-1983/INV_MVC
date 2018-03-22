@@ -118,7 +118,7 @@ CREATE TABLE Producto
 GO	
 CREATE TABLE ProductoImages
 (
-	Id INT NOT NULL,
+	Id INT IDENTITY(1,1) NOT NULL,
 	IdProducto INT NOT NULL,
 	Image VARBINARY(MAX),
 	UsuarioCrea INT,
@@ -127,7 +127,48 @@ CREATE TABLE ProductoImages
 	CONSTRAINT FK_ProductoImages_Product FOREIGN KEY(IdProducto) REFERENCES dbo.Producto(Id)
 
 )
+GO
+CREATE TABLE TipoOperacion
+(
+	Id INT IDENTITY(1,1),
+	Nombre NVARCHAR(30),
+	CONSTRAINT PK_TipoOperacion PRIMARY KEY NONCLUSTERED(Id)
+)
+GO
+CREATE TABLE [dbo].[Cliente]
+(
+[IdCliente] [int] NOT NULL IDENTITY(1, 1),
+[Nombre] [nvarchar] (150) COLLATE Modern_Spanish_CI_AS NOT NULL,
+[Apellido] [nvarchar] (150) COLLATE Modern_Spanish_CI_AS NOT NULL,
+[Direccion] [nvarchar] (250) COLLATE Modern_Spanish_CI_AS NULL,
+[Telefono] [nvarchar] (20) COLLATE Modern_Spanish_CI_AS NULL,
+[email] [nvarchar] (50) COLLATE Modern_Spanish_CI_AS NULL,
+[Identificaion] [nvarchar] (19) COLLATE Modern_Spanish_CI_AS NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Cliente] ADD CONSTRAINT [PK_Cliente] PRIMARY KEY NONCLUSTERED ([IdCliente]) ON [PRIMARY]
+GO
+CREATE TABLE Operacion
+(
+	Id INT,
+	IdCliente INT NULL,
+	IdTipoOperacion INT NOT NULL,
+	Total DECIMAL(18,2),
+	FechaCreacion DATETIME DEFAULT GETDATE(),
+	CONSTRAINT PK_Operacion PRIMARY KEY (Id),
+	CONSTRAINT FK_Operacion_TipoOperacion FOREIGN KEY (IdTipoOperacion) REFERENCES dbo.TipoOperacion(Id),
+	CONSTRAINT FK_Operaracion_Cliente FOREIGN KEY (IdCliente) REFERENCES dbo.Cliente(IdCliente)
 
+)
+SELECT * FROM cli
+INSERT INTO	 dbo.TipoOperacion
+        ( Nombre )
+VALUES  ( N'Entrada'  -- Nombre - nvarchar(30)
+          )
+INSERT INTO	dbo.TipoOperacion
+        ( Nombre )
+VALUES  ( N'Salida'  -- Nombre - nvarchar(30)
+          )
 SELECT co.name,t.system_type_id,
 'public '+CASE
 	WHEN t.system_type_id IN(34,35,99,165,167,173,175,231,239) THEN	'string'
@@ -140,7 +181,7 @@ SELECT co.name,t.system_type_id,
 INNER JOIN sys.columns co 
 ON co.object_id = o.object_id 
 INNER JOIN sys.types t ON t.system_type_id = co.system_type_id AND t.user_type_id = co.user_type_id
-WHERE type='U' AND o.name='ProductoImages'
+WHERE type='U' AND o.name='TipoOperacion'
 
 
 SELECT * FROM sys.types WHERE system_type_id=231
@@ -151,3 +192,7 @@ SELECT * FROM dbo.Usuarios
 SELECT * FROM dbo.Monedas
 
 SELECT * FROM dbo.Usuarios
+SELECT * FROM dbo.Producto
+DELETE FROM dbo.ProductoImages
+
+SELECT * FROM dbo.TipoOperacion
