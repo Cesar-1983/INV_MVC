@@ -46,14 +46,29 @@ function bindForm(dialog) {
     $('form', dialog).submit(function () {
         debugger;
         var block = $('<div class="block-loading" />');
-        
-        $("body").prepend(block); 
+        var dataString;
+        var contentType;
+        var processData;
+        $("body").prepend(block);
+        if (this.enctype === 'multipart/form-data') {
+            dataString = new FormData($(this).get(0));
+            
+            //dataString.append('datos',$(this).serialize());
+            contentType = false;
+            processData = false;
+        }
+        else {
+            dataString = $(this).serialize();
+            contentType = this.enctype;
+            processData = true;
+        }
         $.ajax({
             url: this.action,
             type: this.method,
-            data: $(this).serialize(),
-            processData: false,
-            contentType: false,
+            data: dataString,
+            //data: $(this).serialize(),
+            processData: processData,
+            contentType: contentType,
             success: function (result) {
                 if (result.response) {
                     block.remove();

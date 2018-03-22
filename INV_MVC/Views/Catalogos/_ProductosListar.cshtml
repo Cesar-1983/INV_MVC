@@ -76,9 +76,10 @@
                                     <li>@Html.ActionLink("Editar", "ProductoEdit", new { id = item.Id }, new { data_modal = "" })</li>
                                     @*<li>@Html.ActionLink("Eliminar", "CategoriaEliminar", new { id = item.Id }, new { data_modal = "" })</li>*@
                                     @if (item.Id != 0)
-                                    {
-                                        <li>@Html.ActionLink("Agregar Imagen", "ProductImageAdd", new { IdProducto = item.Id }, new { data_modal = "" })</li>
-                                    }
+    {
+                                <li>@Html.ActionLink("Agregar Imagen", "ProductImageAdd", new { IdProducto = item.Id }, new { data_modal = "" })</li>
+                                <li>@Html.ActionLink("Ver Imagenes", "ProductImageCarousel", new { IdProducto = item.Id }, new { data_modal = "" })</li>
+}
                                 </ul>
                             </div>
                         </td>

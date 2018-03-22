@@ -438,6 +438,12 @@ namespace INV_MVC.Controllers
             respuesta.href = Url.Action("ProductosListar");
             return Json(respuesta);
         }
+
+        public ActionResult ProductImageCarousel(int IdProducto) {
+            ViewBag.ModalHeading = "Imagenes del Producto";
+            var model = productoImagesLogic.GetProductImageByProductId(IdProducto);
+            return PartialView("_ProductImageCarousel", model);
+        }
         #endregion
 
     }

@@ -242,8 +242,9 @@
     <Content Include="Views\Catalogos\_ProductoAddUpd.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ProductoImages.cshtml" />
     <Content Include="Views\Catalogos\_ProductoImageAddUpd.cshtml" />
-<Content Include="Views\Cliente\_ClienteAddUpd.cshtml" />
+    <Content Include="Views\Cliente\_ClienteAddUpd.cshtml" />
     <Content Include="Views\Cliente\_ClienteListar.cshtml" />
+    <Content Include="Views\Catalogos\_ProductImageCarousel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
