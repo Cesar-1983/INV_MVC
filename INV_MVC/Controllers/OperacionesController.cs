@@ -41,8 +41,8 @@ namespace INV_MVC.Controllers
             else if (operacion.StartsWith("eliminar-detalle-")) {
                 EliminarDetalleOperacionPorIndice(model, operacion);
             }
-            ViewBag.Productos = productoLogic.GetAll();
-            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Productos =  productoLogic.GetAll();
+            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "IdCliente", "Nombre");
             return PartialView(model);
         }
 

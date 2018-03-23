@@ -20,6 +20,9 @@ namespace Data
             {
                 using (var db = new DataContext())
                 {
+                    var valor = db.Cliente.Where(x => x.Identificaion == cliente.Identificaion).ToList();
+
+                    
                     if (cliente.IdCliente > 0)
                     {
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
