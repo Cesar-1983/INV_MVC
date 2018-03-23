@@ -1,5 +1,6 @@
 USE BDINV
 GO
+
 CREATE TABLE EstadoUsuarios
 (
 	Id INT IDENTITY(1,1),
@@ -72,14 +73,14 @@ GO
 CREATE TABLE Categoria
 (
 	Id INT IDENTITY(1,1),
+	CategoriaParentId int NULL,
 	Nombre NVARCHAR(200),
 	DesCategoria NVARCHAR(200),
-	FechaCreación DATETIME,
+	FechaCreacion DATETIME,
 	UsuarioCrea INT,
 	CONSTRAINT FK_Categoria_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
-
+	CONSTRAINT FK_Categoria_CategoriaParentId FOREIGN KEY (CategoriaParentId) REFERENCES dbo.Categoria(Id),
 	CONSTRAINT PK_Categoria PRIMARY KEY NONCLUSTERED (Id)
-
 )
 GO
 CREATE TABLE Unidades
@@ -88,8 +89,10 @@ CREATE TABLE Unidades
 	DesUnidades NVARCHAR(200),
 	Codigo NVARCHAR(10) UNIQUE,
 	UsuarioCrea INT,
+	FechaCreacion DATETIME,
 	CONSTRAINT FK_Unidades_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
-	CONSTRAINT PK_Unidades PRIMARY KEY NONCLUSTERED (Id)
+	CONSTRAINT PK_Unidades PRIMARY KEY NONCLUSTERED (Id),
+	CONSTRAINT CK_Unidades_CodigoUnique UNIQUE (Codigo)
 )
 GO	
 CREATE TABLE Producto
@@ -97,6 +100,7 @@ CREATE TABLE Producto
 	Id INT IDENTITY(1,1),
 	IdCategoria INT,
 	IdUnidad INT,
+	IdMoneda INT,
 	barcode NVARCHAR(100),
 	Nombre NVARCHAR(100),
 	DesProducto NVARCHAR(250),
@@ -108,12 +112,107 @@ CREATE TABLE Producto
 	CONSTRAINT PK_Producto PRIMARY KEY NONCLUSTERED (Id),
 	CONSTRAINT FK_Producto_Categoria FOREIGN KEY (IdCategoria) REFERENCES dbo.Categoria (Id),
 	CONSTRAINT FK_Producto_Unidades FOREIGN KEY (IdUnidad) REFERENCES dbo.Unidades (Id),
-	CONSTRAINT FK_Producto_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id)
+	CONSTRAINT FK_Producto_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
+	CONSTRAINT FK_Producto_Monedas FOREIGN KEY (IdMoneda) REFERENCES dbo.Monedas(Id)
 )
 GO	
 CREATE TABLE ProductoImages
 (
-	Id INT IDENTITY(1,1),
-	IdProducto INT,
-	Image VARBINARY(MAX)
+	Id INT IDENTITY(1,1) NOT NULL,
+	IdProducto INT NOT NULL,
+	Image VARBINARY(MAX),
+	UsuarioCrea INT,
+	CONSTRAINT PK_ProductoImages PRIMARY KEY NONCLUSTERED (Id,IdProducto),
+	CONSTRAINT FK_ProductoImages_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id),
+	CONSTRAINT FK_ProductoImages_Product FOREIGN KEY(IdProducto) REFERENCES dbo.Producto(Id)
+
 )
+GO
+CREATE TABLE TipoOperacion
+(
+	Id INT IDENTITY(1,1),
+	Nombre NVARCHAR(30),
+	CONSTRAINT PK_TipoOperacion PRIMARY KEY NONCLUSTERED(Id)
+)
+GO
+CREATE TABLE [dbo].[Cliente]
+(
+[IdCliente] [int] NOT NULL IDENTITY(1, 1),
+[Nombre] [nvarchar] (150) COLLATE Modern_Spanish_CI_AS NOT NULL,
+[Apellido] [nvarchar] (150) COLLATE Modern_Spanish_CI_AS NOT NULL,
+[Direccion] [nvarchar] (250) COLLATE Modern_Spanish_CI_AS NULL,
+[Telefono] [nvarchar] (20) COLLATE Modern_Spanish_CI_AS NULL,
+[email] [nvarchar] (50) COLLATE Modern_Spanish_CI_AS NULL,
+[Identificaion] [nvarchar] (19) COLLATE Modern_Spanish_CI_AS NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Cliente] ADD CONSTRAINT [PK_Cliente] PRIMARY KEY NONCLUSTERED ([IdCliente]) ON [PRIMARY]
+GO
+DROP TABLE Operacion
+CREATE TABLE Operacion
+(
+	Id INT,
+	IdCliente INT NULL,
+	IdTipoOperacion INT NOT NULL,
+	Total DECIMAL(18,2),
+	CantProductos INT,
+	Estado CHAR(3),
+	FechaCreacion DATETIME DEFAULT GETDATE(),
+	UsuarioCrea INT,
+	CONSTRAINT PK_Operacion PRIMARY KEY (Id),
+	CONSTRAINT FK_Operacion_TipoOperacion FOREIGN KEY (IdTipoOperacion) REFERENCES dbo.TipoOperacion(Id),
+	CONSTRAINT FK_Operacion_Cliente FOREIGN KEY (IdCliente) REFERENCES dbo.Cliente(IdCliente),
+	CONSTRAINT CK_Operacion_Estado CHECK (Estado IN ('ACT','PEN','ANU')),
+	CONSTRAINT FK_Operacion_Usuarios FOREIGN KEY (UsuarioCrea) REFERENCES dbo.Usuarios (Id)
+
+)
+GO
+CREATE TABLE DetalleOperacion
+(
+	Id INT,
+	IdOperacion INT,
+	IdProducto INT,
+	Cantidad INT,
+	Precio DECIMAL(18,2),
+	CONSTRAINT PK_DetalleOperacion PRIMARY KEY NONCLUSTERED (Id),
+	CONSTRAINT FK_DetalleOperacion_Operacion FOREIGN KEY (IdOperacion) REFERENCES dbo.Operacion(Id),
+	CONSTRAINT FK_DetalleOperacion_Producto FOREIGN KEY (IdOperacion) REFERENCES dbo.Producto(Id)
+)
+
+SELECT * FROM cli
+INSERT INTO	 dbo.TipoOperacion
+        ( Nombre )
+VALUES  ( N'Entrada'  -- Nombre - nvarchar(30)
+          )
+INSERT INTO	dbo.TipoOperacion
+        ( Nombre )
+VALUES  ( N'Salida'  -- Nombre - nvarchar(30)
+          )
+SELECT co.name,t.system_type_id,
+'public '+CASE
+	WHEN t.system_type_id IN(34,35,99,165,167,173,175,231,239) THEN	'string'
+	WHEN t.system_type_id IN(56) THEN'int'
+	WHEN t.system_type_id IN (61,42) AND co.is_nullable=1 THEN 'DateTime?'
+	WHEN t.system_type_id IN (61,42) AND co.is_nullable=0 THEN 'DateTime'
+	WHEN t.system_type_id IN (106) THEN 'decimal'
+	WHEN t.system_type_id IN (104) THEN 'bool' end +' '+ co.name+'{ get; set; }',
+* FROM sys.objects o 
+INNER JOIN sys.columns co 
+ON co.object_id = o.object_id 
+INNER JOIN sys.types t ON t.system_type_id = co.system_type_id AND t.user_type_id = co.user_type_id
+WHERE type='U' AND o.name='DetalleOperacion'
+
+
+SELECT * FROM sys.types WHERE system_type_id=231
+
+SELECT * FROM dbo.Categoria
+
+SELECT * FROM dbo.Usuarios
+SELECT * FROM dbo.Monedas
+
+SELECT * FROM dbo.Usuarios
+SELECT * FROM dbo.Producto
+DELETE FROM dbo.ProductoImages
+
+SELECT * FROM dbo.TipoOperacion
+SELECT * FROM Usuarios AS u
