@@ -162,6 +162,16 @@
                 </ul>
             </li>
             <li class="parent">
+                <a data-toggle="collapse" href="#operaciones">
+                    <em class="fa fa-exchange">&nbsp;</em> Operaciones <span data-toggle="collapse" href="#operaciones" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="operaciones">
+                    <li>
+                        @Ajax.ActionLink("Entradas de Inventario", "Entrada", "Operaciones", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                </ul>
+            </li>
+            <li class="parent">
                 <a data-toggle="collapse" href="#catalogos">
                     <em class="fa fa-navicon">&nbsp;</em> Catalogos <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
                 </a>
@@ -642,7 +652,7 @@
     @Scripts.Render("~/bundles/modalform")
     @*@Scripts.Render("~/bundles/app")*@
 
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    
     <script src="~/Scripts/jquery.dataTables.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/datetimepicker/datepicker.js"></script>
@@ -658,7 +668,15 @@
                 monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                 weekStart: 1
             });
+
+            
         });
+        function getprice(e, p, c) {
+
+            var ddl = e;
+            var precio = p;
+            var cantidad = c;
+        };
                     //$('#grid').dataTable({
                     //    "lengthMenu": [10, 25, 50, 75, 100],
                     //    "pageLength": 100,

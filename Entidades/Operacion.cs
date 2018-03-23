@@ -28,5 +28,11 @@ namespace Entidades
         public TipoOperacion TipoOperacion { get; set; }
         public Cliente Cliente { get; set; }
 
+        public ICollection<DetalleOperacion> DetalleOperacion { get; set; }
+
+        public Operacion() {
+            this.DetalleOperacion = new HashSet<DetalleOperacion>();
+        }
+
     }
 }
