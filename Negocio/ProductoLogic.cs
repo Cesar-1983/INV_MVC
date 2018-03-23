@@ -38,5 +38,15 @@ namespace Negocio
         {
             return ProdManager.Eliminar(id);
         }
+
+        public decimal GetPrecioInPorProducto(int id) {
+            var producto = ProdManager.GetProductoPorId(id);
+            return producto.precio_in;
+        }
+        public decimal GetPrecioOutPorProducto(int id)
+        {
+            var producto = ProdManager.GetProductoPorId(id);
+            return producto.precio_out;
+        }
     }
 }

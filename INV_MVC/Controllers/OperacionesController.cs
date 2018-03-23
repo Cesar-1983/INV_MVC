@@ -7,15 +7,17 @@ using Entidades;
 using Negocio;
 namespace INV_MVC.Controllers
 {
-    public class OperacionesController : Controller
+    public class OperacionesController : baseController
     {
         ProductoLogic productoLogic = new ProductoLogic();
         ClienteLogic clienteLogic = new ClienteLogic();
         // GET: Operaciones
-        public ActionResult Entrada()
+        public ActionResult Entrada(int operacion)
         {
+            var model = new Operacion { IdTipoOperacion = operacion, Total = 0, CantProductos = 0 ,UsuarioCrea=Usuario.UserId};
+            
             ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "Id", "Nombre");
-            return PartialView();
+            return PartialView(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -29,7 +31,7 @@ namespace INV_MVC.Controllers
             {
                 if (CrearOperacion(model))
                 {
-                    return RedirectToAction("Entrada");
+                    return PartialView("Entrada");
                 }
             }
             else if (operacion == "agregar-detalle")
@@ -66,6 +68,17 @@ namespace INV_MVC.Controllers
             {
                 var item = model.DetalleOperacion.ToArray()[index];
                 model.DetalleOperacion.Remove(item);
+            }
+        }
+
+        public decimal GetPrecioProducto(int producto, string tipo) {
+            
+            if (tipo == "in")
+            {
+                return productoLogic.GetPrecioInPorProducto(producto);
+            }
+            else {
+                return productoLogic.GetPrecioInPorProducto(producto);
             }
         }
     }

@@ -167,7 +167,7 @@
                 </a>
                 <ul class="children collapse" id="operaciones">
                     <li>
-                        @Ajax.ActionLink("Entradas de Inventario", "Entrada", "Operaciones", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                        @Ajax.ActionLink("Entradas de Inventario", "Entrada", "Operaciones", new { operacion=1 }, new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                 </ul>
             </li>
@@ -676,7 +676,20 @@
             var ddl = e;
             var precio = p;
             var cantidad = c;
+
+            var IdProducto = $('#' + e).val();
+            $.get('@Url.Action("GetPrecioProducto","Operaciones")', { producto: IdProducto, tipo: 'in' }, function (data) {
+                var datos = data;
+                $('#' + precio).val(data);
+            })
+            
         };
+        function calcularTotal(e, p, c) {
+            var precio = Number($('#' + p).val());
+            var cantidad = Number($('#' + c).val());
+            $('#' + e).val(precio * cantidad);
+
+        }
                     //$('#grid').dataTable({
                     //    "lengthMenu": [10, 25, 50, 75, 100],
                     //    "pageLength": 100,
