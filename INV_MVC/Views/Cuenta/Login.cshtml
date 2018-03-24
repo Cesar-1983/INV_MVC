@@ -13,20 +13,23 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <fieldset>
-            <div class="form-group">
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "E-mail", name = "Email", type = "email", autofocus = "" })
-            </div>
-            <div class="form-group">
-                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", name = "Password", type = "password", value = "" })
-            </div>
-            @*<div class="checkbox">
+            <fieldset>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "E-mail", name = "Email", type = "email", autofocus = "" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", name = "Password", type = "password", value = "" })
+                </div>
+                @*<div class="checkbox">
             <label>
                 <input name="remember" type="checkbox" value="Remember Me">Remember Me
             </label>
         </div>*@
-            <button title="Ingresar" type="submit" class="btn btn-primary">Ingresar</button>
-        </fieldset>
+                <button title="Ingresar" type="submit" class="btn btn-primary">Ingresar</button>
+                <p>
+                    @Html.ActionLink("Registrar", "Registrarse")
+                </p>
+            </fieldset>
 }
         </div>
     </div>
