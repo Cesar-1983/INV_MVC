@@ -34,6 +34,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +48,6 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="DetalleOperacion.cs" />
     <Compile Include="EstadoUsuarios.cs" />
-    <Compile Include="ListarProductos.cs" />
     <Compile Include="Monedas.cs" />
     <Compile Include="Operacion.cs" />
     <Compile Include="PerfilSeguridad.cs" />
@@ -59,6 +60,12 @@
     <Compile Include="Unidades.cs" />
     <Compile Include="Usuarios.cs" />
     <Compile Include="TasaCambios.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

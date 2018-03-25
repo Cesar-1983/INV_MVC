@@ -271,6 +271,7 @@
     <Compile Include="Models\CuentaViewModel\LoginViewModel.cs" />
     <Compile Include="Models\CuentaViewModel\RegistroUsuarioViewModel.cs" />
     <Compile Include="Models\CuentaViewModel\UsuarioViewModel.cs" />
+    <Compile Include="Models\ListarProductos.cs" />
     <Compile Include="Models\ValidationClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -315,6 +316,8 @@
     <Content Include="Views\Operaciones\Entrada.cshtml" />
     <Content Include="Views\Operaciones\_OperacionesListar.cshtml" />
     <Content Include="Views\Catalogos\ConsultaProductos.cshtml" />
+    <Content Include="Views\Catalogos\ProductosAll.cshtml" />
+    <Content Include="Views\Catalogos\_ProductosAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Entidades.ListarProductos>
+
+@{
+    ViewBag.Title = "ProductosAll";
+}
+
+<h2>ProductosAll</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesProducto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesUnidades)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inventario_Min)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Moneda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio_in)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio_out)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesUnidades)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inventario_Min)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Moneda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio_in)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio_out)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
