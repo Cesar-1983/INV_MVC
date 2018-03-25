@@ -16,7 +16,7 @@ namespace INV_MVC.Controllers
         {
             var model = new Operacion { IdTipoOperacion = operacion, Total = 0, CantProductos = 0 ,UsuarioCrea=Usuario.UserId};
             
-            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "IdCliente", "Nombre");
             return PartialView(model);
         }
         [HttpPost]
