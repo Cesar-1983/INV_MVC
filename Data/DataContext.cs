@@ -26,6 +26,8 @@ namespace Data
         public DbSet<ProductoImages> ProductoImages { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<TasaCambios> TasaCambios { get; set; }
+        public DbSet<Operacion> Operacion { get; set; }
+        public DbSet<DetalleOperacion> DetalleOperacion { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Monedas>()

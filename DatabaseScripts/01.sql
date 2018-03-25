@@ -105,6 +105,7 @@ CREATE TABLE Producto
 	Nombre NVARCHAR(100),
 	DesProducto NVARCHAR(250),
 	Inventario_Min INT,
+	Stock INT,
 	precio_in DECIMAL(18,2),
 	precio_out DECIMAL(18,2),
 	FechaCreacion DATETIME,
@@ -151,7 +152,7 @@ GO
 DROP TABLE Operacion
 CREATE TABLE Operacion
 (
-	Id INT,
+	Id INT IDENTITY(1,1),
 	IdCliente INT NULL,
 	IdTipoOperacion INT NOT NULL,
 	Total DECIMAL(18,2),
@@ -167,6 +168,8 @@ CREATE TABLE Operacion
 
 )
 GO
+DROP TABLE DetalleOperacion
+
 CREATE TABLE DetalleOperacion
 (
 	Id INT,
@@ -174,10 +177,14 @@ CREATE TABLE DetalleOperacion
 	IdProducto INT,
 	Cantidad INT,
 	Precio DECIMAL(18,2),
-	CONSTRAINT PK_DetalleOperacion PRIMARY KEY NONCLUSTERED (Id),
+	CONSTRAINT PK_DetalleOperacion PRIMARY KEY NONCLUSTERED (IdOperacion,Id),
 	CONSTRAINT FK_DetalleOperacion_Operacion FOREIGN KEY (IdOperacion) REFERENCES dbo.Operacion(Id),
-	CONSTRAINT FK_DetalleOperacion_Producto FOREIGN KEY (IdOperacion) REFERENCES dbo.Producto(Id)
+	CONSTRAINT FK_DetalleOperacion_Producto FOREIGN KEY (IdProducto) REFERENCES dbo.Producto(Id)
 )
+DROP TABLE DetalleOperacion
+DROP TABLE Operacion
+DROP TABLE ProductoImages
+DROP TABLE Producto
 
 SELECT * FROM cli
 INSERT INTO	 dbo.TipoOperacion
@@ -211,7 +218,7 @@ SELECT * FROM dbo.Usuarios
 SELECT * FROM dbo.Monedas
 
 SELECT * FROM dbo.Usuarios
-SELECT * FROM dbo.Producto
+	SELECT * FROM dbo.Producto
 DELETE FROM dbo.ProductoImages
 
 SELECT * FROM dbo.TipoOperacion

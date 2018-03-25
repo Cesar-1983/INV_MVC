@@ -17,17 +17,20 @@ namespace Entidades
         [ForeignKey("Cliente")]
         public int? IdCliente { get; set; }
 
+        [Display(Name ="Tipo de Operacion")]
         [ForeignKey("TipoOperacion")]
         public int IdTipoOperacion { get; set; }
         public decimal Total { get; set; }
         public int CantProductos { get; set; }
         public string Estado { get; set; }
         public DateTime? FechaCreacion { get; set; }
+
+        [ForeignKey("Usuarios")]
         public int UsuarioCrea { get; set; }
 
         public TipoOperacion TipoOperacion { get; set; }
         public Cliente Cliente { get; set; }
-
+        public Usuarios Usuarios { get; set; }
         public ICollection<DetalleOperacion> DetalleOperacion { get; set; }
 
         public Operacion() {

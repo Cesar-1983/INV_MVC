@@ -37,7 +37,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><span>Inventarios y Ventas </span>Admin</a>
+                <a class="navbar-brand" href="#"><span>Inventario </span>Admin</a>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -134,7 +134,7 @@
             </div>
         </form>
         <ul class="nav menu">
-            <li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+            @*<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
             <li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
             <li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
             <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
@@ -160,14 +160,16 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>*@
             <li class="parent">
                 <a data-toggle="collapse" href="#operaciones">
                     <em class="fa fa-exchange">&nbsp;</em> Operaciones <span data-toggle="collapse" href="#operaciones" class="icon pull-right"><em class="fa fa-plus"></em></span>
                 </a>
                 <ul class="children collapse" id="operaciones">
                     <li>
-                        @Ajax.ActionLink("Entradas de Inventario", "Entrada", "Operaciones", new { operacion=1 }, new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                        @Ajax.ActionLink("Lista de Operaciones", "OperacionesListar", "Operaciones", new { operacion = 1 }, new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                        @Ajax.ActionLink("Entradas de Inventario", "Entrada", "Operaciones", new { operacion = 1 }, new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                        @Ajax.ActionLink("Salidas de Inventario", "Entrada", "Operaciones", new { operacion = 2 }, new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                 </ul>
             </li>
@@ -675,10 +677,10 @@
 
             var ddl = e;
             var precio = p;
-            var cantidad = c;
+            var tipo = c;
 
             var IdProducto = $('#' + e).val();
-            $.get('@Url.Action("GetPrecioProducto","Operaciones")', { producto: IdProducto, tipo: 'in' }, function (data) {
+            $.get('@Url.Action("GetPrecioProducto","Operaciones")', { producto: IdProducto, tipo: c }, function (data) {
                 var datos = data;
                 $('#' + precio).val(data);
             })
@@ -687,8 +689,9 @@
         function calcularTotal(e, p, c) {
             var precio = Number($('#' + p).val());
             var cantidad = Number($('#' + c).val());
+            var total = Number($('#Total').val())
             $('#' + e).val(precio * cantidad);
-
+            $('#Total').val(total + (precio * cantidad))
         }
                     //$('#grid').dataTable({
                     //    "lengthMenu": [10, 25, 50, 75, 100],

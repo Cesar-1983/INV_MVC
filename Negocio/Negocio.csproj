@@ -45,6 +45,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="ClienteLogic.cs" />
     <Compile Include="EstadoUsuariosLogic.cs" />
+    <Compile Include="OperacionLogic.cs" />
     <Compile Include="PerfilSeguridadLogic.cs" />
     <Compile Include="ProductoImagesLogic.cs" />
     <Compile Include="ProductoLogic.cs" />

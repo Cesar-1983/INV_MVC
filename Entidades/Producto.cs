@@ -12,8 +12,12 @@ namespace Entidades
     {
         [Key]
         public int Id { get; set; }
+
+        [ForeignKey("Categoria")]
         public int IdCategoria { get; set; }
+        [ForeignKey("Unidades")]
         public int IdUnidad { get; set; }
+        [ForeignKey("Monedas")]
         public int IdMoneda { get; set; }
         public string barcode { get; set; }
 
@@ -27,6 +31,8 @@ namespace Entidades
         public string DesProducto { get; set; }
         [Display(Name = "Inventario Minimo")]
         public int Inventario_Min { get; set; }
+        [Display(Name = "Existencias")]
+        public int Stock { get; set; }
 
         [Display(Name = "Precio Entrada")]
         public decimal precio_in { get; set; }
@@ -38,11 +44,11 @@ namespace Entidades
 
         public ICollection<ProductoImages> ProductoImages { get; set; }
 
-        [ForeignKey("IdCategoria")]
+        
         public virtual Categoria Categoria { get; set; }
-        [ForeignKey("IdUnidad")]
+        
         public virtual Unidades Unidades { get; set; }
-        [ForeignKey("IdMoneda")]
+        
         public virtual Monedas Monedas { get; set; }
 
         public Producto() {

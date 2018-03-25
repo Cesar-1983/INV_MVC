@@ -11,18 +11,27 @@ namespace INV_MVC.Controllers
     {
         ProductoLogic productoLogic = new ProductoLogic();
         ClienteLogic clienteLogic = new ClienteLogic();
+        OperacionLogic operacionLogic = new OperacionLogic();
+
+        public ActionResult OperacionesListar() {
+            ViewBag.Heading = "Lista de Operaciones";
+           var model = operacionLogic.GetAll();
+            return PartialView("_OperacionesListar",model);
+        }
         // GET: Operaciones
         public ActionResult Entrada(int operacion)
         {
-            var model = new Operacion { IdTipoOperacion = operacion, Total = 0, CantProductos = 0 ,UsuarioCrea=Usuario.UserId};
+            ViewBag.Heading = operacion == 1 ? "Entrada de Inventario" : "Salida de inventario";
+            var model = new Operacion { IdTipoOperacion = operacion, Total = 0, CantProductos = 0 ,UsuarioCrea=Usuario.UserId,Estado="ACT"};
             
-            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "Id", "Nombre");
+            ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "IdCliente", "Nombre");
             return PartialView(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Entrada(Operacion model,string operacion )
         {
+            ViewBag.Heading = model.IdTipoOperacion == 1 ? "Entrada de Inventario" : "Salida de inventario";
             if (model == null)
             {
                 model = new Operacion();
@@ -31,8 +40,12 @@ namespace INV_MVC.Controllers
             {
                 if (CrearOperacion(model))
                 {
-                    return PartialView("Entrada");
+                    ViewBag.Heading = "Lista de Operaciones";
+                    var listaoperaciones = operacionLogic.GetAll();
+
+                    return PartialView("_OperacionesListar", listaoperaciones);
                 }
+                
             }
             else if (operacion == "agregar-detalle")
             {
@@ -41,7 +54,10 @@ namespace INV_MVC.Controllers
             else if (operacion.StartsWith("eliminar-detalle-")) {
                 EliminarDetalleOperacionPorIndice(model, operacion);
             }
-            ViewBag.Productos =  productoLogic.GetAll();
+            var ListadoProductos = productoLogic.GetAll();
+            if (model.IdTipoOperacion != 1)
+                ListadoProductos = ListadoProductos.Where(x => x.Stock > 0).ToList();
+            ViewBag.Productos = ListadoProductos;
             ViewBag.Clientes = new SelectList(clienteLogic.GetAll(), "IdCliente", "Nombre");
             return PartialView(model);
         }
@@ -50,9 +66,11 @@ namespace INV_MVC.Controllers
             if (ModelState.IsValid) {
                 if (model.DetalleOperacion != null && model.DetalleOperacion.Count > 0)
                 {
-                    /*Asigno el Id de la Operacion*/
-                    model.Id = 1;
-                    return true;
+                    var respuesta = operacionLogic.Guardar(model);
+                    if(respuesta.NoError==0)
+                        return true;
+                    else
+                        ModelState.AddModelError("", respuesta.Mensaje);
                 }
                 else {
                     ModelState.AddModelError("", "No se puede guardar factura sin detalla");
@@ -78,7 +96,7 @@ namespace INV_MVC.Controllers
                 return productoLogic.GetPrecioInPorProducto(producto);
             }
             else {
-                return productoLogic.GetPrecioInPorProducto(producto);
+                return productoLogic.GetPrecioOutPorProducto(producto);
             }
         }
     }

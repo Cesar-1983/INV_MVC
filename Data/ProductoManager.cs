@@ -14,7 +14,7 @@ namespace Data
             List<Producto> lista = new List<Producto>();
             using (var db = new DataContext())
             {
-                lista = db.Producto.ToList();
+                lista = db.Producto.Include("Categoria"). ToList();
             }
             return lista;
         }

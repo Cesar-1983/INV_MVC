@@ -52,6 +52,7 @@
     <Compile Include="ClienteManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="EstadoUsuariosManager.cs" />
+    <Compile Include="OperacionManager.cs" />
     <Compile Include="PerfilSeguridadManager.cs" />
     <Compile Include="ProductoImagesManager.cs" />
     <Compile Include="ProductoManager.cs" />
