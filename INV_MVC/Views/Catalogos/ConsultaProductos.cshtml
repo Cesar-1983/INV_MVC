@@ -1,0 +1,122 @@
+﻿<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.intellisense.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.getJSON("~/Catalogos/ConsultaProductos", function (data) {
+
+
+            var tr;
+            $.each(data, function (d, i) {
+
+
+                tr = $('<tr/>');
+                tr.append("<td>" + i.Nombre + "</td>");
+                tr.append("<td>" + i.DesProducto + "</td>");
+                tr.append("<td>" + i.Categoria + "</td>");
+                tr.append("<td>" + i.DesUnidades + "</td>");
+                tr.append("<td>" + i.Inventario_Min + "</td>");
+                tr.append("<td>" + i.Moneda + "</td>");
+                tr.append("<td>" + i.precio_in + "</td>");
+                tr.append("<td>" + i.precio_out + "</td>");
+                $('#grid2').append(tr);
+
+
+
+            });
+
+        });
+
+
+
+    });
+
+
+</script>
+
+<div class="form-horizontal">
+
+    <hr />
+    <div class="form-group">
+        <table id="grid2" class="table table-responsive" style="width:400px">
+
+            <tr>
+                <th>
+                    Producto
+                </th>
+                <th>
+                    Descripcion
+                </th>
+                <th>
+                    Categoria
+                </th>
+
+                <th>
+                    Unidad
+                </th>
+                <th>
+                    Inventario Minimo
+                </th>
+                <th>
+                    Moneda
+                </th>
+                <th>
+                    Precio Entrada
+                </th>
+
+                <th>Precio Salida</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+
+
+
+    </div>
+</div>
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">
+        @ViewBag.Heading
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+
+            </div>
+        </div>
+        <table id="grid2" class="table table-responsive" style="width:400px">
+
+            <tr>
+                <th>
+                    Producto
+                </th>
+                <th>
+                    Descripcion
+                </th>
+                <th>
+                    Categoria
+                </th>
+
+                <th>
+                    Unidad
+                </th>
+                <th>
+                    Inventario Minimo
+                </th>
+                <th>
+                    Moneda
+                </th>
+                <th>
+                    Precio Entrada
+                </th>
+
+                <th>Precio Salida</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>*@
+
+

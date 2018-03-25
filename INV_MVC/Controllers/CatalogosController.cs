@@ -180,6 +180,16 @@ namespace INV_MVC.Controllers
             return Json(respuesta);
         }
 
+        [HttpGet]
+        public JsonResult ConsultaProductos()
+        {
+            WsConsulta.wsSoapClient db = new WsConsulta.wsSoapClient();
+            var wsconsulta = db.GetProductos().ToList();
+            return Json(wsconsulta, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         #endregion
 
         #region MetodosUnidades
