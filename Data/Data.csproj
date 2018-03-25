@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +55,7 @@
     <Compile Include="ClienteManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="EstadoUsuariosManager.cs" />
+    <Compile Include="ListarProductosManager.cs" />
     <Compile Include="PerfilSeguridadManager.cs" />
     <Compile Include="ProductoImagesManager.cs" />
     <Compile Include="ProductoManager.cs" />
@@ -64,12 +68,16 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Entidades.WSConsulta.ListarProductos.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{aa7b2d63-26e7-47b4-ab0d-010d34b65da3}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

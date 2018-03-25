@@ -181,11 +181,26 @@ namespace INV_MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult ConsultaProductos()
+        //public JsonResult ConsultaProductos()
+        //{
+        //    //WsConsulta.wsSoapClient db = new WsConsulta.wsSoapClient();
+        //    //var wsconsulta = db.GetProductos().ToList();
+        //    //return Json(wsconsulta, JsonRequestBehavior.AllowGet);
+        //}
+
+        //public ActionResult ProductosAll()
+        //{
+        //    var rs = from t in ListarProductos.ObtenerProductos()
+        //             select t;
+        //    return View(rs.ToList());
+        //}
+
+        public ActionResult ProductosAll()
         {
-            WsConsulta.wsSoapClient db = new WsConsulta.wsSoapClient();
-            var wsconsulta = db.GetProductos().ToList();
-            return Json(wsconsulta, JsonRequestBehavior.AllowGet);
+            ViewBag.Heading = "Lista de Productos";
+            var rs = from t in ListarProductos.ObtenerProductos()
+                     select t;
+            return PartialView("_ProductosAll", rs);
         }
 
 
