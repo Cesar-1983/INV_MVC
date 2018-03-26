@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Negocio;
 using Entidades;
 using System.IO;
+using Microsoft.Reporting.WebForms;
 
 namespace INV_MVC.Controllers
 {
@@ -483,6 +484,70 @@ namespace INV_MVC.Controllers
             return PartialView("_ProductImageCarousel", model);
         }
         #endregion
+        #region Reportes
 
+        public ActionResult ReporteEstadoUsuarios(string FileType, string ContentType) {
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/rptEstadoUsuarios.rdlc");
+
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "dsEstadosUsuarios";
+            reportDataSource.Value = EstadoUsuariosLogic.GetAllEstadosUsuarios();
+
+            localReport.DataSources.Add(reportDataSource);
+
+            string reportType = FileType;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+            string deviceInfo = "<DeviceInfo>" +
+        "  <OutputFormat>" + FileType + "</OutputFormat>" +
+        "  <PageWidth>8.5in</PageWidth>" +
+        "  <PageHeight>11in</PageHeight>" +
+        "  <MarginTop>0.5in</MarginTop>" +
+        "  <MarginLeft>1in</MarginLeft>" +
+        "  <MarginRight>1in</MarginRight>" +
+        "  <MarginBottom>0.5in</MarginBottom>" +
+        "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, ContentType, string.Format("ReporteEstadoUsuarios_{1}.{0}", fileNameExtension,string.Format("{0:yyyyMMdd}",DateTime.Today)));
+        }
+        public ActionResult ReporteCategoria(string FileType, string ContentType)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reportes/rptCategorias.rdlc");
+
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "dsCategoria";
+            reportDataSource.Value = categoriaLogic.GetAll();
+
+            localReport.DataSources.Add(reportDataSource);
+
+            string reportType = FileType;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+            string deviceInfo = "<DeviceInfo>" +
+        "  <OutputFormat>" + FileType + "</OutputFormat>" +
+        "  <PageWidth>8.5in</PageWidth>" +
+        "  <PageHeight>11in</PageHeight>" +
+        "  <MarginTop>0.5in</MarginTop>" +
+        "  <MarginLeft>1in</MarginLeft>" +
+        "  <MarginRight>1in</MarginRight>" +
+        "  <MarginBottom>0.5in</MarginBottom>" +
+        "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes = localReport.Render(reportType, deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            return File(renderedBytes, ContentType, string.Format("ReporteCategoria_{1}.{0}", fileNameExtension, string.Format("{0:yyyyMMdd}", DateTime.Today)));
+        }
+
+        #endregion
     }
 }

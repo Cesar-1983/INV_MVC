@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/swuni/ws.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50407/ws.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ws.wsdl" MetadataType="Wsdl" ID="8052449e-68c0-48e9-9c06-bb6612a11beb" SourceId="1" SourceUrl="http://localhost/swuni/ws.asmx?wsdl" />
-    <MetadataFile FileName="ws.disco" MetadataType="Disco" ID="0679284e-4882-4f88-b624-0c58cd0ee266" SourceId="1" SourceUrl="http://localhost/swuni/ws.asmx?disco" />
+    <MetadataFile FileName="ws1.disco" MetadataType="Disco" ID="d94765ed-a352-4eb6-b457-492b9615ca69" SourceId="1" SourceUrl="http://localhost:50407/ws.asmx?disco" />
+    <MetadataFile FileName="ws1.wsdl" MetadataType="Wsdl" ID="b6530376-2314-4bb8-8e5e-075eb8dade3f" SourceId="1" SourceUrl="http://localhost:50407/ws.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

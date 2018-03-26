@@ -22,7 +22,25 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12">
-                @Html.ActionLink("Agregar", "EstadosUsuariosAdd", "Catalogos", null, new { @class = "btn btn-primary", data_modal = "" })
+                <div class="btn-group" role="group" aria-label="...">
+                    @Html.ActionLink("Agregar", "EstadosUsuariosAdd", "Catalogos", null, new { @class = "btn btn-primary", data_modal = "" })
+                    @*<button type="button" class="btn btn-default">1</button>
+                    <button type="button" class="btn btn-default">2</button>*@
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Exportar
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Excel", "ReporteEstadoUsuarios", "Catalogos", new { FileType = "Excel", ContentType = "application/vnd.ms-excel" },null)</li>
+                            <li>@Html.ActionLink("Pdf", "ReporteEstadoUsuarios", "Catalogos", new { FileType = "PDF", ContentType = "application/pdf" },null)</li>
+                            @*<li><a href="#">Dropdown link</a></li>
+                            <li><a href="#">Dropdown link</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <table class="table-bordered table-condensed">
