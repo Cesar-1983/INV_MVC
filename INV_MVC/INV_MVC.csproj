@@ -272,6 +272,7 @@
     <Compile Include="Models\CuentaViewModel\RegistroUsuarioViewModel.cs" />
     <Compile Include="Models\CuentaViewModel\UsuarioViewModel.cs" />
     <Compile Include="Models\ListarProductos.cs" />
+    <Compile Include="Models\Seguridad\RolesAccionesViewModel.cs" />
     <Compile Include="Models\ValidationClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -318,6 +319,11 @@
     <Content Include="Views\Catalogos\ConsultaProductos.cshtml" />
     <Content Include="Views\Catalogos\ProductosAll.cshtml" />
     <Content Include="Views\Catalogos\_ProductosAll.cshtml" />
+    <Content Include="Views\Shared\_UserState.cshtml" />
+    <Content Include="Views\Cuenta\_RolesListar.cshtml" />
+    <Content Include="Views\Cuenta\_RolesAddUpd.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SelectedRolesAccionesEditorViewModel.cshtml" />
+    <Content Include="Views\Cuenta\_RolPermisos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -327,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Reportes\" />
     <Folder Include="Views\base\" />
   </ItemGroup>
   <ItemGroup>

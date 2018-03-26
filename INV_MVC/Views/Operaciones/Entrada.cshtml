@@ -1,4 +1,20 @@
 ﻿@model Entidades.Operacion
+    <div class="row">
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <em class="fa fa-home"></em>
+        </a>
+    </li>
+    <li class="active">@ViewBag.breadcrumb</li>
+</ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@ViewBag.pageheader</h4>
+    </div>
+</div><!--/.row-->
 <div class="panel panel-default">
     <div class="panel-heading">
         @ViewBag.Heading
@@ -6,88 +22,88 @@
     <div class="panel-body">
         <div class="row">
             @using (Ajax.BeginForm("Entrada", "Operaciones", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.IdTipoOperacion)
-        @Html.HiddenFor(model => model.Estado)
-        @Html.HiddenFor(model => model.UsuarioCrea)
-        <div class="col-md-12">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IdCliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @*@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })*@
-                        @Html.DropDownList("IdCliente", (SelectList)ViewBag.Clientes, "Seleccionar Cliente", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-
-                        @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CantProductos, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CantProductos, new { htmlAttributes = new { @class = "form-control" } })
-
-                        @Html.ValidationMessageFor(model => model.CantProductos, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-md-12 text-center table-responsive">
-            <table class="table-bordered table-condensed">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Total</th>
-                        <th><button type="submit" name="operacion" data-val="false" value="agregar-detalle">Agregar Detalle</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.DetalleOperacion != null && Model.DetalleOperacion.Count > 0)
             {
-                var i = 0;
-                foreach (var item in Model.DetalleOperacion)
-                {
-                    <tr>
-                        <td>
-                            @Html.DropDownList("DetalleOperacion[" + i + "].IdProducto", new SelectList(ViewBag.Productos, "Id", "Nombre", item.IdProducto), "Seleccionar un producto", htmlAttributes: new { @class = "form-control", id = "ddlProducto" + i, onchange = "getprice('ddlProducto" + i + "','precio" + i + "','"+ (Model.IdTipoOperacion== 1 ? "in": "out") +"')" })
-                        </td>
-                        <td>
-                            @Html.TextBox("DetalleOperacion[" + i + "].Precio", item.Precio, new { id = "precio" + i, type = "number", @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox("DetalleOperacion[" + i + "].Cantidad", item.Cantidad, new { id = "cantidad" + i, onblur = "calcularTotal('totalitem" + i + "','precio" + i + "','cantidad" + i + "')", type = "number" })
-                        </td>
-                        <td>
-                            <input id="totalitem@(i)" type="number" value="@(item.Precio * item.Cantidad)" readonly />
-                        </td>
-                        <td>
-                            <button type="submit" name="operacion" value="eliminar-detalle-@i">Eliminar</button>
-                        </td>
-                    </tr>
-            i++;
-        }
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.IdTipoOperacion)
+                @Html.HiddenFor(model => model.Estado)
+                @Html.HiddenFor(model => model.UsuarioCrea)
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @*@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.DropDownList("IdCliente", (SelectList)ViewBag.Clientes, "Seleccionar Cliente", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
 
-    }
-                </tbody>
-            </table>
+                                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CantProductos, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CantProductos, new { htmlAttributes = new { @class = "form-control" } })
 
-        </div>
-        <p>
-            <input type="submit" value="Crear" />
-        </p>
-}
+                                @Html.ValidationMessageFor(model => model.CantProductos, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 text-center table-responsive">
+                    <table class="table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th><button type="submit" name="operacion" data-val="false" value="agregar-detalle">Agregar Detalle</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.DetalleOperacion != null && Model.DetalleOperacion.Count > 0)
+                            {
+                                var i = 0;
+                                foreach (var item in Model.DetalleOperacion)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DropDownList("DetalleOperacion[" + i + "].IdProducto", new SelectList(ViewBag.Productos, "Id", "Nombre", item.IdProducto), "Seleccionar un producto", htmlAttributes: new { @class = "form-control", id = "ddlProducto" + i, onchange = "getprice('ddlProducto" + i + "','precio" + i + "','" + (Model.IdTipoOperacion == 1 ? "in" : "out") + "')" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("DetalleOperacion[" + i + "].Precio", item.Precio, new { id = "precio" + i, type = "number", @readonly = "readonly" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("DetalleOperacion[" + i + "].Cantidad", item.Cantidad, new { id = "cantidad" + i, onblur = "calcularTotal('totalitem" + i + "','precio" + i + "','cantidad" + i + "')", type = "number" })
+                                        </td>
+                                        <td>
+                                            <input id="totalitem@(i)" type="number" value="@(item.Precio * item.Cantidad)" readonly />
+                                        </td>
+                                        <td>
+                                            <button type="submit" name="operacion" value="eliminar-detalle-@i">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <p>
+                    <input type="submit" value="Crear" />
+                </p>
+            }
 
         </div>
     </div>

@@ -6,11 +6,14 @@ using System.Web.Mvc;
 
 namespace INV_MVC.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    public class HomeController : baseController
     {
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.breadcrumb = "Inicio";
+            ViewBag.pageheader = "Inicio";
             return View();
         }
     }

@@ -1,15 +1,32 @@
-﻿@model Entidades.Categoria
+﻿@model Entidades.Roles
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;@ViewBag.ModalHeading</h4>
 </div>
-@using (Html.BeginForm("CategoriaEliminarById", "Catalogos", new { id = Model.Id }, FormMethod.Post, new { id = "form-01" }))
+
+
+
+
+@using (Html.BeginForm("GuardarRol", "Cuenta", FormMethod.Post, new { id = "form-01" }))
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.Id)
-        <p>Esta Seguro de Eliminar la categoría: <span class="bg-danger">@Model.Nombre</span> Descripción: <span class="bg-danger">@Model.DesCategoria</span> </p>
+        <div class="form-horizontal">
+            @*<h4>EstadoUsuarios</h4>*@
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            
+
+        </div>
     </div>
     <div class="modal-footer">
         <div class="text-center">
@@ -21,3 +38,4 @@
         </div>
     </div>
 }
+

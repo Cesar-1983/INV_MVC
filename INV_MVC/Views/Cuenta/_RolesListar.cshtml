@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entidades.Categoria>
+﻿@model IEnumerable<Entidades.Roles>
 <div class="row">
     <ol class="breadcrumb">
         <li>
@@ -22,7 +22,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12">
-                @Html.ActionLink("Agregar", "CategoriaAdd", "Catalogos", null, new { @class = "btn btn-primary", data_modal = "" })
+                @Html.ActionLink("Agregar", "RolesAdd", "Cuenta", null, new { @class = "btn btn-primary", data_modal = "" })
             </div>
         </div>
         <table class="table-bordered table-condensed">
@@ -32,12 +32,7 @@
                         @Html.DisplayNameFor(model => model.Nombre)
 
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DesCategoria)
-                    </th>
-                    <th>
-                        Categoría Padre
-                    </th>
+
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -49,19 +44,14 @@
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DesCategoria)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PadreCategoria.Nombre)
-                        </td>
-                        <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>@Html.ActionLink("Editar", "CategoriaEdit", new { id = item.Id }, new { data_modal = "" })</li>
-                                    <li>@Html.ActionLink("Eliminar", "CategoriaEliminar", new { id = item.Id }, new { data_modal = "" })</li>
+                                    <li>@Html.ActionLink("Editar", "RolesEdit", new { id = item.Id }, new { data_modal = "" })</li>
+                                    <li>@Html.ActionLink("Permisos", "RolPermisos", new { id = item.Id }, new { data_modal = "" })</li>
+                                    
                                 </ul>
                             </div>
                         </td>

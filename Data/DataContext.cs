@@ -28,6 +28,9 @@ namespace Data
         public DbSet<TasaCambios> TasaCambios { get; set; }
         public DbSet<Operacion> Operacion { get; set; }
         public DbSet<DetalleOperacion> DetalleOperacion { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Acciones> Acciones { get; set; }
+        public DbSet<RolesAcciones> RolesAcciones { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Monedas>()

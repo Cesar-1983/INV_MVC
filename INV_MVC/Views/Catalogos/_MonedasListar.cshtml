@@ -1,5 +1,20 @@
 ﻿@model IEnumerable<Entidades.Monedas>
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">@ViewBag.breadcrumb</li>
+    </ol>
+</div><!--/.row-->
 
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@ViewBag.pageheader</h4>
+    </div>
+</div><!--/.row-->
 <div class="panel panel-default">
     <div class="panel-heading">
         @ViewBag.Heading
@@ -36,34 +51,34 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Simbolo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Numero)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsLocal)
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>@Html.ActionLink("Editar", "MonedaEdit", new { id = item.Id }, new { data_modal = "" })</li>
-                                <li>@Html.ActionLink("Eliminar", "MonedaEliminar", new { id = item.Id }, new { data_modal = "" })</li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Simbolo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsLocal)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Editar", "MonedaEdit", new { id = item.Id }, new { data_modal = "" })</li>
+                                    <li>@Html.ActionLink("Eliminar", "MonedaEliminar", new { id = item.Id }, new { data_modal = "" })</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
                 }
 
             </tbody>

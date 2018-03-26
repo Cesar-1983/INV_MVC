@@ -117,7 +117,7 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-        <div class="profile-sidebar">
+        @*<div class="profile-sidebar">
             <div class="profile-userpic">
                 <img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
             </div>
@@ -126,6 +126,9 @@
                 <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
             </div>
             <div class="clear"></div>
+        </div>*@
+        <div class="profile-sidebar" id="login">
+
         </div>
         <div class="divider"></div>
         <form role="search">
@@ -135,32 +138,32 @@
         </form>
         <ul class="nav menu">
             @*<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-            <li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
-            <li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-            <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
-            <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-            <li class="parent">
-                <a data-toggle="collapse" href="#sub-item-1">
-                    <em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                </a>
-                <ul class="children collapse" id="sub-item-1">
-                    <li>
-                        <a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-                        </a>
-                    </li>
-                </ul>
-            </li>*@
+        <li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
+        <li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
+        <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
+        <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
+        <li class="parent">
+            <a data-toggle="collapse" href="#sub-item-1">
+                <em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+            </a>
+            <ul class="children collapse" id="sub-item-1">
+                <li>
+                    <a class="" href="#">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
+                    </a>
+                </li>
+            </ul>
+        </li>*@
             <li class="parent">
                 <a data-toggle="collapse" href="#operaciones">
                     <em class="fa fa-exchange">&nbsp;</em> Operaciones <span data-toggle="collapse" href="#operaciones" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -205,29 +208,76 @@
 
                 </ul>
             </li>
-            <li><a href="~/Cuenta/Login"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+            <li class="parent">
+                <a data-toggle="collapse" href="#seguridad">
+                    <em class="fa fa-navicon">&nbsp;</em> Seguridad <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="seguridad">
+                    <li>
+                        @Ajax.ActionLink("Roles de Usuario", "RolesListar", "Cuenta", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    @*<li>
+                        @Ajax.ActionLink("Categoría de Productos", "CategoriasListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Unidades de Productos", "UnidadesListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Monedas", "MonedasListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Productos", "ProductosListar", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Clientes", "ClienteListar", "Cliente", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Tasa de Cambios", "TasaCambiosListar", "TasaCambios", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("WS Consulta", "ProductosAll", "Catalogos", new AjaxOptions { UpdateTargetId = "renderpartial", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>*@
+
+                </ul>
+            </li>
+
+            @if (Request.IsAuthenticated)
+    {
+
+        using (Html.BeginForm("Logoff", "Cuenta", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+}
+        <li><a href="javascript:document.getElementById('logoutForm').submit()"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+}
+
+
+
         </ul>
     </div><!--/.sidebar-->
 
-    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-        <div class="row">
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" id="renderpartial">
+        @RenderBody()
+        @*<div class="row">
             <ol class="breadcrumb">
                 <li>
                     <a href="#">
                         <em class="fa fa-home"></em>
                     </a>
                 </li>
-                <li class="active">Dashboard</li>
+                <li class="active">@ViewBag.breadcrumb</li>
             </ol>
-        </div><!--/.row-->
+        </div>
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dashboard</h1>
+                <h4 class="page-header">@ViewBag.pageheader</h4>
             </div>
-        </div><!--/.row-->
+        </div>*@
 
-        <div class="panel panel-container">
+        @*<div class="panel panel-container">
 
             <div class="row">
 
@@ -267,14 +317,14 @@
                         </div>
                     </div>
                 </div>
-            </div><!--/.row-->
-        </div>
-        <div class="row">
-            <div class="col-md-12" id="renderpartial">
-                @RenderBody()
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12" >
+                @RenderBody()
+            </div>
+        </div>*@
+        @*<div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -318,7 +368,7 @@
                     </div>
                 </div>
             </div>
-        </div><!--/.row-->
+        </div>
 
         <div class="row">
             <div class="col-xs-6 col-md-3">
@@ -353,7 +403,7 @@
                     </div>
                 </div>
             </div>
-        </div><!--/.row-->
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -636,7 +686,7 @@
             <div class="col-sm-12">
                 <p class="back-link">Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a></p>
             </div>
-        </div><!--/.row-->
+        </div>*@
     </div>	<!--/.main-->
     <!-- Inicio de Modal PlaceHolder-->
     <div id='myModal' class='modal fade in'>
@@ -674,7 +724,7 @@
                 weekStart: 1
             });
 
-            
+
         });
         function getprice(e, p, c) {
 
@@ -687,7 +737,7 @@
                 var datos = data;
                 $('#' + precio).val(data);
             })
-            
+
         };
         function calcularTotal(e, p, c) {
             var precio = Number($('#' + p).val());
@@ -696,6 +746,11 @@
             $('#' + e).val(precio * cantidad);
             $('#Total').val(total + (precio * cantidad))
         }
+
+        $.get('@Url.Action("UserState","Cuenta")', function (data) {
+
+            $('#login').html(data);
+            })
                     //$('#grid').dataTable({
                     //    "lengthMenu": [10, 25, 50, 75, 100],
                     //    "pageLength": 100,

@@ -2,6 +2,7 @@
 using INV_MVC.Helpers;
 using INV_MVC.Models;
 using INV_MVC.Models.CuentaViewModel;
+using INV_MVC.Models.Seguridad;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Negocio;
@@ -15,22 +16,28 @@ using System.Web.Mvc;
 
 namespace INV_MVC.Controllers
 {
+    [Authorize]
     public class CuentaController : baseController
     {
         private UsuariosLogic userlogic = new UsuariosLogic();
         private PerfilSeguridadLogic perfilseg = new PerfilSeguridadLogic();
         private Utilidades util = new Utilidades();
+        private RolesLogic RolesLogic = new RolesLogic();
+        private RolesAccionesLogic rolesAccionesLogic = new RolesAccionesLogic();
+        private AccionesLogic accionesLogic = new AccionesLogic();
         // GET: Cuenta
         public ActionResult Index()
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -55,6 +62,7 @@ namespace INV_MVC.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult Registrarse()
         {
             return View();
@@ -62,7 +70,7 @@ namespace INV_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [AllowAnonymous]
         public ActionResult Registrarse(RegistroUsuarioViewModel model)
         {
             if (!ModelState.IsValid)
@@ -93,6 +101,97 @@ namespace INV_MVC.Controllers
             }
             return View(model);
         }
+        public ActionResult UserState() {
+            var model = Usuario;
+            return PartialView("_UserState", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Logoff()
+        {
+            Signout();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult RolesListar() {
+            ViewBag.breadcrumb = "Cuenta/Seguridad";
+            ViewBag.pageheader = "Seguridad";
+            ViewBag.Heading = "Roles y permisos";
+
+            var model = RolesLogic.GetAll();
+            return PartialView("_RolesListar",model);
+
+        }
+        public ActionResult RolesAdd()
+        {
+            ViewBag.ModalHeading = "Agregar Rol";
+            Roles model = new Roles();
+            return PartialView("_RolesAddUpd", model);
+        }
+
+        public ActionResult RolesEdit(int id)
+        {
+            ViewBag.ModalHeading = "Editar Rol";
+            Roles model = RolesLogic.GetRolesPorId(id);
+            return PartialView("_RolesAddUpd", model);
+        }
+        public ActionResult RolPermisos(int id) {
+            var rol = RolesLogic.GetRolesPorId(id);
+            var acciones = accionesLogic.GetAll();
+            RolAddPermisoViewModel model = new RolAddPermisoViewModel();
+            model.Id = rol.Id;
+            model.Nombre = rol.Nombre;
+
+            foreach (var item in acciones)
+            {
+                var exist = rolesAccionesLogic.GetRolesAccionesExist(model.Id, item.Id);
+                model.Acciones.Add(new SelectedRolesAccionesEditorViewModel { Accion = item.Accion, Controlador = item.Controlador, IdAccion = item.Id, Selected= exist });
+            }
+
+            return PartialView("_RolPermisos", model);
+            
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RolPermisos(RolAddPermisoViewModel model)
+        {
+            foreach (var item in model.Acciones)
+            {
+
+                if (item.Selected) {
+                    rolesAccionesLogic.Guardar(new RolesAcciones { IdRol = model.Id, IdAcciones = item.IdAccion });
+                }
+                else {
+                    rolesAccionesLogic.Eliminar(model.Id, item.IdAccion);
+                }
+                
+            }
+
+            return PartialView("_RolPermisos", model);
+
+
+        }
+
+        public ActionResult GuardarRol(Roles model)
+        {
+            ViewBag.ModalHeading = model.Id == 0 ? "Agregar Rol" : "Editar Rol";
+
+            if (!ModelState.IsValid)
+                return PartialView("_RolesAddUpd", model);
+            var respuesta = RolesLogic.Guardar(model);
+            if (!respuesta.response)
+            {
+                ModelState.AddModelError("", respuesta.mensaje);
+                return PartialView("_RolesAddUpd", model);
+            }
+            respuesta.IsPartial = true;
+            respuesta.ContainerRenderPartial = "renderpartial";
+            respuesta.href = Url.Action("RolesListar");
+            return Json(respuesta);
+        }
+
 
         #region Autenticacion
         public void SignIn(UsuarioViewModel User, string providerKey = null, bool isPersistent = false)

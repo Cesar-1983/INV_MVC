@@ -7,6 +7,7 @@ using Entidades;
 using Negocio;
 namespace INV_MVC.Controllers
 {
+    [Authorize]
     public class OperacionesController : baseController
     {
         ProductoLogic productoLogic = new ProductoLogic();
@@ -14,6 +15,9 @@ namespace INV_MVC.Controllers
         OperacionLogic operacionLogic = new OperacionLogic();
 
         public ActionResult OperacionesListar() {
+            ViewBag.breadcrumb = "Operaciones/Lista de Operaciones";
+            ViewBag.pageheader = "Lista de Operaciones";
+
             ViewBag.Heading = "Lista de Operaciones";
            var model = operacionLogic.GetAll();
             return PartialView("_OperacionesListar",model);
@@ -21,6 +25,8 @@ namespace INV_MVC.Controllers
         // GET: Operaciones
         public ActionResult Entrada(int operacion)
         {
+            ViewBag.breadcrumb = "Catalogos/"+ (operacion == 1 ? "Entrada de Inventario" : "Salida de inventario");
+            ViewBag.pageheader = "Estado de Usuarios";
             ViewBag.Heading = operacion == 1 ? "Entrada de Inventario" : "Salida de inventario";
             var model = new Operacion { IdTipoOperacion = operacion, Total = 0, CantProductos = 0 ,UsuarioCrea=Usuario.UserId,Estado="ACT"};
             
@@ -31,6 +37,9 @@ namespace INV_MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Entrada(Operacion model,string operacion )
         {
+            ViewBag.breadcrumb = "Catalogos/" + (model.IdTipoOperacion == 1 ? "Entrada de Inventario" : "Salida de inventario");
+            ViewBag.pageheader = "Estado de Usuarios";
+
             ViewBag.Heading = model.IdTipoOperacion == 1 ? "Entrada de Inventario" : "Salida de inventario";
             if (model == null)
             {
@@ -73,7 +82,7 @@ namespace INV_MVC.Controllers
                         ModelState.AddModelError("", respuesta.Mensaje);
                 }
                 else {
-                    ModelState.AddModelError("", "No se puede guardar factura sin detalla");
+                    ModelState.AddModelError("", "No se puede guardar factura sin detalle");
                 }
 
             }

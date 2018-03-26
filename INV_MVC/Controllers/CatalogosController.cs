@@ -9,6 +9,7 @@ using System.IO;
 
 namespace INV_MVC.Controllers
 {
+    [Authorize]
     public class CatalogosController : baseController
     {
         private EstadoUsuariosLogic EstadoUsuariosLogic = new EstadoUsuariosLogic();
@@ -26,6 +27,8 @@ namespace INV_MVC.Controllers
         #region Metodos EstadoUsuarios
         public ActionResult EstadosUsuariosListar()
         {
+            ViewBag.breadcrumb = "Catalogos/Estados Usuarios";
+            ViewBag.pageheader = "Estado de Usuarios";
             ViewBag.Heading = "Lista de Estados Usuarios";
             var lista = EstadoUsuariosLogic.GetAllEstadosUsuarios();
             return PartialView("_EstadosUsuariosListar", lista);
@@ -103,6 +106,8 @@ namespace INV_MVC.Controllers
 
         public ActionResult CategoriasListar()
         {
+            ViewBag.breadcrumb = "Catalogos/Categorías de Productos";
+            ViewBag.pageheader = "Categorías de Productos";
             ViewBag.Heading = "Lista de Categorías";
             var lista = categoriaLogic.GetAll();
             return PartialView("_CategoriasListar", lista);
@@ -197,6 +202,8 @@ namespace INV_MVC.Controllers
 
         public ActionResult ProductosAll()
         {
+            ViewBag.breadcrumb = "Catalogos/Lista de Productos";
+            ViewBag.pageheader = "Lista de Productos";
             ViewBag.Heading = "Lista de Productos";
             var rs = from t in ListarProductos.ObtenerProductos()
                      select t;
@@ -211,6 +218,8 @@ namespace INV_MVC.Controllers
 
         public ActionResult UnidadesListar()
         {
+            ViewBag.breadcrumb = "Catalogos/Unidades";
+            ViewBag.pageheader = "Lista de Unidades";
             ViewBag.Heading = "Lista de Unidades de Productos";
             var lista = unidadesLogic.GetAll();
             return PartialView("_UnidadesListar", lista);
@@ -291,7 +300,9 @@ namespace INV_MVC.Controllers
         #region MetodosMonedas
         public ActionResult MonedasListar()
         {
-            ViewBag.Heading = "Lista de Estados Usuarios";
+            ViewBag.breadcrumb = "Catalogos/Monedas";
+            ViewBag.pageheader = "Lista de Monedas";
+            ViewBag.Heading = "Lista de Monedas";
             var lista = monedasLogic.GetAllMonedas();
             return PartialView("_MonedasListar", lista);
         }
@@ -362,6 +373,8 @@ namespace INV_MVC.Controllers
         #region MetodosProducto
         public ActionResult ProductosListar()
         {
+            ViewBag.breadcrumb = "Catalogos/Productos";
+            ViewBag.pageheader = "Productos";
             ViewBag.Heading = "Lista de Productos";
             ViewBag.Categorias = new SelectList(categoriaLogic.GetAll(), "Id", "Nombre");
             ViewBag.Unidades = new SelectList(unidadesLogic.GetAll(), "Id", "Codigo");

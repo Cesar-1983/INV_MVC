@@ -8,6 +8,7 @@ using Entidades;
 
 namespace INV_MVC.Controllers
 {
+    [Authorize]
     public class ClienteController : baseController
     {
         private ClienteLogic clientelogic = new ClienteLogic();

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccionesLogic.cs" />
     <Compile Include="CategoriaLogic.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ClienteLogic.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="ProductoImagesLogic.cs" />
     <Compile Include="ProductoLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesAccionesLogic.cs" />
+    <Compile Include="RolesLogic.cs" />
     <Compile Include="TasaCambiosLogic.cs" />
     <Compile Include="UnidadesLogic.cs" />
     <Compile Include="UsuariosLogic.cs" />

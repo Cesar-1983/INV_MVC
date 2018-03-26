@@ -8,6 +8,7 @@ using Negocio;
 
 namespace INV_MVC.Controllers
 {
+    [Authorize]
     public class TasaCambiosController : baseController
     {
         private TasaCambiosLogic TasaLogic = new TasaCambiosLogic();
