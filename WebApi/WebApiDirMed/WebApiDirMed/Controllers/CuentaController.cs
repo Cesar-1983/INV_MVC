@@ -71,7 +71,7 @@ namespace WebApiDirMed.Controllers
                     return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
                 }
 
-                mailer.EnviarCorreoGmailAccesTokenAsync("cesariverarivas@gmail.com", "NJIFYUjss1OwfQNFXvWSWr6l", Usuario.Email,"Codigo de Activación de Cuenta", codigoValidacion);
+                //mailer.EnviarCorreoGmailAccesTokenAsync("cesariverarivas@gmail.com", "NJIFYUjss1OwfQNFXvWSWr6l", Usuario.Email,"Codigo de Activación de Cuenta", codigoValidacion);
 
                 return responseMsj.CreateJsonResponse(respondModel,HttpStatusCode.OK);
             }
