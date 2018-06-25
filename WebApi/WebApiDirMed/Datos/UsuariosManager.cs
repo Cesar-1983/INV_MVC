@@ -110,9 +110,18 @@ namespace Datos
 
         public RespondModel EmailConfirmacion(int id)
         {
+            RespondModel respondModel = new RespondModel();
             var usuario = GetUsuariosPorId(id);
             usuario.EmailConfirmed = true;
-            return Guardar(usuario);
+            var respuesta = Guardar(usuario);
+
+            if (respuesta.response) {
+                respondModel.SetResponse(true, "Email Confirmado");
+            }
+            else{
+                respondModel.SetResponse(false, "Ocurrido un error al confirmar el correo");
+            }
+            return respondModel;
         }
 
         public RespondModel Eliminar(int id)

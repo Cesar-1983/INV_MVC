@@ -53,6 +53,11 @@ namespace Negocio
                 rm.SetResponse(false, "Usuario Invalido.");
                 return rm;
             }
+            if (!usuario.EmailConfirmed)
+            {
+                rm.SetResponse(false, "Usuario no confirmado.");
+                return rm;
+            }
             if (usuario.IntentosFallidos == usuario.PerfilSeguridad.IntentosPermitidos)
             {
                 usuario.IdEstadoUsuario = 4;
@@ -76,6 +81,13 @@ namespace Negocio
         }
         public RespondModel RegistrarUsuario(Usuarios usuarios)
         {
+            var UsuarioExiste = GetUsuariosPorUserName(usuarios.Email);
+            RespondModel respuesta = new RespondModel();
+            if (UsuarioExiste.Id != 0) {
+                respuesta.SetResponse(false, "Ya existe un usuario registrado con ese correo.");
+                return respuesta;
+            }
+
             /*Se asocia perfil y estado por default*/
             usuarios.IdEstadoUsuario = 1;
             usuarios.IdPerfilSeguridad = 1;
@@ -180,5 +192,39 @@ namespace Negocio
             return respondModel;
         }
 
+        public RespondModel ValidatePasswordUser(string username, string password, string key, string iv) {
+            RespondModel rm = new RespondModel();
+            var usuario = UserManager.GetUsuariosPorUserName(username);
+            if (usuario.Id == 0)
+            {
+                rm.SetResponse(false, "Usuario Invalido.");
+                return rm;
+            }
+            //if (!usuario.EmailConfirmed)
+            //{
+            //    rm.SetResponse(false, "Usuario no confirmado.");
+            //    return rm;
+            //}
+            if (usuario.IntentosFallidos == usuario.PerfilSeguridad.IntentosPermitidos)
+            {
+                usuario.IdEstadoUsuario = 4;
+                UserManager.Guardar(usuario);
+                rm.SetResponse(false, "Ha sobrepasado la cantidad de intentos permitidos.\nSu cuenta será bloqueada");
+                return rm;
+            }
+            var pass = AESCripto.DecryptStringAES(usuario.Password, key, iv);
+
+            if (password != pass)
+            {
+                usuario.IntentosFallidos = usuario.IntentosFallidos + 1;
+                UserManager.Guardar(usuario);
+                rm.SetResponse(false, "La contraseña no coinciden.\nLe quedan " + (usuario.PerfilSeguridad.IntentosPermitidos - usuario.IntentosFallidos).ToString() + " intentos.");
+                return rm;
+            }
+            rm.SetResponse(true, "Verificación Exitosa");
+
+
+            return rm;
+        }
     }
 }

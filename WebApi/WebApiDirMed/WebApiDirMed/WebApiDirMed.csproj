@@ -164,6 +164,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\email.html" />
+    <Content Include="Content\index.htm" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -178,6 +180,7 @@
     <Compile Include="Helpers\Mailer.cs" />
     <Compile Include="Helpers\PlusService.cs" />
     <Compile Include="Helpers\Utilidades.cs" />
+    <Compile Include="Models\CuentaModels\EmailConfirmacionRequest.cs" />
     <Compile Include="Models\CuentaModels\RegistroUsuarioModelRequest.cs" />
     <Compile Include="Models\CuentaModels\UsuarioViewModel.cs" />
     <Compile Include="Models\ResponseMsj.cs" />
@@ -186,6 +189,7 @@
     <Compile Include="Provider\SimpleAuthorizationServerProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\client_secret.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

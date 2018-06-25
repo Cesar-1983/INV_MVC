@@ -86,6 +86,59 @@ namespace WebApiDirMed.Helpers
             Console.WriteLine("Mensaje enviado " + resultado.Id);
             Console.ReadKey();
         }
+        public void SendMail(string To,string Subject,string Body)
+        {
+            UserCredential credential;
+            var PathToClientSecret = System.Web.HttpContext.Current.Request.MapPath("~\\Content\\client_secret.json");
+            //using (var stream =
+            //    new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            //{
+                using (var stream =
+                new FileStream(PathToClientSecret, FileMode.Open, FileAccess.Read))
+                {
+                    string credPath = System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Personal);
+                credPath = Path.Combine(credPath, ".credentials/client_secret.json");
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
+            }
+
+            // Create Gmail API service.
+            var service = new GmailService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+            
+            var msg = new AE.Net.Mail.MailMessage
+            {
+                Subject = "=?UTF-8?B?"+ Base64UrlEncode(Subject)+"?=",
+                
+                Body = Body,
+                From = new MailAddress("cesariverarivas@gmail.com"),
+                ContentType = "text/html"
+            };
+            msg.To.Add(new MailAddress(To));
+            msg.ReplyTo.Add(msg.From); // Bounces without this!!
+            var msgStr = new StringWriter();
+            msg.Save(msgStr);
+
+
+
+            UsersResource.MessagesResource.SendRequest request = service.Users.Messages.Send(new Message
+            {
+                Raw = Base64UrlEncode(msgStr.ToString())
+            }, "me");
+
+            var resultado = request.Execute();
+            
+        }
 
         private static string Base64UrlEncode(string input)
         {
