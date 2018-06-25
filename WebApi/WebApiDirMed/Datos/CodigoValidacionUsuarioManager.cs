@@ -15,7 +15,7 @@ namespace Datos
             {
                 using (var db = new DataContext())
                 {
-                    codigo = db.CodigoValidacionUsuario.Where(x => x.Id == id && x.Tipo =="CAE").FirstOrDefault();
+                    codigo = db.CodigoValidacionUsuario.Where(x => x.UsuariosId == id && x.Tipo =="CAE").FirstOrDefault();
                 }
             }
             catch (Exception ex)
@@ -23,7 +23,7 @@ namespace Datos
                 throw;
 
             }
-            return codigo;
+            return codigo?? new CodigoValidacionUsuario();
         }
         public RespondModel Guardar(CodigoValidacionUsuario codigo)
         {
