@@ -10,7 +10,8 @@ namespace WebApiDirMed.Models.CuentaModels
     {
         [Required]
         [StringLength(256)]
-
+        [DataType(DataType.EmailAddress,ErrorMessage ="Digite un correo valido")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

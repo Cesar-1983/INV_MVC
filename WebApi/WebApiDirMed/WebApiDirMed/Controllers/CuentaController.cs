@@ -9,6 +9,7 @@ using Negocio;
 using WebApiDirMed.Helpers;
 using WebApiDirMed.Models;
 using WebApiDirMed.Models.CuentaModels;
+
 namespace WebApiDirMed.Controllers
 {
     [RoutePrefix("api/Cuenta")]
@@ -31,8 +32,12 @@ namespace WebApiDirMed.Controllers
             ResponseMsj responseMsj = new ResponseMsj();
             if (!ModelState.IsValid)
             {
+                //var ErrorList = ModelState.Keys
+                //.SelectMany(key => ModelState[key].Errors.Select(x => new { Error = key + " " + x.ErrorMessage })
+                //.ToList());
+
                 var ErrorList = ModelState.Keys
-                .SelectMany(key => ModelState[key].Errors.Select(x => new { Error = key + " " + x.ErrorMessage })
+                .SelectMany(key => ModelState[key].Errors.Select(x => new { Error = x.ErrorMessage })
                 .ToList());
 
                 respondModel.SetResponse(false, string.Join("\n", ErrorList.Select(x=> x.Error).ToList()));
