@@ -56,6 +56,35 @@ $$(document).on('page:init', function (e) {
     else
         app.loginScreen.close('#my-login-screen', true);
     /*Registro App*/
+    if (page.name === 'home') {
+
+        $$('.convert-form-to-data').on('click', function () {
+            //var a = $$('#frmRegistro').validate();
+            var Url = UrlAPI + 'Cuenta/RegistrarUsuario'
+            var formData = app.form.convertToData('#frmRegistro');
+
+            app.preloader.show();
+            /*alert(JSON.stringify(formData));*/
+            var datajson = JSON.stringify(formData);
+
+
+            var settings = {
+                url: Url,
+                method: 'post',
+                data: datajson,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: success,
+                error: error
+            };
+
+            //app.request.post(Url,data, success, error,'json');
+            app.request(settings);
+        });
+
+    }
+    /*Registro App*/
+    /*Registro App*/
     if (page.name === 'registro') {
         
         $$('.convert-form-to-data').on('click', function () {
