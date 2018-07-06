@@ -12,6 +12,10 @@
       url: './pages/registro.html',
   },
   {
+      path: '/confirmacion/',
+      url: './pages/confirmacion.html',
+  },
+  {
     path: '/form/',
     url: './pages/form.html',
   },

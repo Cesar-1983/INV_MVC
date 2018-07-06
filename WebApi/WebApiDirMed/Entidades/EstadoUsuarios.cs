@@ -21,6 +21,11 @@ namespace Entidades
         [Display(Name = "Código")]
         public string Codigo { get; set; }
 
+        
+        
+        [Display(Name = "PuedaLoguear")]
+        public bool CanLogin { get; set; }
+
         public ICollection<Usuarios> Usuarios { get; set; }
         //       Id INT IDENTITY(1,1),
         //DesEstadoUsuario NVARCHAR(100),

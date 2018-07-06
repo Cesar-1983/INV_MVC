@@ -12,6 +12,7 @@ namespace Negocio
     public class UsuariosLogic
     {
         private UsuariosManager UsuariosManager;
+        
         private UsuariosManager UserManager
         {
             get
@@ -45,22 +46,31 @@ namespace Negocio
 
         public RespondModel LogIng(string username, string password, string key, string iv)
         {
-
+            EstadoUsuariosLogic EstadoUsuariosLogic = new EstadoUsuariosLogic();
             RespondModel rm = new RespondModel();
             var usuario = UserManager.GetUsuariosPorUserName(username);
+            
             if (usuario.Id == 0)
             {
                 rm.SetResponse(false, "Usuario Invalido.");
                 return rm;
+            }
+            if (!usuario.EstadoUsuarios.CanLogin)
+            {
+                rm.SetResponse(false, "Su estado no es valido para ingresar.");
+                return rm;
+
             }
             if (!usuario.EmailConfirmed)
             {
                 rm.SetResponse(false, "Usuario no confirmado.");
                 return rm;
             }
+            
             if (usuario.IntentosFallidos == usuario.PerfilSeguridad.IntentosPermitidos)
             {
                 usuario.IdEstadoUsuario = 4;
+                usuario.EstadoUsuarios = null;
                 UserManager.Guardar(usuario);
                 rm.SetResponse(false, "Ha sobrepasado la cantidad de intentos permitidos.\nSu cuenta será bloqueada");
                 return rm;

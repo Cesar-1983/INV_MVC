@@ -51,7 +51,7 @@ $$(document).on('page:init', function (e) {
     var page = e.detail;
     console.log(e.name);
     console.log(page.name);
-    if (Sesion === null && page.name !== 'registro')
+    if (Sesion === null && !(page.name === 'registro' || page.name === 'confirmacion'))
         app.loginScreen.open('#my-login-screen', true);
     else
         app.loginScreen.close('#my-login-screen', true);
@@ -103,8 +103,20 @@ $$(document).on('page:init', function (e) {
                 data: datajson,
                 dataType: 'json',
                 contentType:'application/json',
-                success: success,
-                error: error
+                success: function(data, status, xhr) {
+                    app.preloader.hide();
+                    app.dialog.alert("Usuario registrado exitosamente, Gracias!!!\n\nSe ha enviado un correo para confirmarción.", TitleMessage, function () { app.router.navigate('/') });
+
+
+                },
+                error: function (xhr, status) {
+                    app.preloader.hide();
+                    
+                    if (status === 400) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                    }
+                }
             };
 
             //app.request.post(Url,data, success, error,'json');
@@ -113,6 +125,79 @@ $$(document).on('page:init', function (e) {
 
     }
     /*Registro App*/
+    /*Confirmacion*/
+    if (page.name === 'confirmacion')
+    {
+        $$('#btnconfirmacion').on('click', function () {
+            var Url = UrlAPI + 'Cuenta/EmailConfirmacion'
+            var formData = app.form.convertToData('#frmConfirmacion');
+            var datajson = JSON.stringify(formData);
+            var settings = {
+                url: Url,
+                method: 'post',
+                data: datajson,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data, status, xhr) {
+                    app.preloader.hide();
+                    app.dialog.alert("Usuario confirmado, Gracias!!!.", TitleMessage, function () { app.router.navigate('/') });
+                    
+                    
+                },
+                error: function (xhr, status) {
+                    app.preloader.hide();
+                    var reponseerror = JSON.parse(xhr.responseText);
+                    if (status === 400) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                    }
+                }
+            };
+            app.preloader.show();
+            app.request(settings);
+        });
+    }
+    /*Confirmacion*/
+
+    $$('#my-login-screen .login-button').on('click', function () {
+        var Url = UrlAPI + 'token'
+        var username = $$('#my-login-screen [name="username"]').val();
+        var password = $$('#my-login-screen [name="password"]').val();
+
+        var datajson = { 'grant_type': "password", 'username': username, 'password': password }
+
+        var settings = {
+            url: Url,
+            method: 'post',
+            data: datajson,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data, status, xhr) {
+                app.preloader.hide();
+                app.loginScreen.close('#my-login-screen', true);
+            },
+            error: function (xhr, status) {
+                app.preloader.hide();
+                var reponseerror = JSON.parse(xhr.responseText);
+                if (status === 400  )
+                {
+                    if (reponseerror.error_description === "Usuario no confirmado.") {
+                        app.dialog.alert("Usuario no confirmado, favor ingrese el numero enviado a su correo.", TitleMessage, function () { app.router.navigate('/confirmacion/') });
+                    }
+                    else
+                    {
+                        app.dialog.alert(reponseerror.error_description, TitleMessage);
+                    }
+                    
+                }
+                
+                //app.dialog.alert(reponseerror.error_description, TitleMessage);
+            }
+        };
+        app.preloader.show();
+        app.request(settings);
+    });
+
     function success(data, status, xhr) {
         app.preloader.hide();
         app.dialog.alert(data.responseText, TitleMessage);
@@ -124,6 +209,10 @@ $$(document).on('page:init', function (e) {
         var reponseerror = JSON.parse(xhr.responseText);
         app.dialog.alert(reponseerror.mensaje, TitleMessage);
     }
-})
+    function navigateToIndex() {
+        router.navigate('/');
+    }
 
+
+})
 

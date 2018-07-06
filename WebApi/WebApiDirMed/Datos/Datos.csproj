@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CodigoValidacionUsuarioManager.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="EstadoUsuariosManager.cs" />
     <Compile Include="PerfilSeguridadManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuariosManager.cs" />
