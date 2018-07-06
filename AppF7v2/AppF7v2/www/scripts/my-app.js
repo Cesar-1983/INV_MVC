@@ -58,29 +58,29 @@ $$(document).on('page:init', function (e) {
     /*Registro App*/
     if (page.name === 'home') {
 
-        $$('.convert-form-to-data').on('click', function () {
-            //var a = $$('#frmRegistro').validate();
-            var Url = UrlAPI + 'Cuenta/RegistrarUsuario'
-            var formData = app.form.convertToData('#frmRegistro');
+        //$$('.convert-form-to-data').on('click', function () {
+        //    //var a = $$('#frmRegistro').validate();
+        //    var Url = UrlAPI + 'Cuenta/RegistrarUsuario'
+        //    var formData = app.form.convertToData('#frmRegistro');
 
-            app.preloader.show();
-            /*alert(JSON.stringify(formData));*/
-            var datajson = JSON.stringify(formData);
+        //    app.preloader.show();
+        //    /*alert(JSON.stringify(formData));*/
+        //    var datajson = JSON.stringify(formData);
 
 
-            var settings = {
-                url: Url,
-                method: 'post',
-                data: datajson,
-                dataType: 'json',
-                contentType: 'application/json',
-                success: success,
-                error: error
-            };
+        //    var settings = {
+        //        url: Url,
+        //        method: 'post',
+        //        data: datajson,
+        //        dataType: 'json',
+        //        contentType: 'application/json',
+        //        success: success,
+        //        error: error
+        //    };
 
-            //app.request.post(Url,data, success, error,'json');
-            app.request(settings);
-        });
+        //    //app.request.post(Url,data, success, error,'json');
+        //    app.request(settings);
+        //});
 
     }
     /*Registro App*/
@@ -173,22 +173,28 @@ $$(document).on('page:init', function (e) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data, status, xhr) {
+                localStorage.setItem(SessionUsuario, JSON.stringify(data));
                 app.preloader.hide();
                 app.loginScreen.close('#my-login-screen', true);
             },
             error: function (xhr, status) {
                 app.preloader.hide();
-                var reponseerror = JSON.parse(xhr.responseText);
-                if (status === 400  )
-                {
+                
+                if (status === 400) {
+                    var reponseerror = JSON.parse(xhr.responseText);
                     if (reponseerror.error_description === "Usuario no confirmado.") {
                         app.dialog.alert("Usuario no confirmado, favor ingrese el numero enviado a su correo.", TitleMessage, function () { app.router.navigate('/confirmacion/') });
                     }
-                    else
-                    {
+                    else {
                         app.dialog.alert(reponseerror.error_description, TitleMessage);
                     }
-                    
+
+                }
+                else if (status === 502) {
+                    app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                }
+                else {
+                    app.dialog.alert("Ha ocurrido un error inesperado, favor intentar mas tarde.", TitleMessage);
                 }
                 
                 //app.dialog.alert(reponseerror.error_description, TitleMessage);

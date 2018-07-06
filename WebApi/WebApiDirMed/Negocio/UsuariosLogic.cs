@@ -84,6 +84,11 @@ namespace Negocio
                 rm.SetResponse(false, "La contraseña no coinciden.\nLe quedan " + (usuario.PerfilSeguridad.IntentosPermitidos - usuario.IntentosFallidos).ToString() + " intentos.");
                 return rm;
             }
+            /*Si pasa todas la pruebas seteamos los parametros a estado normal*/
+            usuario.IntentosFallidos = 0;
+            usuario.FechaUltimoIngreso = DateTime.Now;
+            UserManager.Guardar(usuario);
+
             rm.SetResponse(true, "Verificación Exitosa");
 
 
