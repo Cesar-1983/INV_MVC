@@ -1,0 +1,72 @@
+﻿<div class="page" data-name="crearperfil">
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/" class="link back" data-force="true" data-ignore-cache="true">
+                    <i class="icon icon-back"></i>
+                    <span class="ios-only">Atr&aacute;s</span>
+                </a>
+            </div>
+            <div class="title">Creación de Perfil</div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form class="list" id="frmRegistro">
+            <input id="Id" type="number" name="Id" value="{{perfil.id}}" />
+            <input id="TipoPerfilId" name="TipoPerfilId" type="number" value="{{perfil.tipoPerfilId}}" />
+            <input id="UsuariosId" name="UsuariosId" type="number" value="{{perfil.usuariosId}}" />
+
+            <div class="list inline-labels no-hairlines-md">
+                <ul>
+                    <li class="item-content item-input">
+                        <!--<div class="item-media">
+                        <i class="icon demo-list-icon"></i>
+                    </div>-->
+                        <div class="item-inner">
+                            <div class="item-title item-label">Nombres</div>
+                            <div class="item-input-wrap">
+                                <input type="text" name="Nombre" placeholder="Digite su nombre" value="{{perfil.nombre}}">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <!--<div class="item-media">
+                        <i class="icon demo-list-icon"></i>
+                    </div>-->
+                        <div class="item-inner">
+                            <div class="item-title item-label">Apellidos</div>
+                            <div class="item-input-wrap">
+                                <input type="text" name="Apellido" placeholder="Digite su nombre" value="{{perfil.apellido}}">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <!--<div class="item-media">
+                        <i class="icon demo-list-icon"></i>
+                    </div>-->
+                        <div class="item-inner">
+                            <div class="item-title item-label">Sobre Mi</div>
+                            <div class="item-input-wrap">
+
+                                <textarea name="DescPerfil" placeholder="Sobre tí">{{perfil.descPerfil}}</textarea>
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div class="block">
+            <div class="row">
+                <!--<button class="col button button-fill">Button</button>
+            <button class="col button button-fill">Button</button>-->
+                <div class="col">&nbsp;</div>
+                <button id="btnGuardar" class="col button button-fill button-round">Guardar</button>
+                <div class="col">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -27,6 +27,8 @@ namespace Datos
         public DbSet<PerfilSeguridad> PerfilSeguridad { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<CodigoValidacionUsuario> CodigoValidacionUsuario { get; set; }
+        public DbSet<Perfiles> Perfiles { get; set; }
+        public DbSet<TipoPerfil> TipoPerfil { get; set; }
 
 
     }

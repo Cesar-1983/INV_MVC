@@ -43,6 +43,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="CodigoValidacionUsuarioLogic.cs" />
     <Compile Include="EstadoUsuariosLogic.cs" />
+    <Compile Include="PerfilesLogic.cs" />
     <Compile Include="PerfilSeguridadLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuariosLogic.cs" />

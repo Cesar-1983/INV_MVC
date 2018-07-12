@@ -1,7 +1,5 @@
 ﻿
-const SessionUsuario="UserToken";
-const UrlAPI = "http://localhost:18918/api/"
-const TitleMessage = "Directorio Médico"
+
 // Dom7
 var $$ = Dom7;
 
@@ -47,7 +45,7 @@ $$(document).on('deviceready', function () {
 
 $$(document).on('page:init', function (e) {
     var Sesion = localStorage.getItem(SessionUsuario);
-
+    $$("")
     var page = e.detail;
     console.log(e.name);
     console.log(page.name);
@@ -55,6 +53,7 @@ $$(document).on('page:init', function (e) {
         app.loginScreen.open('#my-login-screen', true);
     else
         app.loginScreen.close('#my-login-screen', true);
+    Sesion = JSON.parse(Sesion);
     /*Registro App*/
     if (page.name === 'home') {
 
@@ -158,7 +157,49 @@ $$(document).on('page:init', function (e) {
         });
     }
     /*Confirmacion*/
+    /*Inicio Eventos EditarPerfil*/
+    if (page.name === 'editarperfil')
+    {
+        $$("#Id").hide();
+        $$("#TipoPerfilId").hide();
+        $$("#UsuariosId").hide();
+        $$('#btnGuardar').on('click', function () {
+            var Url = UrlAPI + 'Perfil/RegistrarPerfil'
+            var formData = app.form.convertToData('#frmEditarPerfil');
+            var datajson = JSON.stringify(formData);
+            var settings = {
+                url: Url,
+                method: 'post',
+                headers: {
+                    'Authorization': Sesion.token_type + ' ' + Sesion.access_token
+                },
+                data: datajson,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data, status, xhr) {
+                    app.preloader.hide();
+                    app.dialog.alert(data.mensaje, TitleMessage, function () { app.router.navigate('/') });
 
+
+                },
+                error: function (xhr, status) {
+                    app.preloader.hide();
+                    //var reponseerror = JSON.parse(xhr.responseText);
+                    if (status === 400) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                    }
+                    else if (status === 401) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.Message, TitleMessage);
+                    }
+                }
+            };
+            app.preloader.show();
+            app.request(settings);
+        });
+    }
+    /*Fin Eventos EditarPerfil*/
     $$('#my-login-screen .login-button').on('click', function () {
         var Url = UrlAPI + 'token'
         var username = $$('#my-login-screen [name="username"]').val();
