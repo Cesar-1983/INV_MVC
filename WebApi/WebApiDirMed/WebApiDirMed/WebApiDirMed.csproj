@@ -173,6 +173,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\baseController.cs" />
+    <Compile Include="Controllers\CategoriaTipoPerfilController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\TokenTestController.cs" />
@@ -182,6 +183,8 @@
     <Compile Include="Helpers\Mailer.cs" />
     <Compile Include="Helpers\PlusService.cs" />
     <Compile Include="Helpers\Utilidades.cs" />
+    <Compile Include="Models\CategoriaTipoPerfilModel\GetCategoríaPorTipoPerfilIdRequest.cs" />
+    <Compile Include="Models\CategoriaTipoPerfilModel\GetCategoríaPorTipoPerfilIdRespond.cs" />
     <Compile Include="Models\CuentaModels\EmailConfirmacionRequest.cs" />
     <Compile Include="Models\CuentaModels\RegistroUsuarioModelRequest.cs" />
     <Compile Include="Models\PerfilesModel\GetPerfilesByUsuarioRespond.cs" />

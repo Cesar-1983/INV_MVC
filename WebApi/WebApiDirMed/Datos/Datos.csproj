@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaTipoPerfilManager.cs" />
     <Compile Include="CodigoValidacionUsuarioManager.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="EstadoUsuariosManager.cs" />

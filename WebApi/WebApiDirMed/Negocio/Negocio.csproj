@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaTipoPerfilLogic.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CodigoValidacionUsuarioLogic.cs" />
     <Compile Include="EstadoUsuariosLogic.cs" />
