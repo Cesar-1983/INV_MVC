@@ -9,43 +9,41 @@
                     </a>
                 </div>
                 <div class="title">Especialidades</div>
+
             </div>
         </div>
+        <!-- Floating Action Button -->
+        <div class="fab fab-right-bottom">
+            <a href="#" id="btnGuardar">
+                <i class="icon f7-icons">check</i>
+                <!--<div class="fab-text">Guardar</div>-->
+            </a>
+        </div>
         <div class="page-content">
-            {{#each datos.categorias}}
+            <form id="frmEspecialidades">
+                {{#each datos.categorias}}
                 <div class="block-title">{{nombre}}</div>
                 <div class="list media-list">
                     <ul>
                         {{#each categoriaHijos}}
+
                         <li>
-        <label class="item-checkbox item-content">
-            <input type="checkbox" name="demo-media-checkbox" value="1" />
-            <i class="icon icon-checkbox"></i>
-            <div class="item-inner">
-                <div class="item-title-row">
-                    <div class="item-title">{{nombre}}</div>
-                    <!--<div class="item-after">17:14</div>-->
-                </div>
-                <div class="item-subtitle">{{desCategoria}}</div>
-                <!--<div class="item-text">Lorem ipsum...</div>-->
-            </div>
-        </label>
-    </li>
-                        <!--<li>
                             <label class="item-checkbox item-content">
-                                <input type="checkbox" name="demo-checkbox-{{id}}" value="Books" checked="checked" />
+                                <input type="checkbox" id="chk_{{id}}" name="chk_{{id}}" value="{{id}}" {{#if selected}} checked="checked" {{/if}} />
                                 <i class="icon icon-checkbox"></i>
                                 <div class="item-inner">
                                     <div class="item-title">{{nombre}}</div>
                                 </div>
                             </label>
-                        </li>-->
+                        </li>
                         {{/each}}
 
                     </ul>
                 </div>
-  
-            {{/each}}
+
+                {{/each}}
+            </form>
+
 
         </div>
     </div>

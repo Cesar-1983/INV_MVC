@@ -16,8 +16,8 @@ namespace WebApiDirMed.Models.CategoriaTipoPerfilModel
         public string Nombre { get; set; }
 
         public string DesCategoria { get; set; }
-        //public DateTime? FechaCreacion { get; set; }
-        //public int UsuarioCrea { get; set; }
+
+        public bool Selected { get; set; }
 
         public List<GetCategoríaPorTipoPerfilIdRespond> CategoriaHijos { get; set; }
 

@@ -23,5 +23,7 @@ namespace Entidades
         [ForeignKey("UsuariosId")]
         public virtual Usuarios Usuarios { get; set; }
 
+        public virtual ICollection<Perfiles_CategoriaTipoPerfil> Perfiles_CategoriaTipoPerfil { get; set; }
+
     }
 }

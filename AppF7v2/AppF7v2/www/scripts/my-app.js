@@ -198,8 +198,70 @@ $$(document).on('page:init', function (e) {
             app.preloader.show();
             app.request(settings);
         });
-    }
+    };
     /*Fin Eventos EditarPerfil*/
+    /*Inicio Eventos Especialidades*/
+    if (page.name === 'especialidades')
+    {
+        $$('#btnGuardar').on('click', function () {
+            var Url = UrlAPI + 'CategoriaTipoPerfil/SaveCategoríaByPerfilIdSelected'
+
+            var formData = app.form.convertToData('#frmEspecialidades');
+            var array = new Array(); 
+            
+            for (var propt in formData) {
+                if (formData[propt][0] !== undefined) {
+                    array.push({ "CategoriaTipoPerfilId": Number(formData[propt][0]) });
+                }
+                console.log(propt + ': ' + formData[propt]);
+            }
+            var datajson = {
+                TipoPerfilId:TipoPerfilId,
+                SaveCategoríaByPerfilIdSelected: array
+            };
+
+            var settings = {
+                url: Url,
+                method: 'post',
+                headers: {
+                    'Authorization': Sesion.token_type + ' ' + Sesion.access_token
+                },
+                data: JSON.stringify(datajson),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data, status, xhr) {
+                    app.preloader.hide();
+                    app.dialog.alert(data.mensaje, TitleMessage, function () { app.router.navigate('/') });
+
+
+                },
+                error: function (xhr, status) {
+                    app.preloader.hide();
+                    //var reponseerror = JSON.parse(xhr.responseText);
+                    if (status === 400) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                    }
+
+                    else if (status === 401) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.Message, TitleMessage);
+                    }
+                    else if (status === 502) {
+                        app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                    }
+
+                }
+            };
+            app.preloader.show();
+            app.request(settings);
+            
+
+            //console.log(JSON.stringify(datajson));
+
+        });
+    };
+    /*Fin Eventos Especialidades*/
     $$('#my-login-screen .login-button').on('click', function () {
         var Url = UrlAPI + 'token'
         var username = $$('#my-login-screen [name="username"]').val();

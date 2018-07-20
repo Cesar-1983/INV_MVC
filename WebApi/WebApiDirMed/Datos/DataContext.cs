@@ -30,7 +30,8 @@ namespace Datos
         public DbSet<Perfiles> Perfiles { get; set; }
         public DbSet<TipoPerfil> TipoPerfil { get; set; }
         public DbSet<CategoriaTipoPerfil> CategoriaTipoPerfil { get; set; }
-
+        public DbSet<Perfiles_CategoriaTipoPerfil> Perfiles_CategoriaTipoPerfil { get; set; }
+        public DbSet<Direcciones> Direcciones { get; set; }
 
     }
 }

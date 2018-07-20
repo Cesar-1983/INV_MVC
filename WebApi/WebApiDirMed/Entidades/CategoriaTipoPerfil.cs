@@ -34,5 +34,7 @@ namespace Entidades
         public virtual TipoPerfil TipoPerfil { get; set; }
         public virtual CategoriaTipoPerfil PadreCategoria { get; set; }
         public virtual ICollection<CategoriaTipoPerfil> HijosCategoria { get; set; }
+
+        public virtual ICollection<Perfiles_CategoriaTipoPerfil> Perfiles_CategoriaTipoPerfil { get; set; }
     }
 }

@@ -143,6 +143,7 @@
                       var reponseerror = JSON.parse(xhr.responseText);
                       app.dialog.alert(reponseerror.mensaje, TitleMessage);
                   }
+
                   //else if (status === 404) {
                   //    var data = {
                   //        "id": 0,
@@ -163,14 +164,17 @@
 
                   //    )
                   //}
-                  //else if (status === 401) {
-                  //    localStorage.removeItem(SessionUsuario);
-                  //    app.dialog.alert("Token Invalido, favor iniciar sesión nuevamente.", TitleMessage, function () {
-                  //        reject();
-                  //        app.router.navigate('/')
-                  //        app.loginScreen.open('#my-login-screen', true);
-                  //    });
-                  //}
+                  else if (status === 401) {
+                      localStorage.removeItem(SessionUsuario);
+                      app.dialog.alert("Token Invalido, favor iniciar sesión nuevamente.", TitleMessage, function () {
+                          reject();
+                          app.router.navigate('/')
+                          app.loginScreen.open('#my-login-screen', true);
+                      });
+                  }
+                  else if (status === 502) {
+                      app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                  }
                   else {
                       app.dialog.alert('Ha ocurrido un error, favor intentar nuevamente');
                   }
