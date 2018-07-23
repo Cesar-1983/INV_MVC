@@ -35,7 +35,7 @@ namespace Datos
             {
                 using (var db = new DataContext())
                 {
-                    Lista = db.Direcciones.Where(x => x.PefilId == v_PerfilId).ToList();
+                    Lista = db.Direcciones.Where(x => x.PerfilId == v_PerfilId).ToList();
                 }
             }
             catch (Exception)
@@ -45,16 +45,32 @@ namespace Datos
             }
             return Lista;
         }
+        public Direcciones GetDireccionBy_Id_PerfilId(int v_Id, int v_PerfilId) {
+            Direcciones dir = new Direcciones();
+            try
+            {
+                using (var db = new DataContext())
+                {
+                    dir = db.Direcciones.Where(x => x.Id==v_Id && x.PerfilId == v_PerfilId).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return dir?? new Direcciones();
+        }
 
         public RespondModel Guardar(Direcciones direcciones)
         {
             var rm = new RespondModel();
             string mensaje = "";
             SqlParameter Id = new SqlParameter { ParameterName = "Id", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.Id };
-            SqlParameter PefilId = new SqlParameter { ParameterName = "PefilId", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.PefilId };
+            SqlParameter PefilId = new SqlParameter { ParameterName = "PefilId", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.PerfilId };
             SqlParameter Direccion = new SqlParameter { ParameterName = "Direccion", SqlDbType = System.Data.SqlDbType.NVarChar,Size=500, Value = direcciones.Direccion };
-            SqlParameter latitud = new SqlParameter { ParameterName = "latitud", SqlDbType = System.Data.SqlDbType.Float, Value = direcciones.latitud };
-            SqlParameter longitud = new SqlParameter { ParameterName = "longitud", SqlDbType = System.Data.SqlDbType.Float, Value = direcciones.longitud };
+            SqlParameter latitud = new SqlParameter { ParameterName = "latitud", SqlDbType = System.Data.SqlDbType.Float, Value =(object) direcciones.latitud ?? DBNull.Value};
+            SqlParameter longitud = new SqlParameter { ParameterName = "longitud", SqlDbType = System.Data.SqlDbType.Float, Value = (object)direcciones.longitud?? DBNull.Value };
 
 
             try
@@ -92,7 +108,7 @@ namespace Datos
             var rm = new RespondModel();
             string mensaje = "";
             SqlParameter Id = new SqlParameter { ParameterName = "Id", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.Id };
-            SqlParameter PefilId = new SqlParameter { ParameterName = "PefilId", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.PefilId };
+            SqlParameter PefilId = new SqlParameter { ParameterName = "PefilId", SqlDbType = System.Data.SqlDbType.Int, Value = direcciones.PerfilId };
             //SqlParameter Dirección = new SqlParameter { ParameterName = "Direccion", SqlDbType = System.Data.SqlDbType.NVarChar, Value = direcciones.Direccion };
             //SqlParameter latitud = new SqlParameter { ParameterName = "latitud", SqlDbType = System.Data.SqlDbType.Float, Value = direcciones.latitud };
             //SqlParameter longitud = new SqlParameter { ParameterName = "longitud", SqlDbType = System.Data.SqlDbType.Float, Value = direcciones.longitud };

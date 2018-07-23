@@ -12,10 +12,10 @@ namespace Entidades
         public int Id { get; set; }
 
         [ForeignKey("Perfiles")]
-        public int PefilId { get; set; }
+        public int PerfilId { get; set; }
         public string Direccion { get; set; }
-        public float? latitud { get; set; }
-        public float? longitud { get; set; }
+        public double? latitud { get; set; }
+        public double? longitud { get; set; }
 
         public virtual Perfiles Perfiles { get; set; }
 

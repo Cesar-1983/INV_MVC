@@ -262,6 +262,55 @@ $$(document).on('page:init', function (e) {
         });
     };
     /*Fin Eventos Especialidades*/
+    /*Inicio Eventos DireccionesAdd*/
+    if (page.name === 'direccionesAdd') {
+        $$("#Id").hide();
+        $$("#PerfilId").hide();
+        $$('#btnGuardarDireccion').on('click', function () {
+            
+            var Url = UrlAPI + 'Direcciones/GuardarDireccion';
+
+            var formData = app.form.convertToData('#frmDirecciones');
+
+            var settings = {
+                url: Url,
+                method: 'post',
+                headers: {
+                    'Authorization': Sesion.token_type + ' ' + Sesion.access_token
+                },
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data, status, xhr) {
+                    app.preloader.hide();
+                    app.dialog.alert(data.mensaje, TitleMessage, function () { app.router.navigate('/') });
+
+
+                },
+                error: function (xhr, status) {
+                    app.preloader.hide();
+                    //var reponseerror = JSON.parse(xhr.responseText);
+                    if (status === 400) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                    }
+
+                    else if (status === 401) {
+                        var reponseerror = JSON.parse(xhr.responseText);
+                        app.dialog.alert(reponseerror.Message, TitleMessage);
+                    }
+                    else if (status === 502) {
+                        app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                    }
+
+                }
+            };
+            app.preloader.show();
+            app.request(settings);
+
+        });
+    };
+    /*Inicio Eventos DireccionesAdd*/
     $$('#my-login-screen .login-button').on('click', function () {
         var Url = UrlAPI + 'token'
         var username = $$('#my-login-screen [name="username"]').val();
@@ -307,20 +356,20 @@ $$(document).on('page:init', function (e) {
         app.request(settings);
     });
 
-    function success(data, status, xhr) {
-        app.preloader.hide();
-        app.dialog.alert(data.responseText, TitleMessage);
-        console.log(data + xhr + status);
-    }
-    function error(xhr, status) {
-        console.log(xhr + status)
-        app.preloader.hide();
-        var reponseerror = JSON.parse(xhr.responseText);
-        app.dialog.alert(reponseerror.mensaje, TitleMessage);
-    }
-    function navigateToIndex() {
-        router.navigate('/');
-    }
+    //function success(data, status, xhr) {
+    //    app.preloader.hide();
+    //    app.dialog.alert(data.responseText, TitleMessage);
+    //    console.log(data + xhr + status);
+    //}
+    //function error(xhr, status) {
+    //    console.log(xhr + status)
+    //    app.preloader.hide();
+    //    var reponseerror = JSON.parse(xhr.responseText);
+    //    app.dialog.alert(reponseerror.mensaje, TitleMessage);
+    //}
+    //function navigateToIndex() {
+    //    router.navigate('/');
+    //}
 
 
 })

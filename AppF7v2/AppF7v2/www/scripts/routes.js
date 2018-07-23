@@ -187,7 +187,179 @@
 
       
   },
-  
+  {
+      path: '/direcciones/',
+      async: function (routeTo, routeFrom, resolve, reject) {
+          console.log(routeTo);
+          var Sesion = JSON.parse(localStorage.getItem(SessionUsuario));
+          var Url = UrlAPI + 'Direcciones/GetDireccionesByPerfil';
+          var datajson = JSON.stringify({ "TipoPerfilId": TipoPerfilId });
+          app.preloader.show();
+          var settings = {
+              url: Url,
+              method: 'post',
+              headers: {
+                  'Authorization': Sesion.token_type + ' ' + Sesion.access_token
+              },
+              data: datajson,
+              dataType: 'json',
+              contentType: 'application/json',
+              success: function (data, status, xhr) {
+                  app.preloader.hide();
+
+                  //if (data.tipoPerfilId === 0) {
+                  //    data.tipoPerfilId = TipoPerfilId;
+                  //}
+
+                  resolve(
+                      { componentUrl: './pages/direcciones.html', },
+                      {
+                          context: {
+                              datos: data,
+                          }
+                      }
+
+                  )
+
+
+              },
+              error: function (xhr, status) {
+                  app.preloader.hide();
+
+                  if (status === 400) {
+                      var reponseerror = JSON.parse(xhr.responseText);
+                      app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                  }
+
+                  //else if (status === 404) {
+                  //    var data = {
+                  //        "id": 0,
+                  //        "tipoPerfilId": TipoPerfilId,
+                  //        "usuariosId": 0,
+                  //        "nombre": "",
+                  //        "apellido": "",
+                  //        "descPerfil": ""
+
+                  //    }
+                  //    resolve(
+                  //        { componentUrl: './pages/editarperfil.html', },
+                  //        {
+                  //            context: {
+                  //                perfil: data,
+                  //            }
+                  //        }
+
+                  //    )
+                  //}
+                  else if (status === 401) {
+                      localStorage.removeItem(SessionUsuario);
+                      app.dialog.alert("Token Invalido, favor iniciar sesión nuevamente.", TitleMessage, function () {
+                          reject();
+                          app.router.navigate('/')
+                          app.loginScreen.open('#my-login-screen', true);
+                      });
+                  }
+                  else if (status === 502) {
+                      app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                  }
+                  else {
+                      app.dialog.alert('Ha ocurrido un error, favor intentar nuevamente');
+                  }
+
+
+              }
+          };
+          app.request(settings);
+      }
+
+
+  },
+  {
+      path: '/direcciones/:Id/:PerfilId/',
+      async: function (routeTo, routeFrom, resolve, reject) {
+          console.log(routeTo);
+          var Sesion = JSON.parse(localStorage.getItem(SessionUsuario));
+          var Url = UrlAPI + 'Direcciones/GetDireccionBy_Id_PerfilId';
+          var datajson = JSON.stringify({ "Id": routeTo.params.Id, "PerfilId": routeTo.params.PerfilId });
+          app.preloader.show();
+          var settings = {
+              url: Url,
+              method: 'post',
+              headers: {
+                  'Authorization': Sesion.token_type + ' ' + Sesion.access_token
+              },
+              data: datajson,
+              dataType: 'json',
+              contentType: 'application/json',
+              success: function (data, status, xhr) {
+                  app.preloader.hide();
+
+                  //if (data.tipoPerfilId === 0) {
+                  //    data.tipoPerfilId = TipoPerfilId;
+                  //}
+
+                  resolve(
+                      { componentUrl: './pages/direccionesAdd.html', },
+                      {
+                          context: {
+                              datos: data,
+                          }
+                      }
+
+                  )
+
+
+              },
+              error: function (xhr, status) {
+                  app.preloader.hide();
+
+                  if (status === 400) {
+                      var reponseerror = JSON.parse(xhr.responseText);
+                      app.dialog.alert(reponseerror.mensaje, TitleMessage);
+                  }
+
+                  //else if (status === 404) {
+                  //    var data = {
+                  //        "id": 0,
+                  //        "tipoPerfilId": TipoPerfilId,
+                  //        "usuariosId": 0,
+                  //        "nombre": "",
+                  //        "apellido": "",
+                  //        "descPerfil": ""
+
+                  //    }
+                  //    resolve(
+                  //        { componentUrl: './pages/editarperfil.html', },
+                  //        {
+                  //            context: {
+                  //                perfil: data,
+                  //            }
+                  //        }
+
+                  //    )
+                  //}
+                  else if (status === 401) {
+                      localStorage.removeItem(SessionUsuario);
+                      app.dialog.alert("Token Invalido, favor iniciar sesión nuevamente.", TitleMessage, function () {
+                          reject();
+                          app.router.navigate('/')
+                          app.loginScreen.open('#my-login-screen', true);
+                      });
+                  }
+                  else if (status === 502) {
+                      app.dialog.alert("Lo sentimos el servicio no esta disponible.", TitleMessage);
+                  }
+                  else {
+                      app.dialog.alert('Ha ocurrido un error, favor intentar nuevamente');
+                  }
+
+
+              }
+          };
+          app.request(settings);
+      }
+
+  },
   {
     path: '/form/',
     url: './pages/form.html',

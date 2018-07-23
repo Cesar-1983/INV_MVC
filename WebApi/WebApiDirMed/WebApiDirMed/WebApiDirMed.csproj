@@ -189,6 +189,7 @@
     <Compile Include="Models\CategoriaTipoPerfilModel\SaveCategoríaByPerfilIdSelectedrequest.cs" />
     <Compile Include="Models\CuentaModels\EmailConfirmacionRequest.cs" />
     <Compile Include="Models\CuentaModels\RegistroUsuarioModelRequest.cs" />
+    <Compile Include="Models\DireccionesModel\GetDireccionBy_Id_PerfilId_Request.cs" />
     <Compile Include="Models\DireccionesModel\GetDireccionesByPerfilRespond.cs" />
     <Compile Include="Models\PerfilesModel\GetPerfilesByUsuarioRespond.cs" />
     <Compile Include="Models\PerfilesModel\GetPerfilUsuarioByTipoPerfil.cs" />

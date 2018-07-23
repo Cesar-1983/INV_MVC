@@ -28,6 +28,12 @@ namespace Negocio
             return Manager.GetDireccionesByPerfil(v_PerfilId);
         }
 
+        public Direcciones GetDireccionBy_Id_PerfilId(int v_Id, int v_PerfilId)
+        {
+            return Manager.GetDireccionBy_Id_PerfilId(v_Id, v_PerfilId);
+        }
+
+
         public RespondModel Guardar(Direcciones direcciones)
         {
             return Manager.Guardar(direcciones);

@@ -1,0 +1,76 @@
+﻿<template>
+    <div class="page" data-name="direccionesAdd">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="back link">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">Back</span>
+                    </a>
+                </div>
+                <div class="title">Direcciones</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <form id="frmDirecciones">
+                <input id="Id" type="number" name="Id" value="{{datos.id}}" />
+                <input id="PerfilId" name="PerfilId" type="number" value="{{datos.perfilId}}" />
+                
+
+                <div class="list inline-labels no-hairlines-md">
+                    <ul>
+                        <li class="item-content item-input">
+                            <!--<div class="item-media">
+                                <i class="icon demo-list-icon"></i>
+                            </div>-->
+                            <div class="item-inner">
+                                <div class="item-title item-label">Direccion</div>
+                                <div class="item-input-wrap">
+                                    <textarea name="direccion" placeholder="Digite su dirección">{{datos.direccion}}</textarea>
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <!--<div class="item-media">
+                                <i class="icon demo-list-icon"></i>
+                            </div>-->
+                            <div class="item-inner">
+                                <div class="item-title item-label">Latitud</div>
+                                <div class="item-input-wrap">
+                                    <input type="number" name="latitud" placeholder="Digite su nombre" value="{{datos.latitud}}">
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <!--<div class="item-media">
+                                <i class="icon demo-list-icon"></i>
+                            </div>-->
+                            <div class="item-inner">
+                                <div class="item-title item-label">Longitud</div>
+                                <div class="item-input-wrap">
+
+                                    <input type="number" name="longitud" placeholder="Digite su nombre" value="{{datos.longitud}}">
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            <div class="block">
+                <div class="row">
+                    
+                    <div class="col">&nbsp;</div>
+                    <button id="btnGuardarDireccion" class="col button button-fill button-round">Guardar</button>
+                    <div class="col">&nbsp;</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>
+<script>
+    return {}
+</script>
