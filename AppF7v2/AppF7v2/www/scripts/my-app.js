@@ -309,6 +309,23 @@ $$(document).on('page:init', function (e) {
             app.request(settings);
 
         });
+        $$('#btnGetPositionGps').on('click', function () {
+
+
+            var onPositionGPSSuccess = function (position) {
+
+                $$("#latitud").val(position.coords.latitude);
+                $$("#longitud").val(position.coords.longitude);
+                
+            }
+            var OnPostionGPSError = function (error) {
+                console.log('code: ' + error.code + '\n' +
+                    'message: ' + error.message + '\n');
+            }
+
+            navigator.geolocation.watchPosition(onPositionGPSSuccess, OnPostionGPSError, { enableHighAccuracy: true });
+
+        });
     };
     /*Inicio Eventos DireccionesAdd*/
     $$('#my-login-screen .login-button').on('click', function () {
@@ -356,20 +373,6 @@ $$(document).on('page:init', function (e) {
         app.request(settings);
     });
 
-    //function success(data, status, xhr) {
-    //    app.preloader.hide();
-    //    app.dialog.alert(data.responseText, TitleMessage);
-    //    console.log(data + xhr + status);
-    //}
-    //function error(xhr, status) {
-    //    console.log(xhr + status)
-    //    app.preloader.hide();
-    //    var reponseerror = JSON.parse(xhr.responseText);
-    //    app.dialog.alert(reponseerror.mensaje, TitleMessage);
-    //}
-    //function navigateToIndex() {
-    //    router.navigate('/');
-    //}
 
 
 })
