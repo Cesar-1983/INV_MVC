@@ -310,20 +310,24 @@ $$(document).on('page:init', function (e) {
 
         });
         $$('#btnGetPositionGps').on('click', function () {
-
+            app.preloader.show();
 
             var onPositionGPSSuccess = function (position) {
 
                 $$("#latitud").val(position.coords.latitude);
                 $$("#longitud").val(position.coords.longitude);
-                
+                app.preloader.hide();
             }
             var OnPostionGPSError = function (error) {
+                app.preloader.hide();
                 console.log('code: ' + error.code + '\n' +
                     'message: ' + error.message + '\n');
+                app.dialog.alert('code: ' + error.code + '\n' +
+                    'message: ' + error.message + '\n', TitleMessage);
             }
 
-            navigator.geolocation.watchPosition(onPositionGPSSuccess, OnPostionGPSError, { enableHighAccuracy: true });
+            //navigator.geolocation.watchPosition(onPositionGPSSuccess, OnPostionGPSError, { enableHighAccuracy: true });
+            navigator.geolocation.getCurrentPosition(onPositionGPSSuccess, OnPostionGPSError, { enableHighAccuracy: true });
 
         });
     };

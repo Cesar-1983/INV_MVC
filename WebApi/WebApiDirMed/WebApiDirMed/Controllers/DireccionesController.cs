@@ -60,8 +60,8 @@ namespace WebApiDirMed.Controllers
             }
             catch (Exception ex)
             {
-
-                return responseMsj.CreateJsonResponse(ex.Message, HttpStatusCode.BadRequest);
+                respondModel.SetResponse(false, ex.Message);
+                return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
             }
         }
 

@@ -14,10 +14,7 @@ namespace WebApiDirMed.Models.DireccionesModel
         public double? latitud { get; set; }
         public double? longitud { get; set; }
 
-        public static implicit operator GetDireccionesByPerfil(List<GetDireccionesByPerfil> v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
     public class GetDireccionesByPerfilRespond {
         public int PerfilId { get; set; }
