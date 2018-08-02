@@ -330,6 +330,16 @@ $$(document).on('page:init', function (e) {
             navigator.geolocation.getCurrentPosition(onPositionGPSSuccess, OnPostionGPSError, { enableHighAccuracy: true });
 
         });
+
+        function deleteTelefono(id, direccionId) {
+            var Url = UrlAPI + 'TelefonoDireccion/Eliminar';
+            var formData = {
+                id: id,
+                direccionId: direccionId
+            };
+
+        }
+
     };
     /*Inicio Eventos DireccionesAdd*/
     $$('#my-login-screen .login-button').on('click', function () {

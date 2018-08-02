@@ -18,6 +18,7 @@ namespace Entidades
         public double? longitud { get; set; }
 
         public virtual Perfiles Perfiles { get; set; }
+        public ICollection<Telefonos_Direccion> Telefonos_Direccion { get; set; }
 
     }
 }

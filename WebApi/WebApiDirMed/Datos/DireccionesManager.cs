@@ -51,7 +51,7 @@ namespace Datos
             {
                 using (var db = new DataContext())
                 {
-                    dir = db.Direcciones.Where(x => x.Id==v_Id && x.PerfilId == v_PerfilId).FirstOrDefault();
+                    dir = db.Direcciones.Include("Telefonos_Direccion"). Where(x => x.Id==v_Id && x.PerfilId == v_PerfilId).FirstOrDefault();
                 }
             }
             catch (Exception)

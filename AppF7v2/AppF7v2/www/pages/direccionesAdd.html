@@ -21,8 +21,8 @@
                     <ul>
                         <li class="item-content item-input">
                             <!--<div class="item-media">
-                                <i class="icon demo-list-icon"></i>
-                            </div>-->
+                    <i class="icon demo-list-icon"></i>
+                </div>-->
                             <div class="item-inner">
                                 <div class="item-title item-label">Direccion</div>
                                 <div class="item-input-wrap">
@@ -33,8 +33,8 @@
                         </li>
                         <li class="item-content item-input">
                             <!--<div class="item-media">
-                                <i class="icon demo-list-icon"></i>
-                            </div>-->
+                    <i class="icon demo-list-icon"></i>
+                </div>-->
                             <div class="item-inner">
                                 <div class="item-title item-label">Latitud</div>
                                 <div class="item-input-wrap">
@@ -45,8 +45,8 @@
                         </li>
                         <li class="item-content item-input">
                             <!--<div class="item-media">
-                                <i class="icon demo-list-icon"></i>
-                            </div>-->
+                    <i class="icon demo-list-icon"></i>
+                </div>-->
                             <div class="item-inner">
                                 <div class="item-title item-label">Longitud</div>
                                 <div class="item-input-wrap">
@@ -58,24 +58,53 @@
                         </li>
                     </ul>
                 </div>
-            </form>
-            <!--<div class="block-title">About My App</div>-->
-            <div class="block block-strong">
-                <p>
-                    Si deseas utilizar tu ubicación gps del teléfono, pulsa <a id="btnGetPositionGps" class="link" href="#"><i class="f7-icons">compass</i>
-                        <span>aqui</span>
-                    </a>.
-                </p>
-                
-            </div>
-            <div class="block">
-                <div class="row">
+                <div class="block block-strong">
+                    <p>
+                        Si deseas utilizar tu ubicación gps del teléfono, pulsa <a id="btnGetPositionGps" class="link" href="#">
+                            <i class="f7-icons">compass</i>
+                            <span>aqui</span>
+                        </a>.
+                    </p>
 
-                    <div class="col">&nbsp;</div>
-                    <button id="btnGuardarDireccion" class="col button button-fill button-round">Guardar</button>
-                    <div class="col">&nbsp;</div>
                 </div>
+                <div class="block">
+                    <div class="row">
+
+                        <div class="col">&nbsp;</div>
+                        <button id="btnGuardarDireccion" class="col button button-fill button-round">Guardar</button>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+            </form>
+            <div class="block-title">Telefonos de Contacto</div>
+
+            <div class="list">
+                <ul>
+                    {{#each datos.telefono_Direccion}}
+                    <li>
+
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="f7-icons">phone_round</i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    {{telefono}} - {{descTelefono}}
+                                </div>
+                                <div class="item-after">
+                                    <a href="#" onclick="deleteTelefono({{id}},{{direccionId}})"><i class="f7-icons">close_round</i></a>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {{else}}
+                    <li>Sin telefonos definidos</li>
+                    {{/each}}
+                </ul>
+                {{#js_if "this.datos.id > 0"}}Add Telefono{{else}}Save firts directions{{/js_if}}
             </div>
+            <!--<div class="block-title">About My App</div>-->
+            
 
         </div>
     </div>

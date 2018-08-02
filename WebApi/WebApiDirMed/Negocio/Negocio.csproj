@@ -49,6 +49,7 @@
     <Compile Include="Perfiles_CategoriaTipoPerfilLogic.cs" />
     <Compile Include="PerfilSeguridadLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telefonos_DireccionLogic.cs" />
     <Compile Include="UsuariosLogic.cs" />
   </ItemGroup>
   <ItemGroup>

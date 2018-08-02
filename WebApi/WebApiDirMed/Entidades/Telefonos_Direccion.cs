@@ -19,6 +19,10 @@ namespace Entidades
         [StringLength(30)]
         public string Telefono { get; set; }
 
+        [StringLength(50)]
+        public string DescTelefono { get; set; }
+
+        
         public virtual Direcciones Direcciones { get; set; }
     }
 }

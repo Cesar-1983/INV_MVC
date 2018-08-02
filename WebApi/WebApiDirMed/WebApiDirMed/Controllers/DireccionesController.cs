@@ -83,6 +83,15 @@ namespace WebApiDirMed.Controllers
                 direccion.latitud = direcciones.latitud;
                 direccion.longitud = direcciones.longitud;
 
+                if(direcciones.Telefonos_Direccion != null)
+                {
+                    foreach (var item in direcciones.Telefonos_Direccion)
+                    {
+                        direccion.Telefono_Direccion.Add(new Telefono_Direccion { Id = item.Id, DireccionId = item.DireccionId, Telefono = item.Telefono, DescTelefono = item.DescTelefono });
+                    }
+                }
+                
+
                 return responseMsj.CreateJsonResponse( direccion, HttpStatusCode.OK);
             }
             catch (Exception ex)
