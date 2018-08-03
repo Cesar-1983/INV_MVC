@@ -14,7 +14,7 @@ namespace WebApiDirMed.Controllers
 {
     [RoutePrefix("api/Cuenta")]
     [Authorize]
-    public class CuentaController : ApiController
+    public class CuentaController : baseController
     {
         private UsuariosLogic userlogic = new UsuariosLogic();
         private PerfilSeguridadLogic perfilseg = new PerfilSeguridadLogic();
@@ -76,9 +76,11 @@ namespace WebApiDirMed.Controllers
                     return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
                 }
 
-                string MessageBody = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Request.MapPath("~\\Content\\index.htm")) ;
+                //string MessageBody = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Request.MapPath("~\\Content\\index.htm")) ;
+                string MessageBody = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Request.MapPath("~\\Content\\email.html"));
                 MessageBody = MessageBody.Replace("**To**",Usuario.Email);
                 MessageBody = MessageBody.Replace("**Codigo**", codigoValidacion);
+                MessageBody = MessageBody.Replace("**Anio**", DateTime.Now.Year.ToString());
 
                 //mailer.SendMail(Usuario.Email, "Confirmaci&#243;n de usuario", MessageBody);
                 //mailer.SendMail(Usuario.Email, "Confirmaci&oacute;n de usuario", MessageBody);
@@ -96,41 +98,57 @@ namespace WebApiDirMed.Controllers
         public HttpResponseMessage EmailConfirmacion(EmailConfirmacionRequest request) {
             RespondModel respondModel = new RespondModel();
             ResponseMsj responseMsj = new ResponseMsj();
-            if (!ModelState.IsValid)
+            try
             {
-                var ErrorList = ModelState.Keys
-                .SelectMany(key => ModelState[key].Errors.Select(x => new { Error = key + " " + x.ErrorMessage })
-                .ToList());
+                if (!ModelState.IsValid)
+                {
+                    var ErrorList = ModelState.Keys
+                    .SelectMany(key => ModelState[key].Errors.Select(x => new { Error = key + " " + x.ErrorMessage })
+                    .ToList());
 
-                respondModel.SetResponse(false, string.Join("\n", ErrorList.Select(x => x.Error).ToList()));
+                    respondModel.SetResponse(false, string.Join("\n", ErrorList.Select(x => x.Error).ToList()));
 
-                return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
 
+                }
+                var responloging = userlogic.ValidatePasswordUser(request.Email, request.Password, util.GetKey, util.GetIV);
+
+                if (!responloging.response)
+                {
+                    return responseMsj.CreateJsonResponse(responloging, HttpStatusCode.BadRequest);
+                }
+
+                /*Se  obtiene el usuario*/
+                var Usuario = userlogic.GetUsuariosPorUserName(request.Email);
+                /*Se  obtiene el usuario*/
+
+                /*Se  obtiene el codigo de validación del usuario*/
+                var CodigoVal = codigoValidacionUsuarioLogic.GetCodigoValidacionEmailByUsuario(Usuario.Id);
+                /*Se  obtiene el codigo de validación del usuario*/
+
+                if (CodigoVal.Codigo != request.Codigo)
+                {
+                    respondModel.SetResponse(false, "El codigo de validación no coincide");
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+                }
+
+                if (CodigoVal.FechaExpiracion < DateTime.Now)
+                {
+                    respondModel.SetResponse(false, "El codigo de validación no coincide");
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+                }
+
+
+
+                var EmailConfirmed = userlogic.EmailConfirmacion(Usuario.Id);
+
+                return responseMsj.CreateJsonResponse(EmailConfirmed, EmailConfirmed.response ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
             }
-            var responloging = userlogic.ValidatePasswordUser(request.Email, request.Password, util.GetKey, util.GetIV);
-
-            if (!responloging.response)
+            catch (Exception ex)
             {
-                return responseMsj.CreateJsonResponse(responloging, HttpStatusCode.BadRequest);
+
+                return responseMsj.CreateJsonResponse(ex.Message, HttpStatusCode.BadRequest);
             }
-
-            /*Se  obtiene el usuario*/
-            var Usuario = userlogic.GetUsuariosPorUserName(request.Email);
-            /*Se  obtiene el usuario*/
-
-            /*Se  obtiene el codigo de validación del usuario*/
-            var CodigoVal = codigoValidacionUsuarioLogic.GetCodigoValidacionEmailByUsuario(Usuario.Id);
-            /*Se  obtiene el codigo de validación del usuario*/
-
-            if (CodigoVal.Codigo != request.Codigo)
-            {
-                respondModel.SetResponse(false, "El codigo de validación no coincide");
-                return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
-            }
-
-            var EmailConfirmed = userlogic.EmailConfirmacion(Usuario.Id);
-
-            return responseMsj.CreateJsonResponse(EmailConfirmed, EmailConfirmed.response?HttpStatusCode.OK: HttpStatusCode.BadRequest);
             
 
         }
@@ -143,6 +161,110 @@ namespace WebApiDirMed.Controllers
             return responseMsj.CreateJsonResponse(usuarios, HttpStatusCode.OK);
         }
 
+        [HttpPost]
+        [Route("ChangePassworduser")]
+        public HttpResponseMessage ChangePassworduser(ChangeUserPasswordRequest request) {
+            RespondModel respondModel = new RespondModel();
+            ResponseMsj responseMsj = new ResponseMsj();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    var ErrorList = ModelState.Keys
+                    .SelectMany(key => ModelState[key].Errors.Select(x => new { Error = key + " " + x.ErrorMessage })
+                    .ToList());
+
+                    respondModel.SetResponse(false, string.Join("\n", ErrorList.Select(x => x.Error).ToList()));
+
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+
+                }
+                else
+                {
+                    /*Se  valida la contraseña actual*/
+
+                    var responloging = userlogic.ValidatePasswordUser(request.Email, request.OldPassword, util.GetKey, util.GetIV);
+                    /*Se  valida la contraseña actual*/
+
+                    if (!responloging.response)
+                    {
+                        return responseMsj.CreateJsonResponse(responloging, HttpStatusCode.BadRequest);
+                    }
+                    /*Se  obtiene el usuario*/
+
+                    var Usuario = userlogic.GetUsuariosPorUserName(request.Email);
+                    /*Se  obtiene el usuario*/
+
+                    /*Se  obtiene el perfil del usuario*/
+
+                    var perfil = perfilseg.GetPerfilbyId(Usuario.IdPerfilSeguridad);
+                    /*Se  obtiene el perfil del usuario*/
+
+                    /*Se valida que la nueva contraseña cumpla con los requsitos del perfil*/
+                    var ValidPassword = CheckPassword(request.NewPassword, perfil.LenMinPass, perfil.CantLetrasMin, perfil.CantLetrasMayMin, perfil.CantNumeroMin, perfil.CantCharEspecialMin);
+                    if (!ValidPassword.IsValid)
+                    {
+                        respondModel.SetResponse(false, string.Join("\n", ValidPassword.Mensajes));
+
+                        return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+                    }
+                    /*Se valida que la nueva contraseña cumpla con los requsitos del perfil*/
+
+                    /*Se actualiza la nueva contraseña*/
+                    Usuario.Password = util.encriptar(request.NewPassword);
+
+                    /*Se guardan los cambios*/
+                    respondModel = userlogic.Guardar(Usuario);
+                    /*Se guardan los cambios*/
+
+
+                    if (!respondModel.response)
+                        return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return responseMsj.CreateJsonResponse(ex.Message, HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPost]
+        [Route("ResendCodigoValidacionEmailUsuario")]
+        public HttpResponseMessage ResendCodigoValidacionEmailUsuario() {
+            RespondModel respondModel = new RespondModel();
+
+            ResponseMsj responseMsj = new ResponseMsj();
+
+            try
+            {
+
+                var Usuario = userlogic.GetUsuariosPorUserName(UsuarioWebApi.Email);
+
+                var codigoValidacion = codigoValidacionUsuarioLogic.GenerarCodigoValidacionEmailUsuario(Usuario.Id, util.GetKey, util.GetIV);
+
+                if (codigoValidacion == string.Empty)
+                {
+                    respondModel.SetResponse(false, "Error al generar Pin de Validación");
+                    return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.BadRequest);
+                }
+                string MessageBody = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Request.MapPath("~\\Content\\email.html"));
+                MessageBody = MessageBody.Replace("**To**", Usuario.Email);
+                MessageBody = MessageBody.Replace("**Codigo**", codigoValidacion);
+                MessageBody = MessageBody.Replace("**Anio**", DateTime.Now.Year.ToString());
+
+                mailer.SendMail(Usuario.Email, "Confirmación de usuario", MessageBody);
+
+                return responseMsj.CreateJsonResponse(respondModel, HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+
+                return responseMsj.CreateJsonResponse(ex.Message, HttpStatusCode.BadRequest);
+            }
+        }
         #region MetodosApoyo
         public ValidationClass CheckPassword(string pass, int LenMinPass, int CantLetrasMin, int CantLetrasMayMin, int CantNumeroMin, int CantCharEspecialMin)
         {

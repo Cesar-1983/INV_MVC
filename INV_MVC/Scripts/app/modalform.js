@@ -100,3 +100,41 @@ function bindForm(dialog) {
         return false;
     });
 }
+function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback) {
+    $.ajaxSetup({ cache: false });
+
+    var confirmModal = $('<div id="myModalConfirm" class="modal fade in"> ' +
+        '	<div class="modal-dialog">                   ' +
+        '		<div class="modal-content">              ' +
+        '			<div id="myModalConfirmContent">     ' +
+        '				<div class="modal-header">       ' +
+        '					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> ' +
+        '					<h4 class="modal-title" id="myModalLabel">' + heading + '</h4>                           ' +
+        '				</div>                           ' +
+        '				<div class="modal-body">         ' +
+        '					<p>' + question + '</p>                     ' +
+        '				</div>                           ' +
+        '				<div class="modal-footer">       ' +
+        '					<div class="text-center">    ' +
+        '          ' +
+        '						<a href="#" class="btn" data-dismiss="modal">' + cancelButtonTxt + '</a>  ' +
+        '						<a href="#" id="okButton" class="btn btn-primary"> ' + okButtonTxt + '</a>' +
+        '						                         ' +
+        '          ' +
+        '					</div>                       ' +
+        '				</div>                           ' +
+        '			</div>                               ' +
+        '		</div>                                   ' +
+        '	</div> ' +
+        '</div>    ');
+
+    
+
+    confirmModal.find('#okButton').click(function (event) {
+        callback();
+        confirmModal.modal('hide');
+        
+    });
+    
+    confirmModal.modal('show');
+};

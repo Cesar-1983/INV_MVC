@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Negocio;
 using Newtonsoft.Json;
+using reCAPTCHA.MVC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,10 +72,16 @@ namespace INV_MVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Registrarse(RegistroUsuarioViewModel model)
+        [CaptchaValidator]
+        public ActionResult Registrarse(RegistroUsuarioViewModel model, bool captchaValid)
         {
             if (!ModelState.IsValid)
+            {
+                if (!captchaValid)
+                    ModelState.AddModelError("", "Favor validar que no eres un robot.");
                 return View(model);
+            }
+                
             try
             {
                 var perfil = perfilseg.GetPerfilbyId(1);

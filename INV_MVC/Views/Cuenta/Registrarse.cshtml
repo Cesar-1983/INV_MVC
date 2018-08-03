@@ -1,56 +1,102 @@
-﻿@model INV_MVC.Models.CuentaViewModel.RegistroUsuarioViewModel
+﻿@using reCAPTCHA.MVC
+@model INV_MVC.Models.CuentaViewModel.RegistroUsuarioViewModel
 
+@*@{
+        /**/
+
+        ViewBag.Title = "Registrarse";
+    }*@
 @{
-    ViewBag.Title = "Registrarse";
+    ViewBag.Title = "Registrase";
+    Layout = "~/Views/Shared/_LayoutSinglePage.cshtml";
 }
 
-<h2>Registrarse</h2>
+<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+    <div class="login-panel panel panel-default">
+        <div class="panel-heading">@ViewBag.Title</div>
+        <div class="panel-body">
+            
+            @using (Html.BeginForm())
+            {
+               
+                @Html.AntiForgeryToken()
 
+                <div class="form-horizontal">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @*<h4>RegistroUsuarioViewModel</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CofirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CofirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CofirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrarse" class="btn btn-default" />
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CofirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CofirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CofirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*@Html.Recaptcha()*@
+                            @Html.Recaptcha(publicKey: "6LdwLmgUAAAAAJ5uW24QtYtg0O1N5auxOaLFOv5y", theme: CaptchaTheme.Dark,type:CaptchaType.Image,
+            callback: "verifyCallback",expiredCallback:"expiredCallback")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*<input type="submit" value="Registrarse" class="btn btn-default" />*@
+                            @*<input id="btnAceptar" type="button" class="btn btn-default" value="Aceptar">*@
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</div><!-- /.col-->
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnAceptar').click(function (e) {
+            e.preventDefault();
+            var heading = "¿Confirmación?";
+            var question = "¿Esta seguro de cambiar la contraseña?";
+            var cancelButtonTxt = "Cancelar";
+            var okButtonTxt = "Ok";
+            var callback = function () {
+                $('form').submit();
+            }
+
+
+            confirm(heading, question, cancelButtonTxt, okButtonTxt, callback);
+        });
+        
+    });
+    var verifyCallback = function (response) {
+        //alert("grecaptcha is ready!");
+        $('form').submit();
+    };
+
+    var expiredCallback = function () {
+        alert("grecaptcha is expired!");
+    };
+</script>
+    
 }
