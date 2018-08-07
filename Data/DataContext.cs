@@ -31,6 +31,13 @@ namespace Data
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Acciones> Acciones { get; set; }
         public DbSet<RolesAcciones> RolesAcciones { get; set; }
+
+        public DbSet<Sectores> Sectores { get; set; }
+        public DbSet<Paises> Paises { get; set; }
+        public DbSet<Empresas> Empresas { get; set; }
+        public DbSet<UsuariosEmpresas> UsuariosEmpresas { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Monedas>()

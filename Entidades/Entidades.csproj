@@ -48,9 +48,11 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="DetalleOperacion.cs" />
+    <Compile Include="Empresas.cs" />
     <Compile Include="EstadoUsuarios.cs" />
     <Compile Include="Monedas.cs" />
     <Compile Include="Operacion.cs" />
+    <Compile Include="Paises.cs" />
     <Compile Include="PerfilSeguridad.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductoImages.cs" />
@@ -59,10 +61,12 @@
     <Compile Include="ResponseDB.cs" />
     <Compile Include="Roles.cs" />
     <Compile Include="RolesAcciones.cs" />
+    <Compile Include="Sectores.cs" />
     <Compile Include="TipoOperacion.cs" />
     <Compile Include="Unidades.cs" />
     <Compile Include="Usuarios.cs" />
     <Compile Include="TasaCambios.cs" />
+    <Compile Include="UsuariosEmpresas.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

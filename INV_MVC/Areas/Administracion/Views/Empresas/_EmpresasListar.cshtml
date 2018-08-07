@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Entidades.Empresas>
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">@ViewBag.breadcrumb</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@ViewBag.pageheader</h4>
+    </div>
+</div><!--/.row-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @ViewBag.Heading
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="btn-group" role="group" aria-label="...">
+                    @Html.ActionLink("Agregar", "EmpresasAdd", "Empresas", new { Area = "Administracion" }, new { @class = "btn btn-primary", data_modal = "" })
+                    @*<button type="button" class="btn btn-default">1</button>
+                        <button type="button" class="btn btn-default">2</button>*@
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Exportar
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Excel", "ReporteEstadoUsuarios", "Catalogos", new { FileType = "Excel", ContentType = "application/vnd.ms-excel" }, null)</li>
+                            <li>@Html.ActionLink("Pdf", "ReporteEstadoUsuarios", "Catalogos", new { FileType = "PDF", ContentType = "application/pdf" }, null)</li>
+                            @*<li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <table class="table-bordered table-condensed">
+            <thead>
+                <tr>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreCorto)
+                    </th>
+                    <th>
+                        Logo
+                    </th>*@
+                    <th>Media</th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCorto)
+                        </td>
+                        <td>
+                            @if (item.Logo != null)
+                            {
+                                <img src="data:image/png;base64,@Convert.ToBase64String(item.Logo, 0, item.Logo.Length)" width="100" />
+                            }
+                            else
+                            {
+                                <img src="~/images/no-image.png" width="100" />
+                            }
+                        </td>*@
+                        <td>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        @*<img class="media-object" src="..." alt="...">*@
+                                        @if (item.Logo != null)
+                                        {
+                                            <img src="data:image/png;base64,@Convert.ToBase64String(item.Logo, 0, item.Logo.Length)" class="media-object" alt="img-@item.NombreCorto" width="64" height="64" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/no-image.png" class="media-object" alt="img-@item.NombreCorto"  width="64" height="64"/>
+                                        }
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">@item.Nombre</h4>
+                                    <div class="media-body">
+                                        @*<ul class="list-group">
+                                            <li class="list-group-item">Representante : @item.Representante1</li>
+                                            <li class="list-group-item">Representante : @item.Representante2</li>
+                                            <li class="list-group-item">Telefono : @item.Telefono</li>
+                                            <li class="list-group-item">Fax: @item.Fax</li>
+                                            <li class="list-group-item">Dirección : @item.Direccion</li>
+                                        </ul>*@
+                                        
+                                        <p>Representante : @item.Representante1</p>
+                                        <p>Representante : @item.Representante2</p>
+                                        <p>Telefono : @item.Telefono</p>
+                                        <p>Fax: @item.Fax</p>
+                                        <p>Dirección : @item.Direccion</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Editar", "EmpresasEdit", new { id = item.Id }, new { data_modal = "" })</li>
+                                    <li>@Html.ActionLink("Eliminar", "EmpresasEliminar", new { id = item.Id }, new { data_modal = "" })</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/app/modalform.js"></script>

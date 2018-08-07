@@ -170,6 +170,14 @@
     <Content Include="BDINVDataSet.xsc">
       <DependentUpon>BDINVDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Areas\Administracion\Views\web.config" />
+    <Content Include="Areas\Administracion\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administracion\Views\Shared\_LayoutSinglePage.cshtml" />
+    <Content Include="Areas\Administracion\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administracion\Views\Empresas\_EmpresasListar.cshtml" />
+    <Content Include="Areas\Administracion\Views\Empresas\_EmpresasAddUpd.cshtml" />
+    <Content Include="Areas\Administracion\Views\Empresas\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Empresas\View.cshtml" />
     <None Include="BDINVDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>BDINVDataSet.Designer.cs</LastGenOutput>
@@ -222,6 +230,10 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\choosen\chosen-sprite%402x.png" />
+    <Content Include="Scripts\choosen\chosen-sprite.png" />
+    <Content Include="Scripts\choosen\chosen.css" />
+    <Content Include="Scripts\choosen\chosen.jquery.js" />
     <Content Include="Scripts\datetimepicker\datepicker.common.js" />
     <Content Include="Scripts\datetimepicker\datepicker.css" />
     <Content Include="Scripts\datetimepicker\datepicker.esm.js" />
@@ -266,6 +278,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Areas\Administracion\AdministracionAreaRegistration.cs" />
+    <Compile Include="Areas\Administracion\Controllers\EmpresasController.cs" />
     <Compile Include="BDINVDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -352,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administracion\Models\" />
     <Folder Include="Views\base\" />
   </ItemGroup>
   <ItemGroup>

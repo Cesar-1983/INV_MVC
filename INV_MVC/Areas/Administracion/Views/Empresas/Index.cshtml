@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = "~/Areas/Administracion/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">@ViewBag.breadcrumb</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@ViewBag.pageheader</h4>
+    </div>
+</div><!--/.row-->
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @ViewBag.Heading
+    </div>
+    <div class="panel-body">
+        <div class="jumbotron">
+            <h1>Sistema de Inventario</h1>
+            <p>Entradas y Salidas</p>
+        </div>
+    </div>
+</div>
